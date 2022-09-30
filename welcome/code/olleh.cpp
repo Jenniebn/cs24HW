@@ -1,5 +1,6 @@
 #include <iostream> // for cout, cin
 #include <string>
+#include <algorithm>
 using namespace std;
 
 string sentence(string sent);
