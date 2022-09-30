@@ -10,7 +10,7 @@ string sentence(string sent){
     int substringB = 0;
     int substringE = 0;
     int size = sent.length();
-    if (sent.find(" ") == 0){
+    if (sent.find(" ") > 100){
         arraysize = 1;
     }
     else{  
