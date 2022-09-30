@@ -10,21 +10,22 @@ string sentence(string sent){
     int substringB = 0;
     int substringE = 0;
     int size = sent.length();
-    for (int i = 0; i < size; i++){
-        if (sent.find("") == 0){
-            arraysize = 1;
-            break;
-        }
-        else if (isalnum(sent[i])){
-            substringE ++;
-        }
-        else if (isspace(sent[i]) || ispunct(sent[i])){
-            if (substringE != 0){
-                substringE = 0;
-                arraysize += 2;
+    if (sent.find(" ") == 0){
+        arraysize = 1;
+    }
+    else{  
+        for (int i = 0; i < size; i++){  
+            if (isalnum(sent[i])){
+                substringE ++;
             }
-            else{
-                arraysize ++;
+            else if (isspace(sent[i]) || ispunct(sent[i])){
+                if (substringE != 0){
+                    substringE = 0;
+                    arraysize += 2;
+                }
+                else{
+                    arraysize ++;
+                }
             }
         }
     }
