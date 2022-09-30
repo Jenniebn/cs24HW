@@ -8,7 +8,8 @@ string sentence(string sent){
     int arraysize = 0;
     int substringB = 0;
     int substringE = 0;
-    for (int i = 0; i < sent.length(); i++){
+    int size = sent.length();
+    for (int i = 0; i < size; i++){
         if (isalnum(sent[i])){
             substringE ++;
         }
@@ -25,7 +26,7 @@ string sentence(string sent){
     string arrayR[arraysize];
     int n = 0;
     substringE = 0;
-    for (int j = 0; j < sent.length(); j++){
+    for (int j = 0; j < size; j++){
         if (isalnum(sent[j])){
             substringE ++;
         }
