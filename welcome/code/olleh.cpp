@@ -11,7 +11,11 @@ string sentence(string sent){
     int substringE = 0;
     int size = sent.length();
     for (int i = 0; i < size; i++){
-        if (isalnum(sent[i])){
+        if (sent.find("") == 0){
+            arraysize = 1;
+            break;
+        }
+        else if (isalnum(sent[i])){
             substringE ++;
         }
         else if (isspace(sent[i]) || ispunct(sent[i])){
@@ -28,21 +32,26 @@ string sentence(string sent){
     int n = 0;
     substringE = 0;
     for (int j = 0; j < size; j++){
-        if (isalnum(sent[j])){
-            substringE ++;
+        if (arraysize == 1){
+            arrayR[0] = sent;
         }
-        else if (isspace(sent[j]) || ispunct(sent[j])){
-            if (substringE != 0){
-                arrayR[n] = sent.substr(substringB, substringE);
-                substringB = j + 1;
-                arrayR[n + 1] = sent[j];
-                substringE = 0;
-                n += 2;
+        else {
+            if (isalnum(sent[j])){
+                substringE ++;
             }
-            else{
-                arrayR[n] = sent[j];
-                n++;
-                substringB = j + 1;
+            else if (isspace(sent[j]) || ispunct(sent[j])){
+                if (substringE != 0){
+                    arrayR[n] = sent.substr(substringB, substringE);
+                    substringB = j + 1;
+                    arrayR[n + 1] = sent[j];
+                    substringE = 0;
+                    n += 2;
+                }
+                else{
+                    arrayR[n] = sent[j];
+                    n++;
+                    substringB = j + 1;
+                }
             }
         }
     }
