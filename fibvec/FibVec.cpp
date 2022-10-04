@@ -7,13 +7,19 @@
 using namespace std;
 
 FibVec::FibVec(){
-    vector<int> v;
+    v.reserve(1);
     cout << "constructor executed" << endl;
 }
 
-int FibVec::capacity(){
+size_t FibVec::capacity(){
     return v.capacity();
 }
+
+size_t FibVec::count(){
+    return v.size();
+}
+
+
 
 int main( )
 {
