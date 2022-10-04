@@ -6,18 +6,18 @@
 #include <stdexcept>
 using namespace std;
 
-FibVec::FibVec(){
-    v.reserve(1);
-    cout << "constructor executed" << endl;
-}
+// FibVec::FibVec(){
+//     v.reserve(1);
+//     cout << "constructor executed" << endl;
+// }
 
-size_t FibVec::capacity(){
-    return v.capacity();
-}
+// size_t FibVec::capacity(){
+//     return v.capacity();
+// }
 
-size_t FibVec::count(){
-    return v.size();
-}
+// size_t FibVec::count(){
+//     return v.size();
+// }
 
 
 
