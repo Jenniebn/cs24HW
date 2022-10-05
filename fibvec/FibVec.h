@@ -16,7 +16,7 @@ class FibVec{
         int remove(size_t index);
         FibVec slice(size_t index, size_t count);
     private:
-        int n;
+        int mCount;
         int* vector;
 
 };
