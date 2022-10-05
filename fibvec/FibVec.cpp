@@ -43,12 +43,16 @@ int FibVec::pop(){
     return mCount;
 }
 
-void push(int value){
+void FibVec::push(int value){
 
 }
 
-int remove(size_t index){
+int FibVec::remove(size_t index){
     return mCount;
+}
+
+FibVec FibVec::slice(size_t index, size_t count){
+    return FibVec;
 }
 
 // int main( )
