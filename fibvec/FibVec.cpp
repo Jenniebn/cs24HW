@@ -26,6 +26,8 @@ size_t FibVec::count() const{ // returns the number of items stored in the vecto
 }
 
 void FibVec::insert(int value, size_t index){
+    (void) value;
+    (void) index;
     // size_t countNum = count();
     // if (index > countNum){
     //     throw out_of_range("Out of range.");
@@ -36,6 +38,7 @@ void FibVec::insert(int value, size_t index){
 }
 
 int FibVec::lookup(size_t index) const{
+    (void) index;
     return vector[index];
 }
 
@@ -44,15 +47,20 @@ int FibVec::pop(){
 }
 
 void FibVec::push(int value){
-
+    (void) value;
 }
 
 int FibVec::remove(size_t index){
+    (void) index;
     return mCount;
 }
 
 FibVec FibVec::slice(size_t index, size_t count){
-    return FibVec;
+    (void) index;
+    (void) count;
+    FibVec result;
+    //...
+    return result;
 }
 
 // int main( )
