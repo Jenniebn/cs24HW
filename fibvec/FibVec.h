@@ -6,7 +6,7 @@ using namespace std;
 class FibVec{
     public:
         FibVec();
-        ~ FibVec() {};
+        ~ FibVec();
         size_t capacity() const;
         size_t count() const;
         void insert(int value, size_t index);
