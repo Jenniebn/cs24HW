@@ -1,8 +1,7 @@
-#include <iostream> // for cout, cin
+#include <iostream> 
 #include <string>
 #include <algorithm>
 #include "FibVec.h"
-#include <vector>
 #include <stdexcept>
 using namespace std;
 
@@ -55,7 +54,7 @@ int FibVec::remove(size_t index){
     return mCount;
 }
 
-FibVec FibVec::slice(size_t index, size_t count){
+FibVec FibVec::slice(size_t index, size_t count) const {
     (void) index;
     (void) count;
     FibVec result;
