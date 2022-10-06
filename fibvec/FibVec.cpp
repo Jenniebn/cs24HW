@@ -9,11 +9,11 @@ FibVec::FibVec(){ // creates en empty vector w a capacity of one
     mCapa = 1;
     mCount = 0;
     vector = new int[mCapa];
-    //cout << "constructor executed" << endl; // REMOVE
+    cout << "constructor executed" << endl; // REMOVE
 }
 
 FibVec:: ~FibVec(){
-    //cout << "destructor executed" << endl; // REMOVE
+    cout << "destructor executed" << endl; // REMOVE
     delete [] vector;
     //delete [] newVector;
     
@@ -38,7 +38,6 @@ size_t FibVec::count() const{ // returns the number of items stored in the vecto
 void FibVec::resize(size_t num){
     //halfFib = fib(fibIndex - 2);
     if (num > mCapa){
-        cout << mCapa;
         mCapa = fib(fibIndex + 1);
         fibIndex ++;
     }
