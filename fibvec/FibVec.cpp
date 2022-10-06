@@ -64,29 +64,29 @@ void FibVec::insert(int value, size_t index){
     }
 }
 
-// int FibVec::lookup(size_t index) const{
-//     (void) index;
-//     return vector[index];
-// }
+int FibVec::lookup(size_t index) const{
+    (void) index;
+    return vector[index];
+}
 
-// int FibVec::pop(){
-//     return mCount;
-// }
+int FibVec::pop(){
+    return mCount;
+}
 
-// void FibVec::push(int value){
-//     (void) value;
-// }
+void FibVec::push(int value){
+    (void) value;
+}
 
-// int FibVec::remove(size_t index){
-//     (void) index;
-//     return mCount;
-// }
+int FibVec::remove(size_t index){
+    (void) index;
+    return mCount;
+}
 
-// FibVec FibVec::slice(size_t index, size_t count) const {
-//     (void) index;
-//     (void) count;
-//     FibVec result;
-//     //...
-//     return result;
-// }
+FibVec FibVec::slice(size_t index, size_t count) const {
+    (void) index;
+    (void) count;
+    FibVec result;
+    //...
+    return result;
+}
 
