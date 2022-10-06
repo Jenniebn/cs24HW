@@ -14,7 +14,7 @@ FibVec::FibVec(){ // creates en empty vector w a capacity of one
 FibVec:: ~FibVec(){
     cout << "destructor executed" << endl; // REMOVE
     delete [] vector;
-    delete [] newVector;
+    //delete [] newVector;
 }
 
 size_t FibVec::fib(size_t n) const{
