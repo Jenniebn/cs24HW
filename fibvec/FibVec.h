@@ -9,6 +9,7 @@ class FibVec{
         ~ FibVec();
         size_t capacity() const;
         size_t count() const;
+        size_t fib(size_t n) const;
         void insert(int value, size_t index);
         int lookup(size_t index) const;
         int pop();
@@ -16,7 +17,7 @@ class FibVec{
         int remove(size_t index);
         FibVec slice(size_t index, size_t count) const;
     private:
-        int mCount;
-        int* vector;
+        size_t mCapa, mCount, fibIndex = 1, halfFib = fib(fibIndex - 2);
+        int* vector, newVector;
 
 };

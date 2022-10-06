@@ -6,18 +6,26 @@
 using namespace std;
 
 FibVec::FibVec(){ // creates en empty vector w a capacity of one
-    mCount = 1;
-    vector = new int[mCount];
+    mCapa = 1;
+    vector = new int[mCapa];
     cout << "constructor executed" << endl; // REMOVE
 }
 
 FibVec:: ~FibVec(){
     cout << "destructor executed" << endl; // REMOVE
     delete [] vector;
+    delete [] newVector;
+}
+
+size_t FibVec::fib(size_t n) const{
+    if (n <= 1){
+        return n;
+    }
+    return fib(n-1) + fib(n-2);
 }
 
 size_t FibVec::capacity() const{ // returns the total size of the storage buffer
-    return mCount;
+    return mCapa;
 }
 
 size_t FibVec::count() const{ // returns the number of items stored in the vector
