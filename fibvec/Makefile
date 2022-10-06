@@ -1,5 +1,6 @@
-FibVec: FibVec.cpp
-	g++ FibVec.cpp -o FibVec -Wall -Wextra -Werror
+test: test.o FibVec.o
+	g++ test.o FibVec.o -o test
 
 clean:
-	rm -f FibVec
+	rm -f test.o FibVec.o test
+
