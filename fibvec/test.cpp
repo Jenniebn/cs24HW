@@ -12,16 +12,10 @@ int main() {
   FibVec fibvec;
   fibvec.insert(2, 0);
   fibvec.insert(3, 1);
-  cout << fibvec.lookup(1) << endl;
-  fibvec.insert(4, 1);
-  cout << fibvec.lookup(1) << endl;
-  fibvec.insert(5, 1);
-  cout << fibvec.lookup(1) << endl;
-  fibvec.insert(6, 1);
-  cout << fibvec.lookup(1) << endl;
-  fibvec.insert(7, 1);
-  cout << fibvec.lookup(1) << endl;
+  fibvec.insert(4, 2);
+  fibvec.insert(5, 2);
+  fibvec.insert(6, 3);
   fibvec.test();
-
+// 2 7 6 5 3 4
   return 0;
 }
