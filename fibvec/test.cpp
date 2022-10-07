@@ -15,7 +15,7 @@ int main() {
   fibvec.insert(4, 2);
   fibvec.insert(5, 2);
   fibvec.insert(6, 3);
-  fibvec.test();
+  //fibvec.test();
 // 2 7 6 5 3 4
   return 0;
 }

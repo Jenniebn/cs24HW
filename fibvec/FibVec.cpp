@@ -19,11 +19,11 @@ FibVec:: ~FibVec(){
     
 }
 
-void FibVec::test(){
-    for (int i = 0; i < mCount; i++){
-        cout << vector[i] << endl;
-    }
-}
+// void FibVec::test(){
+//     for (int i = 0; i < mCount; i++){
+//         cout << vector[i] << endl;
+//     }
+// }
 // 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 size_t FibVec::fib(size_t n) const{
     if (n <= 1){
@@ -66,8 +66,6 @@ void FibVec::insert(int value, size_t index){
             vector[i] = vector[i - 1];
         }
         vector[index] = value;
-        cout << "replace " << vector[index] << endl;
-        cout << "\n";
     }
 }
 
