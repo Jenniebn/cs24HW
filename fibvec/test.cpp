@@ -9,8 +9,19 @@ using namespace std;
 // This file won't be graded - do whatever you want.
 
 int main() {
-  // FibVec fibvec;
-  // cout << fibvec.capacity() << endl;
+  FibVec fibvec;
+  fibvec.insert(2, 0);
+  fibvec.insert(3, 1);
+  cout << fibvec.lookup(1) << endl;
+  fibvec.insert(4, 1);
+  cout << fibvec.lookup(1) << endl;
+  fibvec.insert(5, 1);
+  cout << fibvec.lookup(1) << endl;
+  fibvec.insert(6, 1);
+  cout << fibvec.lookup(1) << endl;
+  fibvec.insert(7, 1);
+  cout << fibvec.lookup(1) << endl;
+  fibvec.test();
 
   return 0;
 }
