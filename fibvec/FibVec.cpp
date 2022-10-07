@@ -83,12 +83,16 @@ int FibVec::pop(){
         throw underflow_error("Underflow Error");
     }
     else{
+        size_t num = mCount - 1;
+        resize(num);
         mCount --;
         return vector[mCount + 1];
     }
 }
 
 void FibVec::push(int value){
+    size_t num = mCount + 1;
+    resize(num);
     mCount ++;
     vector[mCount] = value;
 }
@@ -98,16 +102,11 @@ int FibVec::remove(size_t index){
         throw out_of_range("Out of Range");
     }
     else{
+        size_t num = mCount - 1;
+        resize(num);
         mCount --;
     }
     return vector[index];
 }
 
-FibVec FibVec::slice(size_t index, size_t count) const {
-    (void) index;
-    (void) count;
-    FibVec result;
-    //...
-    return result;
-}
 

@@ -15,7 +15,25 @@ int main() {
   fibvec.insert(4, 2);
   fibvec.insert(5, 2);
   fibvec.insert(6, 3);
-  //fibvec.test();
-// 2 7 6 5 3 4
+  fibvec.push(8);
+  fibvec.push(9);
+  fibvec.push(10);
+  fibvec.push(11);
+  cout << "capa 1 "<< fibvec.capacity() << endl;
+  fibvec.test();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  fibvec.pop();
+  cout << "\n";
+  cout << "capa2 " << fibvec.capacity() << endl;
+  fibvec.test();
+// 2 3 5 6 4 
+// 2 3 6 
   return 0;
 }
