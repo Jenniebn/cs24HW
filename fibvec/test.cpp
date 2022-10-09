@@ -19,21 +19,24 @@ int main() {
   fibvec.push(9);
   fibvec.push(10);
   fibvec.push(11);
-  cout << "capa 1 "<< fibvec.capacity() << endl;
+  //cout << "capa 1 "<< fibvec.capacity() << endl;
+  fibvec.remove(5);
+  fibvec.remove(5);
+  fibvec.remove(4);
+  fibvec.remove(3);
+  fibvec.remove(2);
+  fibvec.remove(1);
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // fibvec.pop();
+  // cout << "\n";
+  cout << "look up " << fibvec.lookup(3) << endl;
   fibvec.test();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  fibvec.pop();
-  cout << "\n";
-  cout << "capa2 " << fibvec.capacity() << endl;
-  fibvec.test();
-// 2 3 5 6 4 
-// 2 3 6 
   return 0;
 }
