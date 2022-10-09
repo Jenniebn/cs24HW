@@ -20,8 +20,8 @@ int main() {
   fibvec.push(10);
   fibvec.push(11);
   // 2 3 5 6 4
-  //cout << "capa 1 "<< fibvec.capacity() << endl;
-  // fibvec.remove(5);
+  cout << "new" << endl;
+  fibvec.remove(5);
   // fibvec.remove(5);
   // fibvec.remove(4);
   // fibvec.remove(3);
@@ -37,7 +37,6 @@ int main() {
   // fibvec.pop();
   // fibvec.pop();
   // cout << "\n";
-  cout << "look up " << fibvec.lookup(3) << endl;
   fibvec.test();
   return 0;
 }
