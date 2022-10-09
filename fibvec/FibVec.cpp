@@ -102,9 +102,7 @@ int FibVec::pop(){
         throw underflow_error("Underflow Error");
     }
     else{
-        int removed = vector[mCount - 1];
-        remove(mCount - 1);
-        return removed;
+        return remove(mCount - 1);
         }
 }
 
@@ -118,6 +116,7 @@ int FibVec::remove(size_t index){
     }
     else{
         size_t num = mCount - 1;
+        int lastInt = vector[index];
         if (resize(num) == 2){
             mCount --; 
             for (size_t i = 0; i < index; i++){
@@ -141,8 +140,8 @@ int FibVec::remove(size_t index){
             delete [] vector;
             vector = temp;
         }
+        return lastInt;
     }
-    return vector[index];
 }
 
 
