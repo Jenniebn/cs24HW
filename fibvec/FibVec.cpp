@@ -125,6 +125,7 @@ int FibVec::remove(size_t index){
         }
         else{
             mCount --;
+            temp = new int[mCapa];
             for (size_t i = 0; i < index; i++){
                 *(temp + i) = *(vector + i);
             }
