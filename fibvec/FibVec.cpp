@@ -111,7 +111,7 @@ void FibVec::push(int value){
 }
 
 int FibVec::remove(size_t index){
-    if (index > mCount){
+    if (index >= mCount){
         throw out_of_range("Out of Range");
     }
     else{
