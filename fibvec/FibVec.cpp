@@ -98,9 +98,14 @@ int FibVec::lookup(size_t index) const{
 }
 
 int FibVec::pop(){
-    int removed = vector[mCount - 1];
-    remove(mCount - 1);
-    return removed;
+    if (mCount == 0){
+        throw underflow_error("Underflow Error");
+    }
+    else{
+        int removed = vector[mCount - 1];
+        remove(mCount - 1);
+        return removed;
+        }
 }
 
 void FibVec::push(int value){
