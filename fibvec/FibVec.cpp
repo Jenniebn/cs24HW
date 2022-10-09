@@ -40,20 +40,23 @@ size_t FibVec::count() const{ // returns the number of items stored in the vecto
     return mCount;
 }
 
-bool FibVec::resize(size_t num){
+int FibVec::resize(size_t num){
     //halfFib = fib(fibIndex - 2);
     if (num > mCapa){
         mCapa = fib(fibIndex + 1);
         newVector = new int[mCapa];
         fibIndex ++;
-        return true;
+        return 1;
     }
     else if (num < fib(fibIndex - 2)){
     //else if (num < halfFib){
         mCapa = fib(fibIndex - 1);
         newVector = new int[mCapa];
         fibIndex --;
-        return false;
+        return 2;
+    }
+    else{
+        return 0;
     }
 }
 // <_>, 1, 0
@@ -63,7 +66,7 @@ void FibVec::insert(int value, size_t index){
     }
     else{
         size_t num = mCount + 1;
-        if (resize(num)){
+        if (resize(num) == 1){
             mCount ++; 
             for (size_t i = 0; i < index; i++){
                 *(newVector + i) = *(vector + i);
@@ -96,13 +99,11 @@ int FibVec::lookup(size_t index) const{
 
 int FibVec::pop(){
     remove(mCount);
-    mCount --;
     return vector[mCount];
 }
 
 void FibVec::push(int value){
     insert(value, mCount);
-    mCount ++;
 }
 
 int FibVec::remove(size_t index){
@@ -111,7 +112,7 @@ int FibVec::remove(size_t index){
     }
     else{
         size_t num = mCount - 1;
-        if (!resize(num)){
+        if (resize(num) == 2){
             mCount --; 
             for (size_t i = 0; i < index; i++){
                 *(newVector + i) = *(vector + i);

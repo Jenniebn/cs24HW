@@ -10,7 +10,7 @@ class FibVec{
         size_t capacity() const;
         size_t count() const;
         size_t fib(size_t n) const;
-        bool resize(size_t num);
+        int resize(size_t num);
         void insert(int value, size_t index);
         int lookup(size_t index) const;
         int pop();
