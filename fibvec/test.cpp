@@ -19,23 +19,15 @@ int main() {
   fibvec.push(9);
   fibvec.push(10);
   fibvec.push(11);
-  // 2 3 5 6 4
+  // 2 3 5 6 4 9 10 11
   cout << "new" << endl;
   fibvec.remove(5);
-  // fibvec.remove(5);
-  // fibvec.remove(4);
-  // fibvec.remove(3);
-  // fibvec.remove(2);
-  // fibvec.remove(1);
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
-  // fibvec.pop();
+  fibvec.remove(5);
+  fibvec.remove(4);
+  fibvec.remove(3);
+  fibvec.remove(2);
+  fibvec.remove(1);
+  fibvec.pop();
   // cout << "\n";
   fibvec.test();
   return 0;

@@ -98,8 +98,9 @@ int FibVec::lookup(size_t index) const{
 }
 
 int FibVec::pop(){
-    remove(mCount);
-    return vector[mCount];
+    int removed = vector[mCount - 1];
+    remove(mCount - 1);
+    return removed;
 }
 
 void FibVec::push(int value){
@@ -117,8 +118,8 @@ int FibVec::remove(size_t index){
             for (size_t i = 0; i < index; i++){
                 *(newVector + i) = *(vector + i);
             }
-            for (size_t j = index; j < mCount; j ++){
-                *(newVector + j) = *(vector + j + 1); 
+            for (size_t j = mCount; j > index; j --){
+                *(newVector + j - 1) = *(vector + j); 
             }
             delete [] vector;
             vector = newVector;
@@ -129,8 +130,8 @@ int FibVec::remove(size_t index){
             for (size_t i = 0; i < index; i++){
                 *(temp + i) = *(vector + i);
             }
-            for (size_t j = index; j < mCount; j ++){
-                *(temp + j) = *(vector + j + 1); 
+            for (size_t j = mCount; j > index; j --){
+                *(temp + j - 1) = *(vector + j); 
             }
             delete [] vector;
             vector = temp;
