@@ -18,7 +18,7 @@ class List {
 
 public:
   List();
-  List(const List& other);
+  //List(const List& other);
   List(List&& other);
   ~List();
 

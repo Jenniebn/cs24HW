@@ -1,5 +1,5 @@
-assort: assort.cpp
-	g++ assort.cpp -o assort -Wall -Wextra -Werror
+assort: List.cpp test.cpp
+	g++ List.cpp test.cpp -o list -std=c++17 -Wall -Wextra -Werror
 
 clean:
-	rm -f assort
+	rm -f test.o List.o test
