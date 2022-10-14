@@ -15,9 +15,11 @@ int main() {
   mylist.insert("oganesson");
   mylist.insert("radon");
   mylist.insert("xenon");
-  size_t look = mylist.remove("argon");
+  mylist.remove("argon");
+  //mylist.remove("helium");
   
-  cout << mylist.lookup(look - 1) << endl;
+  cout << mylist.lookup(0) << endl;
+  cout << mylist.lookup(1) << endl;
   mylist.print();
 
   return 0;

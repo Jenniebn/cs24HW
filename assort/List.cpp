@@ -9,7 +9,7 @@ List::List(){
     head = NULL;
 }
 
-List::List(const List& other){
+// List::List(const List& other){
 //     if (other == NULL){
 //         head = other;
 //     }
@@ -23,7 +23,7 @@ List::List(const List& other){
 //             curr = curr -> next;
 //         }
 //     }
-}
+// }
 
 List::List(List&& other){
     head = other.head;
@@ -77,6 +77,7 @@ void List::insert(const std::string& value){
 
 string returnValue = "";
 const std::string& List::lookup(size_t index) const{
+    returnValue = "";
     size_t n = count();
     size_t i = 0;
     Node* curr = head;
@@ -146,6 +147,7 @@ void List::print(bool reverse) const{
 
 string removeValue = "";
 std::string List::remove(size_t index){
+    removeValue = "";
     size_t num = count();
     Node* curr = head;
     Node* oldNode = new Node;
