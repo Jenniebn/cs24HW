@@ -14,7 +14,6 @@ List::List(const List& other){
         head = other.head;
     }
     else{
-        head = new Node;
         head -> data = other.head -> data;
         head -> next = other.head -> next;
         Node* tocopy = other.head -> next;
