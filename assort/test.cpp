@@ -16,6 +16,9 @@ int main() {
   mylist.insert("radon");
   mylist.insert("xenon");
   mylist.remove("argon");
+  mylist.remove("krypton");
+  mylist.remove("oganesson");
+  mylist.remove("xenon");
   //mylist.remove("helium");
   cout << "mylist ";
   mylist.print();

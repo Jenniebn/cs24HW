@@ -153,6 +153,9 @@ string removeValue = "";
 std::string List::remove(size_t index){
     removeValue = "";
     size_t num = count();
+    if (index >= num){
+        throw out_of_range("Out of Range");
+    }
     Node* curr = head;
     if (index >= num){
         throw out_of_range("Out of Range");
