@@ -9,7 +9,7 @@ List::List(){
     head = NULL;
 }
 
-// List::List(const List& other){
+List::List(const List& other){
 //     if (other == NULL){
 //         head = other;
 //     }
@@ -23,7 +23,7 @@ List::List(){
 //             curr = curr -> next;
 //         }
 //     }
-// }
+}
 
 List::List(List&& other){
     head = other.head;
