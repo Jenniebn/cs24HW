@@ -124,11 +124,12 @@ void List::print(bool reverse) const{
     else{
         cout << "[";
         size_t currNum = index - 1;
-        while (currNum >= 0){
+        size_t zero = 0;
+        while (currNum >= zero){
             for (size_t j = 1; j < index; j++){
                 curr = curr -> next;
             }
-            if (currNum != 0){
+            if (currNum != zero){
                 cout << curr -> data << ", ";
             }
             else{
