@@ -76,6 +76,7 @@ void List::insert(const std::string& value){
             curr = curr -> next;
         }
     }
+    delete newNode;
 }
 
 string returnValue = "";
@@ -155,12 +156,16 @@ std::string List::remove(size_t index){
     Node* curr = head;
     Node* oldNode = new Node;
     if (index >= num){
+        delete curr;
+        delete oldNode;
         throw out_of_range("Out of Range");
     }
     else if (num == 1){
         oldNode = head;
         removeValue += oldNode -> data;
         head = NULL;
+        delete curr;
+        delete oldNode;
         return removeValue;
     }
     else if (index == 0){
@@ -169,6 +174,7 @@ std::string List::remove(size_t index){
         head = curr -> next;
         curr = NULL;
         delete curr;
+        delete oldNode;
         return removeValue;
     }
     else if (index == num - 1){
@@ -179,6 +185,7 @@ std::string List::remove(size_t index){
         removeValue += oldNode -> data;
         curr -> next = NULL;
         delete curr;
+        delete oldNode;
         return removeValue;
     }
     else{
@@ -189,6 +196,7 @@ std::string List::remove(size_t index){
         removeValue += oldNode -> data;
         curr -> next = oldNode -> next;
         oldNode = NULL;
+        delete curr;
         delete oldNode;
         return removeValue;
     }
