@@ -9,21 +9,21 @@ List::List(){
     head = NULL;
 }
 
-List::List(const List& other){
-    // if (other == NULL){
-    //     head = other;
-    // }
-    // else{
-    //     head = new Node{ other.head -> data, other.head -> next};
-    //     Node* tocopy = other.head -> next;
-    //     Node* curr = head;
-    //     while (curr != N){
-    //         curr -> next = new Node {tocopy.data, tocopy -> next};
-    //         tocopy = tocopy -> next;
-    //         curr = curr -> next;
-    //     }
-    // }
-}
+// List::List(const List& other){
+//     if (other == NULL){
+//         head = other;
+//     }
+//     else{
+//         head = new Node{ other.head -> data, other.head -> next};
+//         Node* tocopy = other.head -> next;
+//         Node* curr = head;
+//         while (curr != N){
+//             curr -> next = new Node {tocopy.data, tocopy -> next};
+//             tocopy = tocopy -> next;
+//             curr = curr -> next;
+//         }
+//     }
+// }
 
 List::List(List&& other){
     head = other.head;
@@ -144,6 +144,7 @@ void List::print(bool reverse) const{
     }
 }
 
+string removeValue = "";
 std::string List::remove(size_t index){
     size_t num = count();
     Node* curr = head;
@@ -153,35 +154,35 @@ std::string List::remove(size_t index){
     }
     else if (num == 1){
         oldNode = head;
-        returnValue += oldNode -> data;
+        removeValue += oldNode -> data;
         head = NULL;
-        return returnValue;
+        return removeValue;
     }
     else if (index == 0){
         oldNode = head;
-        returnValue += oldNode -> data;
+        removeValue += oldNode -> data;
         head = curr -> next;
         curr = NULL;
-        return returnValue;
+        return removeValue;
     }
     else if (index == num - 1){
         for (size_t i = 0; i < num - 2; i++){
             curr = curr -> next;
         }
         oldNode = curr -> next;
-        returnValue += oldNode -> data;
+        removeValue += oldNode -> data;
         curr -> next = NULL;
-        return returnValue;
+        return removeValue;
     }
     else{
         for (size_t j = 0; j < index - 1; j++){
             curr = curr -> next;
         }
         oldNode = curr -> next;
-        returnValue += oldNode -> data;
+        removeValue += oldNode -> data;
         curr -> next = oldNode -> next;
         oldNode = NULL;
-        return returnValue;
+        return removeValue;
     }
 }
 

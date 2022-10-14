@@ -8,13 +8,16 @@ using namespace std;
 int main() {
   List mylist;
   
-  mylist.insert("A");
-  mylist.insert("B");
-  mylist.insert("C");
-  mylist.insert("E");
-  mylist.insert("B");
-  mylist.insert("F");
-  cout << mylist.remove("F") << endl;
+  mylist.insert("argon");
+  mylist.insert("helium");
+  mylist.insert("krypton");
+  mylist.insert("neon");
+  mylist.insert("oganesson");
+  mylist.insert("radon");
+  mylist.insert("xenon");
+  size_t look = mylist.remove("argon");
+  
+  cout << mylist.lookup(look - 1) << endl;
   mylist.print();
 
   return 0;
