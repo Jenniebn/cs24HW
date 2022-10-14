@@ -61,10 +61,12 @@ void List::insert(const std::string& value){
     if (head == NULL){
         head =newNode;
         newNode -> next = NULL;
+        delete newNode;
     }
     else if (newNode -> data < head -> data){
         newNode -> next = head;
         head = newNode;
+        delete newNode;
 
     }
     else{
