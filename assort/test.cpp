@@ -15,11 +15,17 @@ int main() {
   mylist.insert("oganesson");
   mylist.insert("radon");
   mylist.insert("xenon");
+  cout << "insert" << endl;
   mylist.remove("argon");
+  cout << "remove" << endl;
   mylist.remove("krypton");
+  cout << "remove" << endl;
   mylist.remove("oganesson");
+  cout << "remove" << endl;
   mylist.remove("xenon");
-  //mylist.remove("helium");
+  cout << "remove" << endl;
+  mylist.remove("helium");
+  cout << "remove" << endl;
   cout << "mylist ";
   mylist.print();
   List newlist(mylist);

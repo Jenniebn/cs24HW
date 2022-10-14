@@ -164,8 +164,7 @@ std::string List::remove(size_t index){
         return removeValue;
     }
     else if (index == 0){
-        Node* oldNode = head;
-        removeValue += oldNode -> data;
+        removeValue += curr -> data;
         head = curr -> next;
         //cout << curr -> data << endl;
         curr = NULL;
@@ -173,6 +172,7 @@ std::string List::remove(size_t index){
         return removeValue;
     }
     else if (index == num - 1){
+        cout << "last" << endl;
         for (size_t i = 0; i < num - 2; i++){
             curr = curr -> next;
         }
@@ -180,6 +180,8 @@ std::string List::remove(size_t index){
         removeValue += oldNode -> data;
         curr -> next = NULL;
         delete curr -> next;
+        oldNode = NULL;
+        delete oldNode;
         return removeValue;
     }
     else{
