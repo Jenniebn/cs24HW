@@ -57,6 +57,7 @@ void List::insert(const std::string& value){
     newNode -> data = value;
     if (head == NULL){
         head =newNode;
+        newNode -> next = NULL;
     }
     else if (newNode -> data < head -> data){
         newNode -> next = head;
