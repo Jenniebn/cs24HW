@@ -14,6 +14,7 @@ List::List(const List& other){
         head = other.head;
     }
     else{
+        head = new Node;
         head -> data = other.head -> data;
         head -> next = other.head -> next;
         Node* tocopy = other.head -> next;
@@ -64,6 +65,7 @@ void List::insert(const std::string& value){
     else if (newNode -> data < head -> data){
         newNode -> next = head;
         head = newNode;
+
     }
     else{
         while (true){
@@ -75,7 +77,6 @@ void List::insert(const std::string& value){
             curr = curr -> next;
         }
     }
-    delete newNode;
 }
 
 string returnValue = "";
