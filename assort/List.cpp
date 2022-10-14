@@ -167,7 +167,7 @@ std::string List::remove(size_t index){
         Node* oldNode = head;
         removeValue += oldNode -> data;
         head = curr -> next;
-        cout << curr -> data << endl;
+        //cout << curr -> data << endl;
         curr = NULL;
         delete curr;
         return removeValue;
