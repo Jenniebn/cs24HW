@@ -179,7 +179,6 @@ std::string List::remove(size_t index){
         oldNode = curr -> next;
         removeValue += oldNode -> data;
         curr -> next = NULL;
-        delete curr;
         return removeValue;
     }
     else{
