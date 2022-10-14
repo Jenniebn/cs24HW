@@ -154,22 +154,20 @@ std::string List::remove(size_t index){
     removeValue = "";
     size_t num = count();
     Node* curr = head;
-    Node* oldNode = new Node;
     if (index >= num){
         throw out_of_range("Out of Range");
     }
     else if (num == 1){
-        oldNode = head;
+        Node* oldNode = head;
         removeValue += oldNode -> data;
         head = NULL;
-        //cout << curr -> data<< endl;
         return removeValue;
     }
     else if (index == 0){
-        oldNode = head;
+        Node* oldNode = head;
         removeValue += oldNode -> data;
         head = curr -> next;
-        //cout << curr -> data << endl;
+        cout << curr -> data << endl;
         curr = NULL;
         delete curr;
         return removeValue;
@@ -178,21 +176,20 @@ std::string List::remove(size_t index){
         for (size_t i = 0; i < num - 2; i++){
             curr = curr -> next;
         }
-        oldNode = curr -> next;
+        Node* oldNode = curr -> next;
         removeValue += oldNode -> data;
         curr -> next = NULL;
-        //cout << curr -> data<< endl;
+        delete curr -> next;
         return removeValue;
     }
     else{
         for (size_t j = 0; j < index - 1; j++){
             curr = curr -> next;
         }
-        oldNode = curr -> next;
+        Node* oldNode = curr -> next;
         removeValue += oldNode -> data;
         curr -> next = oldNode -> next;
         oldNode = NULL;
-        //cout << curr -> data<< endl;
         delete oldNode;
         return removeValue;
     }

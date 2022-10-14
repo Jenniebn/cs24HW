@@ -19,7 +19,9 @@ int main() {
   //mylist.remove("helium");
   cout << "mylist ";
   mylist.print();
-
+  List newlist(mylist);
+  cout << "newlist ";
+  newlist.print();
 
   return 0;
 }
