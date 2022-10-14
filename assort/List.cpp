@@ -33,9 +33,9 @@ List::List(List&& other){
 List::~List(){
     Node* curr = head;
     while (curr != NULL){
-        Node* next = curr -> next;
-        delete curr;
-        curr = next;
+        Node* next = curr;
+        curr = curr -> next;
+        delete next;
     }
     head = NULL;
 }
