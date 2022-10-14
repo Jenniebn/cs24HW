@@ -9,21 +9,21 @@ List::List(){
     head = NULL;
 }
 
-// List::List(const List& other){
-//     if (other == NULL){
-//         head = other;
-//     }
-//     else{
-//         head = new Node{ other.head -> data, other.head -> next};
-//         Node* tocopy = other.head -> next;
-//         Node* curr = head;
-//         while (curr != N){
-//             curr -> next = new Node {tocopy.data, tocopy -> next};
-//             tocopy = tocopy -> next;
-//             curr = curr -> next;
-//         }
-//     }
-// }
+List::List(const List& other){
+    // if (other == NULL){
+    //     head = other;
+    // }
+    // else{
+    //     head = new Node{ other.head -> data, other.head -> next};
+    //     Node* tocopy = other.head -> next;
+    //     Node* curr = head;
+    //     while (curr != N){
+    //         curr -> next = new Node {tocopy.data, tocopy -> next};
+    //         tocopy = tocopy -> next;
+    //         curr = curr -> next;
+    //     }
+    // }
+}
 
 List::List(List&& other){
     head = other.head;
