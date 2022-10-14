@@ -37,7 +37,6 @@ List::~List(){
         curr = curr -> next;
         delete next;
     }
-    delete curr;
     head = NULL;
 }
 
@@ -48,7 +47,6 @@ size_t List::count() const{
         ++ count;
         curr = curr -> next;
     }
-    delete curr;
     return count;
 } 
 
@@ -75,8 +73,6 @@ void List::insert(const std::string& value){
             curr = curr -> next;
         }
     }
-    delete curr;
-    delete newNode;
 }
 
 string returnValue = "";
@@ -102,7 +98,6 @@ const std::string& List::lookup(size_t index) const{
             i++;
         }
     }
-    delete curr;
     return returnValue;
 }
 
@@ -148,7 +143,6 @@ void List::print(bool reverse) const{
             index --;
         }
     }
-    delete curr;
 }
 
 string removeValue = "";
@@ -192,8 +186,6 @@ std::string List::remove(size_t index){
         oldNode = NULL;
         return removeValue;
     }
-    delete curr;
-    delete oldNode;
 }
 
 size_t List::remove(const std::string& value){
