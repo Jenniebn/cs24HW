@@ -36,9 +36,9 @@ List::List(List&& other){
 List::~List(){
     Node* curr = head;
     while (curr != NULL){
-        Node* next = curr;
-        curr = curr -> next;
-        delete next;
+        Node* next = curr -> next;
+        delete curr;
+        curr = next;
     }
     head = NULL;
 }
@@ -157,10 +157,7 @@ std::string List::remove(size_t index){
         throw out_of_range("Out of Range");
     }
     Node* curr = head;
-    if (index >= num){
-        throw out_of_range("Out of Range");
-    }
-    else if (num == 1){
+    if (num == 1){
         Node* oldNode = head;
         removeValue += oldNode -> data;
         head = NULL;
