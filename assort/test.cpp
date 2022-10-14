@@ -15,15 +15,11 @@ int main() {
   mylist.insert("oganesson");
   mylist.insert("radon");
   mylist.insert("xenon");
-  cout << "insert" << endl;
   mylist.remove("argon");
-  cout << "remove" << endl;
   //mylist.remove("helium");
-  
-  cout << mylist.lookup(0) << endl;
-  cout << mylist.lookup(1) << endl;
-  cout << "look" << endl;
+  cout << "mylist ";
   mylist.print();
+
 
   return 0;
 }

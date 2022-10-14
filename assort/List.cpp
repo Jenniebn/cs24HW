@@ -18,7 +18,7 @@ List::List(const List& other){
         head -> data = other.head -> data;
         head -> next = other.head -> next;
         Node* tocopy = other.head -> next;
-        Node* curr = head;
+        Node* curr = tocopy;
         while (curr != NULL){
             curr -> data = tocopy -> data;
             curr -> next = tocopy -> next;
@@ -61,12 +61,10 @@ void List::insert(const std::string& value){
     if (head == NULL){
         head =newNode;
         newNode -> next = NULL;
-        delete newNode;
     }
     else if (newNode -> data < head -> data){
         newNode -> next = head;
         head = newNode;
-        delete newNode;
 
     }
     else{
@@ -164,12 +162,14 @@ std::string List::remove(size_t index){
         oldNode = head;
         removeValue += oldNode -> data;
         head = NULL;
+        //cout << curr -> data<< endl;
         return removeValue;
     }
     else if (index == 0){
         oldNode = head;
         removeValue += oldNode -> data;
         head = curr -> next;
+        //cout << curr -> data << endl;
         curr = NULL;
         delete curr;
         return removeValue;
@@ -181,6 +181,7 @@ std::string List::remove(size_t index){
         oldNode = curr -> next;
         removeValue += oldNode -> data;
         curr -> next = NULL;
+        //cout << curr -> data<< endl;
         return removeValue;
     }
     else{
@@ -191,6 +192,7 @@ std::string List::remove(size_t index){
         removeValue += oldNode -> data;
         curr -> next = oldNode -> next;
         oldNode = NULL;
+        //cout << curr -> data<< endl;
         delete oldNode;
         return removeValue;
     }
