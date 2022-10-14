@@ -172,7 +172,6 @@ std::string List::remove(size_t index){
         return removeValue;
     }
     else if (index == num - 1){
-        cout << "last" << endl;
         for (size_t i = 0; i < num - 2; i++){
             curr = curr -> next;
         }
