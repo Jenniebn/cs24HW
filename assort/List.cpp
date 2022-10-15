@@ -178,9 +178,7 @@ std::string List::remove(size_t index){
         Node* oldNode = curr -> next;
         removeValue += oldNode -> data;
         delete curr -> next;
-        delete oldNode;
         curr -> next = NULL;
-        oldNode = NULL;
         return removeValue;
     }
     else{
