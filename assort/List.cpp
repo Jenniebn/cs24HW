@@ -161,6 +161,7 @@ std::string List::remove(size_t index){
         Node* oldNode = head;
         removeValue += oldNode -> data;
         head = NULL;
+        delete head;
         return removeValue;
     }
     else if (index == 0){
