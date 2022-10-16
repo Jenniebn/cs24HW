@@ -18,11 +18,8 @@ int main() {
   mylist.remove("argon");
   mylist.remove("krypton");
   mylist.remove("oganesson");
-  cout << "remove" << endl;
   mylist.remove("xenon");
-  cout << "remove" << endl;
   mylist.remove("helium");
-  cout << "remove" << endl;
   cout << "mylist ";
   mylist.print();
   List newlist(mylist);

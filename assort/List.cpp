@@ -16,13 +16,15 @@ List::List(const List& other){
     else{
         head = new Node;
         head -> data = other.head -> data;
-        head -> next = other.head -> next;
-        Node* tocopy = other.head -> next;
-        Node* curr = tocopy;
-        while (curr != NULL){
-            curr -> data = tocopy -> data;
-            curr -> next = tocopy -> next;
+        head -> next = NULL;
+        Node* tocopy = other.head;
+        Node* curr = head;
+        while (tocopy -> next != NULL){
             tocopy = tocopy -> next;
+            Node* newNode = new Node;
+            newNode -> data = tocopy -> data;
+            newNode -> next = NULL;
+            curr -> next = newNode;
             curr = curr -> next;
         }
     }
