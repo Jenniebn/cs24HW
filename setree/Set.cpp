@@ -8,17 +8,21 @@ Set::Set(){
     mRoot = NULL;
 }
 
-// Set::Set(const Set& other){}
+Set::Set(const Set& other){
+    
+}
 
 Set::Set(Set&& other){
     mRoot = other.mRoot;
     other.mRoot = NULL;
 }
 
-// Set::~Set(){
-// }
+Set::~Set(){
+}
 
-// size_t Set::clear(){}
+size_t Set::clear(){
+    return 0;
+}
 
 bool containTree(Node* ptr, const std::string& value){
     if (ptr == NULL)
@@ -55,7 +59,7 @@ size_t Set::count() const{
     return countTree(curr);
 }
 
-// void Set::debug(){}
+void Set::debug(){}
 
 size_t insertNode(Node* ptr, const std::string& value){
     if (ptr -> data == value){
@@ -94,7 +98,10 @@ size_t Set::insert(const std::string& value){
     return 0;
 }
 
-// const std::string& Set::lookup(size_t n) const{}
+const std::string& Set::lookup(size_t n) const{
+    void(n);
+    return "yes";
+}
 
 void printTree(Node* ptr){
     if (ptr == NULL) {

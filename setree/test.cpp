@@ -1,4 +1,5 @@
 #include "Set.h"
+#include "Node.h"
 #include <iostream>
 
 // Use this file to test your Set class.
