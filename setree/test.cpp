@@ -18,10 +18,16 @@ int main() {
   cout << "original ";
   myset.print();
   
-  //myset.remove("10");
+  myset.remove("12");
+  cout << "removed" << endl;
+  myset.remove("6");
+  cout << "removed" << endl;
+  myset.remove("3");
+  cout << "removed" << endl;
   //myset.remove("17");
   //myset.remove("10");
   cout << "after remove ";
-  cout << myset.clear()<< endl;
+  myset.print();
+  cout << "print" << endl;
   return 0;
 }
