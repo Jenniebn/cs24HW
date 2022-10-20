@@ -98,8 +98,8 @@ size_t Set::insert(const std::string& value){
     return 0;
 }
 
+std::string yes = "yes";
 const std::string& Set::lookup(size_t n) const{
-    string yes = "";
     return yes;
 }
 
