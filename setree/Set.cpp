@@ -99,6 +99,7 @@ size_t Set::insert(const std::string& value){
 }
 
 const std::string& Set::lookup(size_t n) const{
+    return 0;
 }
 
 void printTree(Node* ptr){
