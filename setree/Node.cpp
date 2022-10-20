@@ -5,3 +5,8 @@ Node::Node(string value){
     right = NULL;
     left = NULL;
 }
+
+Node:: ~Node(){
+    delete left;
+    delete right;
+}

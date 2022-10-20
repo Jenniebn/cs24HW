@@ -13,6 +13,7 @@ class Node{
     Node* left;
     Node* right;
     Node(string value);
+    ~Node();
 };
 
 #endif

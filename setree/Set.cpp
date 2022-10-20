@@ -8,9 +8,9 @@ Set::Set(){
     mRoot = NULL;
 }
 
-Set::Set(const Set& other){
+// Set::Set(const Set& other){
     
-}
+// }
 
 Set::Set(Set&& other){
     mRoot = other.mRoot;
@@ -18,10 +18,19 @@ Set::Set(Set&& other){
 }
 
 Set::~Set(){
+    delete mRoot;
 }
 
 size_t Set::clear(){
-    return 0;
+    size_t removed = count();
+    if (removed == 0){
+        return 0;
+    }
+    else {
+        delete mRoot;
+        mRoot = nullptr;
+        return removed;
+    }
 }
 
 bool containTree(Node* ptr, const std::string& value){

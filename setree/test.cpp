@@ -8,8 +8,8 @@
 int main() {
   Set myset;
 
-  cout << myset.insert("10") << endl;
-  cout << myset.insert("5") << endl;
+  myset.insert("10");
+  myset.insert("5");
   myset.insert("3");
   myset.insert("6");
   myset.insert("14");
@@ -18,8 +18,10 @@ int main() {
   cout << "original ";
   myset.print();
   
-  myset.remove("10");
+  //myset.remove("10");
+  //myset.remove("17");
+  //myset.remove("10");
   cout << "after remove ";
-  myset.print();
+  cout << myset.clear()<< endl;
   return 0;
 }
