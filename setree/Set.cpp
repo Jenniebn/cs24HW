@@ -8,9 +8,9 @@ Set::Set(){
     mRoot = NULL;
 }
 
-Set::Set(const Set& other){
+// Set::Set(const Set& other){
     
-}
+// }
 
 Set::Set(Set&& other){
     mRoot = other.mRoot;
@@ -93,13 +93,13 @@ size_t Set::insert(const std::string& value){
         return 1;
     }
     else {
-        insertNode(curr, value);
+        return insertNode(curr, value);
     }
-    return 0;
 }
 
 std::string yes = "yes";
 const std::string& Set::lookup(size_t n) const{
+    n += 1;
     return yes;
 }
 

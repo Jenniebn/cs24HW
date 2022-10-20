@@ -8,8 +8,8 @@
 int main() {
   Set myset;
 
-  myset.insert("10");
-  myset.insert("5");
+  cout << myset.insert("10") << endl;
+  cout << myset.insert("5") << endl;
   myset.insert("3");
   myset.insert("6");
   myset.insert("14");
