@@ -8,9 +8,9 @@ Set::Set(){
     mRoot = NULL;
 }
 
-// Set::Set(const Set& other){
+Set::Set(const Set& other){
     
-// }
+}
 
 Set::Set(Set&& other){
     mRoot = other.mRoot;
