@@ -13,16 +13,16 @@ class Set {
 
 public:
   Set();
-  // Set(const Set& other);
+  Set(const Set& other);
   Set(Set&& other);
-  // ~Set();
+  ~Set();
 
-  // size_t clear();
+  size_t clear();
   bool contains(const std::string& value) const;
   size_t count() const;
-  // void debug();
+  void debug();
   size_t insert(const std::string& value);
-  // const std::string& lookup(size_t n) const;
+  const std::string& lookup(size_t n) const;
   void print() const;
   size_t remove(const std::string& value);
 };
