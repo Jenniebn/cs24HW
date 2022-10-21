@@ -133,7 +133,7 @@ void printTree(Node* ptr){
 
 void Set::print() const{
     Node* curr = mRoot;
-    if (curr == nullptr){
+    if (curr == NULL){
         cout << endl;
     }
     else{
@@ -235,7 +235,12 @@ size_t Set::remove(const std::string& value){
     if (contains(value) == false){
         return 0;
     }
-    
+    size_t num = count();
+    if (num == 1){
+        delete mRoot;
+        mRoot = NULL;
+        return 1;
+    }
     if (mRoot -> data != value){
         pre = locatePre(value, curr);
         curr = locateCurr(value, curr);
