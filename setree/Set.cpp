@@ -134,7 +134,7 @@ void printTree(Node* ptr){
 void Set::print() const{
     Node* curr = mRoot;
     if (curr == NULL){
-        cout << "-" << endl; // dash
+        cout << " - " << endl; // dash
     }
     else{
         printTree(curr);

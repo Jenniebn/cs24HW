@@ -8,15 +8,15 @@
 int main() {
   Set myset;
 
-  myset.insert("d");
-  myset.insert("b");
-  myset.insert("e");
-  myset.insert("a");
-  myset.insert("c");
-  myset.insert("f");
-  cout << "original ";
+  // myset.insert("d");
+  // myset.insert("b");
+  // myset.insert("e");
+  // myset.insert("a");
+  // myset.insert("c");
+  // myset.insert("f");
+  // cout << "original ";
   myset.print();
-  cout << myset.remove("e");
+  // cout << myset.remove("e");
   // cout << "removed" << endl;
   // myset.remove("d");
   // cout << "removed" << endl;
