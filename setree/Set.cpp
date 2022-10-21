@@ -8,9 +8,9 @@ Set::Set(){
     mRoot = NULL;
 }
 
-Set::Set(const Set& other){
+// Set::Set(const Set& other){
     
-}
+// }
 
 Set::Set(Set&& other){
     mRoot = other.mRoot;
@@ -134,7 +134,7 @@ void printTree(Node* ptr){
 void Set::print() const{
     Node* curr = mRoot;
     if (curr == NULL){
-        cout << " - " << endl; // dash
+        cout << " - "; // dash
     }
     else{
         printTree(curr);
