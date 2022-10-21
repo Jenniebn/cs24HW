@@ -187,6 +187,7 @@ void remove1Par(Node* pre, Node* curr){
     bool nextR = curr -> right;
     bool preNextL = (pre -> left == curr);
     bool preNextR = (pre -> right == curr);
+
     if (preNextL && nextL){
         pre -> left = curr -> left;
         delete curr;
@@ -205,35 +206,40 @@ void remove1Par(Node* pre, Node* curr){
     }
 }
 
-void removePar(Node* curr){
-    Node* swap = curr -> right;
-    
-    //cout << "curr data " << curr -> data << endl;
-    while (swap -> left != NULL){
-        swap = swap -> left;
+void removePar(Node* currData, Node* preData, Node* swapData){
+    if ((swapData -> right != NULL) && (swapData -> right != NULL)){
+        string temp = swapData -> data;
+        currData -> data = temp;
+        delete swapData;
+        preData -> right = NULL;
     }
-    // cout << "swap data " << swap -> data << endl;
-    // cout << swap -> data << endl;
-    // string temp = swap -> data;
-    // cout << temp << endl;
-    // curr -> data = temp;
-    // delete swap -> left;
-    // swap -> left = NULL;
+    else{
+        string temp = swapData -> data;
+        currData -> data = temp;
+        delete swapData;
+        preData -> left = NULL;
+    }
 }
 
+Node* findBiggest (Node* ptr){
+    ptr = ptr -> left;
+    while (ptr && ptr -> right != NULL){
+        ptr = ptr -> right;
+    }
+    return ptr;
+}
 
 size_t Set::remove(const std::string& value){
     Node* curr = mRoot;
+    Node* pre = mRoot;
     if (contains(value) == false){
         return 0;
     }
-    if (mRoot -> data == value){
-        delete mRoot;
-        mRoot = nullptr;
-        return 1;
+    
+    if (mRoot -> data != value){
+        pre = locatePre(value, curr);
+        curr = locateCurr(value, curr);
     }
-    Node* pre = locatePre(value, curr);
-    curr = locateCurr(value, curr);
     
     // cout << "pre value " << pre -> data << endl;
     // cout << "curr value " << curr -> data << endl;
@@ -252,11 +258,14 @@ size_t Set::remove(const std::string& value){
         }
     }
     else if (has2Children){
-        removePar(curr);
+        Node* toCopy = findBiggest(curr);
+        pre = locatePre(toCopy -> data, mRoot);
+        removePar(curr, pre, toCopy);
         return 1;
     }
     else{
         remove1Par(pre, curr);
+        cout << "end" << endl;
         return 1;
     }
     return 1;

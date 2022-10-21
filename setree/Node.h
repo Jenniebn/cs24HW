@@ -8,7 +8,7 @@ using namespace std;
 
 class Node{
   public:
-    size_t count = 0;
+    size_t index = 0;
     string data;
     Node* left;
     Node* right;

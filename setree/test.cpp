@@ -8,26 +8,22 @@
 int main() {
   Set myset;
 
-  myset.insert("10");
-  myset.insert("5");
-  myset.insert("3");
-  myset.insert("6");
-  myset.insert("14");
-  myset.insert("12");
-  myset.insert("17");
+  myset.insert("d");
+  myset.insert("b");
+  myset.insert("e");
+  myset.insert("a");
+  myset.insert("c");
+  myset.insert("f");
   cout << "original ";
   myset.print();
-  
-  myset.remove("12");
+  // myset.remove("e");
   cout << "removed" << endl;
-  myset.remove("6");
+  myset.remove("a");
   cout << "removed" << endl;
-  myset.remove("3");
+  myset.remove("c");
   cout << "removed" << endl;
-  //myset.remove("17");
-  //myset.remove("10");
+  myset.remove("f");
   cout << "after remove ";
   myset.print();
-  cout << "print" << endl;
   return 0;
 }
