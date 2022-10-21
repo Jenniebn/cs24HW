@@ -9,21 +9,21 @@ int main() {
   Set myset;
 
   myset.insert("d");
-  // myset.insert("b");
-  // myset.insert("e");
-  // myset.insert("a");
-  // myset.insert("c");
-  // myset.insert("f");
+  myset.insert("b");
+  myset.insert("e");
+  myset.insert("a");
+  myset.insert("c");
+  myset.insert("f");
   cout << "original ";
   myset.print();
-  // myset.remove("e");
-  cout << "removed" << endl;
-  myset.remove("d");
+  cout << myset.remove("e");
+  // cout << "removed" << endl;
+  // myset.remove("d");
   // cout << "removed" << endl;
   // myset.remove("c");
   // cout << "removed" << endl;
   // myset.remove("f");
-  cout << "after remove ";
-  myset.print();
+  //cout << "after remove ";
+  //myset.print();
   return 0;
 }
