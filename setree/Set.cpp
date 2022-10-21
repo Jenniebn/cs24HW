@@ -191,18 +191,22 @@ void remove1Par(Node* pre, Node* curr){
     if (preNextL && nextL){
         pre -> left = curr -> left;
         delete curr;
+        curr = NULL;
     }
     else if (preNextL && nextR){
         pre -> left = curr -> right;
         delete curr;
+        curr = NULL;
     }
     else if (preNextR && nextL){
         pre -> right = curr -> left;
         delete curr;
+        curr = NULL;
     }
     else if (preNextR && nextR){
         pre -> right = curr -> right;
         delete curr;
+        curr = NULL;
     }
 }
 
@@ -270,7 +274,7 @@ size_t Set::remove(const std::string& value){
     }
     else{
         remove1Par(pre, curr);
-        cout << "end" << endl;
+        // cout << "end" << endl;
         return 1;
     }
     return 1;
