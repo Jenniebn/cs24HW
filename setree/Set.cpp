@@ -19,6 +19,7 @@ Set::Set(Set&& other){
 
 Set::~Set(){
     delete mRoot;
+    mRoot = NULL;
 }
 
 size_t Set::clear(){
@@ -106,10 +107,30 @@ size_t Set::insert(const std::string& value){
     }
 }
 
-std::string yes = "yes";
+// size_t counter(Node* ptr){
+//     if (ptr == NULL){
+//         return 0;
+//     }
+//     else if ((ptr -> right != NULL) && (ptr -> left == NULL)){
+//         return counter(ptr -> right) + 1;
+//     }
+//     else if ((ptr -> right == NULL) && (ptr -> left != NULL)){
+//         return counter(ptr -> left) + 1;
+//     }
+//     else if ((ptr -> right == NULL) && (ptr -> left == NULL)){
+//         return counter(ptr -> left) + 1;
+//     }
+//     else if ((ptr -> right != NULL) && (ptr -> left != NULL)){
+
+//     }
+//     return 0;
+// }
+
+
 const std::string& Set::lookup(size_t n) const{
-    n += 1;
-    return yes;
+    // cout << countTree(mRoot-> left) << endl;
+    n+=1;
+    return mRoot -> data;
 }
 
 void printTree(Node* ptr){
@@ -174,6 +195,7 @@ Node* locateCurr(const std::string& value, Node* ptr){
 
 void removeLeaf(Node* pre, Node* curr, bool L, bool R){
     delete curr;
+    curr = NULL;
     if(L && !R){
         pre -> left = NULL;
     }
@@ -215,12 +237,14 @@ void removePar(Node* currData, Node* preData, Node* swapData){
         string temp = swapData -> data;
         currData -> data = temp;
         delete swapData;
+        swapData = NULL;
         preData -> right = NULL;
     }
     else{
         string temp = swapData -> data;
         currData -> data = temp;
         delete swapData;
+        swapData = NULL;
         preData -> left = NULL;
     }
 }
