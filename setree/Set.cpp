@@ -35,19 +35,30 @@ size_t Set::clear(){
 }
 
 bool containTree(Node* ptr, const std::string& value){
-    if (ptr == NULL)
+    if (ptr == NULL){
         return false;
-    if (ptr -> data == value)
-        return true;
+    }
+    // if (ptr -> data == value){
+    //     return true;
+    // }    
+    // bool existL = containTree(ptr -> left, value);
     
-    bool existL = containTree(ptr -> left, value);
-    
-    if (existL){
-        return true;
-    } 
+    // if (existL){
+    //     return true;
+    // } 
  
-    bool existR = containTree(ptr -> right, value);
-    return existR;
+    // bool existR = containTree(ptr -> right, value);
+    // return existR;
+    else if (value > ptr -> data){
+        return containTree(ptr -> right, value);
+    }
+    else if (value < ptr -> data){
+        return containTree(ptr -> left, value);
+    }
+    else if (value == ptr -> data){
+        return true;
+    }
+    return 0;
 }
 
 bool Set::contains(const std::string& value) const{
