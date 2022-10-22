@@ -14,7 +14,7 @@ int main() {
   myset.insert("a");
   myset.insert("c");
   myset.insert("f");
-  // myset.lookup(4);
+  cout << "lookup "<<myset.lookup(1) << endl;
   // cout << "original ";
   // myset.print();
   // cout << myset.remove("a") << endl;
@@ -26,7 +26,7 @@ int main() {
   // myset.remove("e");
   // cout << "after remove ";
   // myset.print();
-  Set newlist(myset);
-  newlist.print();
+  // Set newlist(myset);
+  // newlist.print();
   return 0;
 }

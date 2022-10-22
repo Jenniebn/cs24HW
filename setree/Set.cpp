@@ -137,30 +137,25 @@ size_t Set::insert(const std::string& value){
     }
 }
 
-// size_t counter(Node* ptr){
-//     if (ptr == NULL){
-//         return 0;
-//     }
-//     else if ((ptr -> right != NULL) && (ptr -> left == NULL)){
-//         return counter(ptr -> right) + 1;
-//     }
-//     else if ((ptr -> right == NULL) && (ptr -> left != NULL)){
-//         return counter(ptr -> left) + 1;
-//     }
-//     else if ((ptr -> right == NULL) && (ptr -> left == NULL)){
-//         return counter(ptr -> left) + 1;
-//     }
-//     else if ((ptr -> right != NULL) && (ptr -> left != NULL)){
-
-//     }
-//     return 0;
-// }
-
+const std::string& lookupTree(size_t num, Node* ptr){
+    size_t index = countTree(ptr -> left);
+    if ((ptr -> right == NULL) && (num != 0)){
+        throw out_of_range("Out of Range");
+    }
+    else if (index == num + 1){
+        return ptr -> data;
+    }
+    else if (num > index){
+        return lookupTree(num - index -1, ptr -> right);
+    }
+    else if (num < index){
+        return lookupTree(num, ptr -> left);
+    }
+    return ptr -> data;
+}
 
 const std::string& Set::lookup(size_t n) const{
-    cout << countTree(mRoot-> left) << endl;
-    n+=1;
-    return mRoot -> data;
+    return lookupTree(n, mRoot);
 }
 
 void printTree(Node* ptr){
