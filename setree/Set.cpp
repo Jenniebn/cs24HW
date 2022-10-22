@@ -142,14 +142,15 @@ const std::string& lookupTree(size_t num, Node* ptr){
     if ((ptr -> right == NULL) && (num != 0)){
         throw out_of_range("Out of Range");
     }
-    else if (index == num + 1){
-        return ptr -> data;
-    }
+    // else if (){}
     else if (num > index){
         return lookupTree(num - index -1, ptr -> right);
     }
     else if (num < index){
         return lookupTree(num, ptr -> left);
+    }
+    else if (index == num + 1){
+        return ptr -> data;
     }
     return ptr -> data;
 }

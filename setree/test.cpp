@@ -8,13 +8,15 @@
 int main() {
   Set myset;
 
-  myset.insert("d");
-  myset.insert("b");
-  myset.insert("e");
-  myset.insert("a");
-  myset.insert("c");
-  myset.insert("f");
-  cout << "lookup "<<myset.lookup(1) << endl;
+  myset.insert("Lee");
+  myset.insert("Britt");
+  myset.insert("Chico");
+  myset.insert("Adams");
+  myset.insert("O'Reilly");
+  myset.insert("Luck");
+  myset.insert("Tanner");
+  cout << "lookup "<<myset.lookup(4) << endl;
+  myset.print();
   // cout << "original ";
   // myset.print();
   // cout << myset.remove("a") << endl;
