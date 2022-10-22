@@ -15,16 +15,18 @@ int main() {
   myset.insert("c");
   myset.insert("f");
   // myset.lookup(4);
-  cout << "original ";
-  myset.print();
-  cout << myset.remove("a") << endl;
+  // cout << "original ";
   // myset.print();
-  cout << myset.remove("c") << endl;
+  // cout << myset.remove("a") << endl;
   // myset.print();
-  cout << myset.remove("z") << endl;
+  // cout << myset.remove("c") << endl;
+  // myset.print();
+  // cout << myset.remove("z") << endl;
   // myset.print();
   // myset.remove("e");
-  cout << "after remove ";
-  myset.print();
+  // cout << "after remove ";
+  // myset.print();
+  Set newlist(myset);
+  newlist.print();
   return 0;
 }

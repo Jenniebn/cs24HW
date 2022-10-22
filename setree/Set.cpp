@@ -8,8 +8,26 @@ Set::Set(){
     mRoot = NULL;
 }
 
+Node* copyHelper(Node* copyTo, Node* copyFrom){
+    if (copyFrom == NULL){
+        copyTo = NULL;
+    }
+    else{
+        copyTo = new Node;
+        copyTo -> data = copyFrom -> data;
+        copyTo -> left = copyHelper(copyTo -> left, copyFrom -> left);
+        copyTo -> right = copyHelper(copyTo -> right, copyFrom -> right);
+    }
+    return copyTo;
+}
+
 Set::Set(const Set& other){
-    
+    if (other.mRoot == NULL){
+        mRoot = other.mRoot;
+    }
+    else{
+        mRoot = copyHelper(mRoot, other.mRoot);
+    }
 }
 
 Set::Set(Set&& other){
@@ -139,7 +157,7 @@ size_t Set::insert(const std::string& value){
 
 
 const std::string& Set::lookup(size_t n) const{
-    // cout << countTree(mRoot-> left) << endl;
+    cout << countTree(mRoot-> left) << endl;
     n+=1;
     return mRoot -> data;
 }
