@@ -26,6 +26,7 @@ Set::Set(const Set& other){
         mRoot = other.mRoot;
     }
     else{
+        mRoot = NULL;
         mRoot = copyHelper(mRoot, other.mRoot);
     }
 }
