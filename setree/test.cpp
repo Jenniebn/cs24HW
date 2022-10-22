@@ -7,16 +7,32 @@
 
 int main() {
   Set myset;
-
-  myset.insert("Lee");
-  myset.insert("Britt");
-  myset.insert("Chico");
-  myset.insert("Adams");
-  myset.insert("O'Reilly");
-  myset.insert("Luck");
-  myset.insert("Tanner");
-  cout << "lookup "<<myset.lookup(4) << endl;
-  myset.print();
+  myset.insert("Britches");
+  
+  myset.insert("ANDi");
+  myset.insert("Betsy");
+  myset.insert("Able");
+  myset.insert("Albert");
+  myset.insert("Baker");
+  myset.insert("Boo");
+  myset.insert("Binx");
+  myset.insert("Jack");
+  
+  myset.insert("Crystal");
+  myset.insert("Hellion");
+  myset.insert("Gordo");
+  myset.insert("Jacco");
+  myset.insert("Finster");
+  myset.insert("Govi");
+  myset.insert("Fred");
+  myset.insert("Semos");
+  myset.insert("Maggie");
+  myset.insert("Loon");
+  myset.insert("Sam");
+  myset.insert("Ramu");
+  myset.insert("Tetra");
+  cout << "lookup "<<myset.lookup(21) << endl;
+  //myset.print();
   // cout << "original ";
   // myset.print();
   // cout << myset.remove("a") << endl;

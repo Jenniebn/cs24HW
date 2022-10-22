@@ -86,7 +86,7 @@ bool Set::contains(const std::string& value) const{
 }
 
 size_t countTree(const Node* ptr){
-    if (ptr == nullptr){
+    if (ptr == NULL){
         return 0;
     }
     else {
@@ -139,18 +139,18 @@ size_t Set::insert(const std::string& value){
 
 const std::string& lookupTree(size_t num, Node* ptr){
     size_t index = countTree(ptr -> left);
-    if ((ptr -> right == NULL) && (num != 0)){
-        throw out_of_range("Out of Range");
-    }
-    // else if (){}
-    else if (num > index){
+    
+    if (num > index){
         return lookupTree(num - index -1, ptr -> right);
     }
     else if (num < index){
         return lookupTree(num, ptr -> left);
     }
-    else if (index == num + 1){
+    else if ((index == num + 1) || (index == num)){
         return ptr -> data;
+    }
+    else if ((ptr -> right == NULL) && (num != 0)){
+        throw out_of_range("Out of Range");
     }
     return ptr -> data;
 }
