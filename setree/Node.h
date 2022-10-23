@@ -10,8 +10,8 @@ class Node{
   public:
     size_t index = 0;
     string data;
-    Node* left;
-    Node* right;
+    Node* left = NULL;
+    Node* right = NULL;
     Node();
     Node(string value);
     ~Node();

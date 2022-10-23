@@ -259,11 +259,20 @@ void remove1Par(Node* pre, Node* curr){
 }
 
 void removePar(Node* currData, Node* preData, Node* swapData){
-    string temp = swapData -> data;
-    currData -> data = temp;
-    delete swapData;
-    swapData = NULL;
-    preData -> right = NULL;
+    if (currData -> left == swapData){
+        string temp = swapData -> data;
+        currData -> data = temp;
+        preData -> left = swapData -> left;
+        delete swapData;
+        swapData = NULL;
+    }
+    else{
+        string temp = swapData -> data;
+        currData -> data = temp;
+        delete swapData;
+        swapData = NULL;
+        preData -> right = NULL;
+    }
 }
 
 Node* findBiggest (Node* ptr){
