@@ -259,20 +259,11 @@ void remove1Par(Node* pre, Node* curr){
 }
 
 void removePar(Node* currData, Node* preData, Node* swapData){
-    if ((swapData -> right != NULL) && (swapData -> right != NULL)){
-        string temp = swapData -> data;
-        currData -> data = temp;
-        delete swapData;
-        swapData = NULL;
-        preData -> right = NULL;
-    }
-    else{
-        string temp = swapData -> data;
-        currData -> data = temp;
-        delete swapData;
-        swapData = NULL;
-        preData -> left = NULL;
-    }
+    string temp = swapData -> data;
+    currData -> data = temp;
+    delete swapData;
+    swapData = NULL;
+    preData -> right = NULL;
 }
 
 Node* findBiggest (Node* ptr){
@@ -324,7 +315,6 @@ size_t Set::remove(const std::string& value){
     }
     else{
         remove1Par(pre, curr);
-        // cout << "end" << endl;
         return 1;
     }
     return 1;
