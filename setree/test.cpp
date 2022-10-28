@@ -10,12 +10,14 @@ int main() {
   myset.insert("m");
   
   myset.insert("f");
-  myset.insert("z");
   myset.insert("a");
+  myset.insert("p");
   myset.insert("m");
+  myset.insert("n");
+  myset.insert("q");
   
   myset.print();
-  myset.remove("m");
+  myset.remove("p");
   // cout << "lookup "<<myset.lookup(21) << endl;
   //myset.print();
   // cout << "original ";

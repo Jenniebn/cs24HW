@@ -189,91 +189,92 @@ void Set::print() const{
     cout << endl;
 }
 
-Node* locatePre(const std::string& value, Node* ptr){
-    if (value > ptr -> data){
-        if (ptr -> right -> data == value){
-            return ptr;
-        }
-        return locatePre(value, ptr -> right);
-    }
-    else {
-        if (ptr -> left -> data == value){
-            return ptr;
-        }
-        return locatePre(value, ptr -> left);
-    }
-}
+// Node* locatePre(const std::string& value, Node* ptr){
+//     if (value > ptr -> data){
+//         if (ptr -> right -> data == value){
+//             return ptr;
+//         }
+//         return locatePre(value, ptr -> right);
+//     }
+//     else {
+//         if (ptr -> left -> data == value){
+//             return ptr;
+//         }
+//         return locatePre(value, ptr -> left);
+//     }
+// }
 
-Node* locateCurr(const std::string& value, Node* ptr){
-    if (value > ptr -> data){
-        if (ptr -> data == value){
-            return ptr;
-        }
-        return locateCurr(value, ptr -> right);
-    }
-    else {
-        if (ptr -> data == value){
-            return ptr;
-        }
-        return locateCurr(value, ptr -> left);
-    }
-}
+// Node* locateCurr(const std::string& value, Node* ptr){
+//     if (value > ptr -> data){
+//         if (ptr -> data == value){
+//             return ptr;
+//         }
+//         return locateCurr(value, ptr -> right);
+//     }
+//     else {
+//         if (ptr -> data == value){
+//             return ptr;
+//         }
+//         return locateCurr(value, ptr -> left);
+//     }
+// }
 
-void removeLeaf(Node* pre, Node* curr, bool L, bool R){
-    delete curr;
-    curr = NULL;
-    if(L && !R){
-        pre -> left = NULL;
-    }
-    else {
-        pre -> right = NULL;
-    }
-}
+// void removeLeaf(Node* pre, Node* curr, bool L, bool R){
+//     delete curr;
+//     curr = NULL;
+//     if(L && !R){
+//         pre -> left = NULL;
+//     }
+//     else {
+//         pre -> right = NULL;
+//     }
+// }
 
-void remove1Par(Node* pre, Node* curr){
-    bool nextL = curr -> left;
-    bool nextR = curr -> right;
-    bool preNextL = (pre -> left == curr);
-    bool preNextR = (pre -> right == curr);
+// void remove1Par(Node* pre, Node* curr){
+//     bool nextL = curr -> left;
+//     bool nextR = curr -> right;
+//     bool preNextL = (pre -> left == curr);
+//     bool preNextR = (pre -> right == curr);
 
-    if (preNextL && nextL){
-        pre -> left = curr -> left;
-        delete curr;
-        curr = NULL;
-    }
-    else if (preNextL && nextR){
-        pre -> left = curr -> right;
-        delete curr;
-        curr = NULL;
-    }
-    else if (preNextR && nextL){
-        pre -> right = curr -> left;
-        delete curr;
-        curr = NULL;
-    }
-    else if (preNextR && nextR){
-        pre -> right = curr -> right;
-        delete curr;
-        curr = NULL;
-    }
-}
+//     if (preNextL && nextL){
+//         pre -> left = curr -> left;
+//         delete curr;
+//         curr = NULL;
+//     }
+//     else if (preNextL && nextR){
+//         pre -> left = curr -> right;
+//         delete curr;
+//         curr = NULL;
+//     }
+//     else if (preNextR && nextL){
+//         pre -> right = curr -> left;
+//         delete curr;
+//         curr = NULL;
+//     }
+//     else if (preNextR && nextR){
+//         pre -> right = curr -> right;
+//         delete curr;
+//         curr = NULL;
+//     }
+// }
 
-void removePar(Node* currData, Node* preData, Node* swapData){
-    if (currData -> left == swapData){
-        string temp = swapData -> data;
-        currData -> data = temp;
-        preData -> left = swapData -> left;
-        delete swapData;
-        swapData = NULL;
-    }
-    else{
-        string temp = swapData -> data;
-        currData -> data = temp;
-        delete swapData;
-        swapData = NULL;
-        preData -> right = NULL;
-    }
-}
+// void removePar(Node* currData, Node* preData, Node* swapData){
+//     if (currData -> left == swapData){
+//         string temp = swapData -> data;
+//         currData -> data = temp;
+//         preData -> left = swapData -> left;
+//         delete swapData;
+//         swapData = NULL;
+//     }
+//     else{
+//         string temp = swapData -> data;
+//         currData -> data = temp;
+//         preData -> right = NULL;
+//         delete swapData;
+//         swapData = NULL;
+        
+//     }
+// }
 
 Node* findBiggest (Node* ptr){
     ptr = ptr -> left;
@@ -283,48 +284,104 @@ Node* findBiggest (Node* ptr){
     return ptr;
 }
 
+Node* removeTree(Node* ptr, const std::string& value){
+    if (ptr == NULL){
+        return ptr;
+    }
+    if (value > ptr -> data){
+        ptr -> right = removeTree(ptr -> right, value);
+    }
+    else if (value < ptr -> data){
+        ptr -> left = removeTree(ptr -> left, value);
+    }
+    else if (value == ptr -> data){
+        // leaf node
+        if ((ptr -> right == NULL) && (ptr -> left == NULL)){
+            delete ptr;
+            ptr = NULL;
+            return ptr;
+        }
+        // 2 children
+        else if ((ptr -> left != NULL) && (ptr -> right != NULL)) {
+            Node* temp = findBiggest(ptr);
+            ptr -> data = temp -> data;
+            ptr -> left = removeTree(ptr -> left, temp -> data);
+        }
+        // 1 child
+        else{
+            if (ptr -> left == NULL){
+                Node* temp = ptr -> right;
+                ptr -> right = NULL;
+                delete ptr;
+                ptr = NULL;
+                return temp;
+            }
+            else if (ptr -> right == NULL){
+                Node* temp = ptr -> left;
+                ptr -> left = NULL;
+                delete ptr;
+                ptr = NULL;
+                return temp;
+            }
+        }
+        
+    }
+    return ptr;
+}
+
 size_t Set::remove(const std::string& value){
-    Node* curr = mRoot;
-    Node* pre = mRoot;
+    Node* temp = mRoot;
     if (contains(value) == false){
         return 0;
     }
-    size_t num = count();
-    if (num == 1){
-        delete mRoot;
-        mRoot = NULL;
-        return 1;
-    }
-    if (mRoot -> data != value){
-        pre = locatePre(value, curr);
-        curr = locateCurr(value, curr);
-    }
-    
-    // cout << "pre value " << pre -> data << endl;
-    // cout << "curr value " << curr -> data << endl;
-    
-    bool has0Children = ((curr -> left == NULL) && (curr -> right == NULL));
-    bool has2Children = ((curr -> left != NULL) && (curr -> right != NULL));
-    
-    if (has0Children){
-        if (pre -> right == curr){
-            removeLeaf(pre, curr, false, true);
-            return 1;
-        }
-        else{
-            removeLeaf(pre, curr, true, false);
-            return 1;
-        }
-    }
-    else if (has2Children){
-        Node* toCopy = findBiggest(curr);
-        pre = locatePre(toCopy -> data, mRoot);
-        removePar(curr, pre, toCopy);
-        return 1;
-    }
     else{
-        remove1Par(pre, curr);
+        removeTree(temp, value);
         return 1;
     }
-    return 1;
 }
+
+
+//     Node* curr = mRoot;
+//     Node* pre = mRoot;
+//     if (contains(value) == false){
+//         return 0;
+//     }
+//     size_t num = count();
+//     if (num == 1){
+//         delete mRoot;
+//         mRoot = NULL;
+//         return 1;
+//     }
+//     if (mRoot -> data != value){
+//         pre = locatePre(value, curr);
+//         curr = locateCurr(value, curr);
+//     }
+    
+//     // cout << "pre value " << pre -> data << endl;
+//     // cout << "curr value " << curr -> data << endl;
+    
+//     bool has0Children = ((curr -> left == NULL) && (curr -> right == NULL));
+//     bool has2Children = ((curr -> left != NULL) && (curr -> right != NULL));
+    
+//     if (has0Children){
+//         if (pre -> right == curr){
+//             removeLeaf(pre, curr, false, true);
+//             return 1;
+//         }
+//         else{
+//             removeLeaf(pre, curr, true, false);
+//             return 1;
+//         }
+//     }
+//     else if (has2Children){
+//         Node* toCopy = findBiggest(curr);
+//         pre = locatePre(toCopy -> data, mRoot);
+//         removePar(curr, pre, toCopy);
+//         return 1;
+//     }
+//     else{
+//         remove1Par(pre, curr);
+//         return 1;
+//     }
+//     return 1;
+// }
