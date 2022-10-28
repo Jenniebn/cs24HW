@@ -140,8 +140,8 @@ size_t Set::insert(const std::string& value){
 const std::string& lookupTree(size_t num, Node* ptr){
     size_t index = countTree(ptr -> left);
     
-    if (num > index){
-        return lookupTree(num - index -1, ptr -> right);
+    if ((ptr -> right == NULL) && (num != 0)){
+        throw out_of_range("Out of Range");
     }
     else if (num < index){
         return lookupTree(num, ptr -> left);
@@ -149,8 +149,8 @@ const std::string& lookupTree(size_t num, Node* ptr){
     else if ((index == num + 1) || (index == num)){
         return ptr -> data;
     }
-    else if ((ptr -> right == NULL) && (num != 0)){
-        throw out_of_range("Out of Range");
+    else if (num > index){
+        return lookupTree(num - index -1, ptr -> right);
     }
     return ptr -> data;
 }

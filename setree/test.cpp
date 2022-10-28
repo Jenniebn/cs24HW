@@ -16,8 +16,7 @@ int main() {
   myset.insert("n");
   myset.insert("q");
   
-  myset.print();
-  myset.remove("b");
+  cout << myset.lookup(7) << endl;
   // cout << "lookup "<<myset.lookup(21) << endl;
   //myset.print();
   // cout << "original ";
@@ -29,8 +28,8 @@ int main() {
   // cout << myset.remove("z") << endl;
   // myset.print();
   // myset.remove("e");
-  cout << "after remove ";
-  myset.print();
+  // cout << "after remove ";
+  // myset.print();
   // Set newlist(myset);
   // newlist.print();
   return 0;
