@@ -9,12 +9,12 @@ int main() {
   Set myset;
   myset.insert("c");
   
-  myset.insert("b");
-  myset.insert("a");
-  myset.insert("b");
-  myset.insert("m");
-  myset.insert("n");
-  myset.insert("q");
+  // myset.insert("b");
+  // myset.insert("a");
+  // myset.insert("b");
+  // myset.insert("m");
+  // myset.insert("n");
+  // myset.insert("q");
   
   cout << myset.lookup(7) << endl;
   // cout << "lookup "<<myset.lookup(21) << endl;
