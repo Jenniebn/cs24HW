@@ -335,7 +335,7 @@ size_t Set::remove(const std::string& value){
         return 0;
     }
     else{
-        removeTree(temp, value);
+        mRoot = removeTree(temp, value);
         return 1;
     }
 }
