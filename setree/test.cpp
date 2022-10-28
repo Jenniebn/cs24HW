@@ -7,17 +7,17 @@
 
 int main() {
   Set myset;
-  myset.insert("m");
+  myset.insert("c");
   
-  myset.insert("f");
+  myset.insert("b");
   myset.insert("a");
-  myset.insert("p");
+  myset.insert("b");
   myset.insert("m");
   myset.insert("n");
   myset.insert("q");
   
   myset.print();
-  myset.remove("p");
+  myset.remove("b");
   // cout << "lookup "<<myset.lookup(21) << endl;
   //myset.print();
   // cout << "original ";
