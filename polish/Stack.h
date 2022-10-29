@@ -1,7 +1,20 @@
 #ifndef STACK_H
 #define STACK_H
+#include "AST.h"
 
-// Use this file to define your Stack type.
-// Implement its member functions in Stack.cpp.
+struct Node {
+    AST*  data;
+    Node* next;
+};
 
+class stack {
+    Node* head;
+
+public:
+    stack();
+    ~stack();
+    void push(AST* ptr);
+    Node* pop();
+    Node* top();
+};
 #endif

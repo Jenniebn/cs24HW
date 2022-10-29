@@ -23,4 +23,5 @@ public:
   virtual double      value()   const = 0;
 };
 
+
 #endif
