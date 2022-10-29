@@ -15,6 +15,7 @@ stack::~stack(){
 void stack::push(AST* ptr){
     Node* newNode = new Node;
     newNode -> data = ptr;
+    ptr = NULL;
     newNode -> next = NULL;
     if (head == NULL){
         head = newNode;
@@ -22,6 +23,7 @@ void stack::push(AST* ptr){
     else{
         newNode -> next = head;
         head = newNode;
+
     }
 }
     

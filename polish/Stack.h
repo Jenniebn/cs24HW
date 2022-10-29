@@ -8,9 +8,8 @@ struct Node {
 };
 
 class stack {
-    Node* head;
-
 public:
+    Node* head;
     stack();
     ~stack();
     void push(AST* ptr);
