@@ -1,5 +1,6 @@
 #include "Nodes.h"
 #include <string>
+#include <cmath>
 // Implement your AST subclasses' member functions here.
 
 // To format a double for output:
