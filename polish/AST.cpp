@@ -69,8 +69,8 @@ AST* AST::parse(const std::string& expression) {
                 myStack.push(number);
             }
         }
-        cout << "process " << myStack.top() -> data -> value() << endl;
+        // cout << "process " << myStack.top() -> data -> value() << endl;
     }
-    cout << "postfix " << myStack.top() -> data -> postfix() << endl;
+    // cout << "postfix " << myStack.top() -> data -> postfix() << endl;
     return myStack.top() -> data;
 }
