@@ -4,8 +4,34 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <ctype.h>
 using namespace std;
 using std::istringstream;
+// check if the token is valid or not
+bool validToken(string myToken){
+    // if the token is one of the operators return true
+    if ((myToken == "+" || "-" || "*" || "/" || "%" || "~") && (myToken.length() == 1)){
+        return true;
+    }
+    // check for invalid token all characters e.g. "one"
+    for (size_t i = 0; i < myToken.length(); i++){
+        if ((myToken[0] == '-') || (myToken[0] == '+')){
+            continue;
+        }
+        if (!isdigit(myToken[i])){
+            throw runtime_error("Invalid token: " + myToken);
+            return false;
+        }
+    }
+    // check for invalid token all characters e.g. "2ab"
+    size_t check = 0;
+    stod(myToken, &check);
+    if (check != myToken.length()){
+        throw runtime_error("Invalid token: " + myToken);
+        return false;
+    }
+    return false;
+}
 
 AST* AST::parse(const std::string& expression) {
     // create a stack
@@ -14,75 +40,64 @@ AST* AST::parse(const std::string& expression) {
     string token;
     
     while(mystream >> token) {
-        // check for invalid token
-        size_t check = 0;
-        stod(token, &check);
-        if (check < token.size()){
-            throw runtime_error("Invalid token: " + token);
+        validToken(token);
+        
+        // link operators with numbers
+        if (token == "+"){
+            if (myStack.top() -> next == NULL){
+                throw runtime_error("Not enough operands.");
+            }
+            PLUS* plus = new PLUS(myStack.top() -> data, myStack.top() -> next -> data);
+            myStack.pop();
+            myStack.pop();
+            myStack.push(plus);
         }
-        bool valid = ("+" || "-" || "*" || "/" || "%" || "~" || stod(token));
-        // check for exceptions
-        if (!valid){
-            return NULL; //error messages
+        else if (token == "-"){
+            if (myStack.top() -> next == NULL){
+                throw runtime_error("Not enough operands.");
+            }
+            MINUS* minus = new MINUS(myStack.top() -> data, myStack.top() -> next -> data);
+            myStack.pop();
+            myStack.pop();
+            myStack.push(minus);
         }
-        else{
-            // link operators with numbers
-            if (token == "+"){
-                if (myStack.top() -> next == NULL){
-                    throw runtime_error("Not enough operands.");
-                }
-                PLUS* plus = new PLUS(myStack.top() -> data, myStack.top() -> next -> data);
-                myStack.pop();
-                myStack.pop();
-                myStack.push(plus);
+        else if (token == "*"){
+            if (myStack.top() -> next == NULL){
+                throw runtime_error("Not enough operands.");
             }
-            else if (token == "-"){
-                if (myStack.top() -> next == NULL){
-                    throw runtime_error("Not enough operands.");
-                }
-                MINUS* minus = new MINUS(myStack.top() -> data, myStack.top() -> next -> data);
-                myStack.pop();
-                myStack.pop();
-                myStack.push(minus);
+            MULTI* multi = new MULTI(myStack.top() -> data, myStack.top() -> next -> data);
+            myStack.pop();
+            myStack.pop();
+            myStack.push(multi);
+        }
+        else if (token == "/"){
+            if (myStack.top() -> next == NULL){
+                throw runtime_error("Not enough operands.");
             }
-            else if (token == "*"){
-                if (myStack.top() -> next == NULL){
-                    throw runtime_error("Not enough operands.");
-                }
-                MULTI* multi = new MULTI(myStack.top() -> data, myStack.top() -> next -> data);
-                myStack.pop();
-                myStack.pop();
-                myStack.push(multi);
+            DIVIDE* divide = new DIVIDE(myStack.top() -> data, myStack.top() -> next -> data);
+            myStack.pop();
+            myStack.pop();
+            myStack.push(divide);
+        }
+        else if (token == "%"){
+            if (myStack.top() -> next == NULL){
+                throw runtime_error("Not enough operands.");
             }
-            else if (token == "/"){
-                if (myStack.top() -> next == NULL){
-                    throw runtime_error("Not enough operands.");
-                }
-                DIVIDE* divide = new DIVIDE(myStack.top() -> data, myStack.top() -> next -> data);
-                myStack.pop();
-                myStack.pop();
-                myStack.push(divide);
-            }
-            else if (token == "%"){
-                if (myStack.top() -> next == NULL){
-                    throw runtime_error("Not enough operands.");
-                }
-                REMAIN* remain = new REMAIN(myStack.top() -> data, myStack.top() -> next -> data);
-                myStack.pop();
-                myStack.pop();
-                myStack.push(remain);
-            }
-            else if (token == "~"){
-                NEGATE* negate = new NEGATE(myStack.top() -> data);
-                myStack.pop();
-                myStack.push(negate);
-            }
+            REMAIN* remain = new REMAIN(myStack.top() -> data, myStack.top() -> next -> data);
+            myStack.pop();
+            myStack.pop();
+            myStack.push(remain);
+        }
+        else if (token == "~"){
+            NEGATE* negate = new NEGATE(myStack.top() -> data);
+            myStack.pop();
+            myStack.push(negate);
+        }
 
-            // push the number onto stack
-            else if (stod(token) || (stod(token) == 0)){
-                NUM* number = new NUM(stod(token));
-                myStack.push(number);
-            }
+        // push the number onto stack
+        else if (stod(token) || (stod(token) == 0)){
+            NUM* number = new NUM(stod(token));
+            myStack.push(number);
         }
     }
     // check if the input line is empty

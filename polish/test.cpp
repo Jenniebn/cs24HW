@@ -2,6 +2,8 @@
 #include "Stack.h"
 #include "Nodes.h"
 #include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 // If you want a different main function, write it here!
@@ -24,12 +26,22 @@ using namespace std;
 // }
 
 int main() {
-  string line;
-  AST* ast = NULL;
-  while(getline(cin, line)) {
-      ast = AST::parse(line);
+  // string line;
+  // AST* ast = NULL;
+  // while(getline(cin, line)) {
+  //     ast = AST::parse(line);
+  // }
+  // cout << ast -> value() << endl;
+
+  size_t check = 0;
+  istringstream mystream("+");
+  string token;
+  
+  while(mystream >> token) {
+    stod(token, &check);
+    cout << token << endl;
+    cout << check << endl;
   }
-  cout << ast -> value() << endl;
   
 
 
