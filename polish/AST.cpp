@@ -41,13 +41,13 @@ AST* AST::parse(const std::string& expression) {
     stack myStack;
     istringstream mystream(expression);
     string token;
-    
+
     while(mystream >> token) {
         validToken(token);
-        
+        size_t stackSize = myStack.stackSize();
         // link operators with numbers
         if (token == "+"){
-            if (myStack.top() -> next == NULL){
+            if (stackSize < 2){
                 throw runtime_error("Not enough operands.");
             }
             PLUS* plus = new PLUS(myStack.top() -> data, myStack.top() -> next -> data);
@@ -56,7 +56,7 @@ AST* AST::parse(const std::string& expression) {
             myStack.push(plus);
         }
         else if (token == "-"){
-            if (myStack.top() -> next == NULL){
+            if (stackSize < 2){
                 throw runtime_error("Not enough operands.");
             }
             MINUS* minus = new MINUS(myStack.top() -> data, myStack.top() -> next -> data);
@@ -65,7 +65,7 @@ AST* AST::parse(const std::string& expression) {
             myStack.push(minus);
         }
         else if (token == "*"){
-            if (myStack.top() -> next == NULL){
+            if (stackSize < 2){
                 throw runtime_error("Not enough operands.");
             }
             MULTI* multi = new MULTI(myStack.top() -> data, myStack.top() -> next -> data);
@@ -74,7 +74,7 @@ AST* AST::parse(const std::string& expression) {
             myStack.push(multi);
         }
         else if (token == "/"){
-            if (myStack.top() -> next == NULL){
+            if (stackSize < 2){
                 throw runtime_error("Not enough operands.");
             }
             DIVIDE* divide = new DIVIDE(myStack.top() -> data, myStack.top() -> next -> data);
@@ -83,7 +83,7 @@ AST* AST::parse(const std::string& expression) {
             myStack.push(divide);
         }
         else if (token == "%"){
-            if (myStack.top() -> next == NULL){
+            if (stackSize < 2){
                 throw runtime_error("Not enough operands.");
             }
             REMAIN* remain = new REMAIN(myStack.top() -> data, myStack.top() -> next -> data);
@@ -92,6 +92,9 @@ AST* AST::parse(const std::string& expression) {
             myStack.push(remain);
         }
         else if (token == "~"){
+            if (stackSize < 1){
+                throw runtime_error("Not enough operands.");
+            }
             NEGATE* negate = new NEGATE(myStack.top() -> data);
             myStack.pop();
             myStack.push(negate);

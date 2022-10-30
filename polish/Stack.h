@@ -15,5 +15,6 @@ class stack {
     void push(AST* ptr);
     Node* pop();
     Node* top();
+    size_t stackSize();
 };
 #endif

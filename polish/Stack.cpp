@@ -55,3 +55,13 @@ Node* stack::top(){
         return NULL;
     }
 }
+
+size_t stack::stackSize(){
+    size_t count = 0;
+    Node* curr = head;
+    while (curr != nullptr){
+        ++ count;
+        curr = curr -> next;
+    }
+    return count;
+}
