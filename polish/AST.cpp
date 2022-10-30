@@ -14,6 +14,12 @@ AST* AST::parse(const std::string& expression) {
     string token;
     
     while(mystream >> token) {
+        // check for invalid token
+        // size_t* check = 0;
+        // stod(token, check);
+        // if (*check < token.size()){
+        //     throw runtime_error("Invalid token: " + token);
+        // }
         bool valid = ("+" || "-" || "*" || "/" || "%" || "~" || stod(token));
         // check for exceptions
         if (!valid){

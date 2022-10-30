@@ -111,6 +111,9 @@ DIVIDE::DIVIDE(AST* leftNum, AST* rightNum){
 }
 
 double      DIVIDE::value()   const{
+    if (left -> value() == 0){
+        throw runtime_error("Division by zero.");
+    }
     return right -> value() / left -> value();
 }
 
@@ -134,6 +137,9 @@ REMAIN::REMAIN(AST* leftNum, AST* rightNum){
 }
 
 double      REMAIN::value()   const{
+    if (left -> value() == 0){
+        throw runtime_error("Division by zero.");
+    }
     return fmod(right -> value(), left -> value());
 }
 
