@@ -78,7 +78,7 @@ AST* AST::parse(const std::string& expression) {
                 myStack.push(number);
             }
         }
-        cout << "stack top "<< myStack.top() -> data -> value() << endl;
+        //cout << "stack top "<< myStack.top() -> data -> value() << endl;
     }
     // check if the input line is empty
     if (myStack.head == NULL){
