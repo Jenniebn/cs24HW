@@ -14,8 +14,6 @@ stack::~stack(){
     while (curr != NULL){
         Node* next = curr -> next;
         delete curr;
-        delete curr -> data;
-        curr -> data = NULL;
         curr = next;
     }
     head = NULL;
