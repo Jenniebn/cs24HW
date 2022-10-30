@@ -1,5 +1,5 @@
-polish: AST.cpp Nodes.cpp Stack.cpp test.cpp
-	g++ AST.cpp Nodes.cpp Stack.cpp test.cpp -o test -std=c++17 -Wall -Wextra -Werror
+polish: AST.cpp Nodes.cpp Stack.cpp main.cpp
+	g++ AST.cpp Nodes.cpp Stack.cpp main.cpp -o main -std=c++17 -Wall -Wextra -Werror
 
 clean:
-	rm -f AST.o Nodes.o Stack.o test.o AST Nodes Stack test
+	rm -f AST.o Nodes.o Stack.o main.o AST Nodes Stack main

@@ -8,7 +8,14 @@ stack::stack(){
 }
 
 stack::~stack(){
-    delete head;
+    // delete head;
+    // head = NULL;
+    Node* curr = head;
+    while (curr != NULL){
+        Node* next = curr -> next;
+        delete curr;
+        curr = next;
+    }
     head = NULL;
 }
 

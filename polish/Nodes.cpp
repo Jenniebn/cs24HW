@@ -1,6 +1,7 @@
 #include "Nodes.h"
 #include <string>
 #include <cmath>
+#include <sstream> 
 // Implement your AST subclasses' member functions here.
 
 // To format a double for output:
@@ -14,11 +15,15 @@ NUM::NUM(double newNum)  {
 }
 
 std::string NUM::prefix()   const{
-    return " " + to_string(num);
+    std::ostringstream stream;
+    stream << num;
+    return " " + stream.str();
 }
 
 std::string NUM::postfix()  const{
-    return to_string(num) + " ";
+    std::ostringstream stream;
+    stream << num;
+    return stream.str() + " ";
 }
 
 double      NUM::value()    const{
@@ -41,7 +46,7 @@ double      PLUS::value()    const{
 }
 
 std::string PLUS::prefix()   const{
-    return "+ " + left -> postfix() + " " + right -> postfix();
+    return "+ " + left -> prefix() + " " + right -> prefix();
 }
 
 std::string PLUS::postfix()  const{
@@ -64,7 +69,7 @@ double      MINUS::value()   const{
 }
 
 std::string MINUS::prefix()   const{
-    return "- " + left -> postfix() + " " + right -> postfix();
+    return "- " + left -> prefix() + " " + right -> prefix();
 }
 
 std::string MINUS::postfix()  const{
@@ -87,7 +92,7 @@ double      MULTI::value()   const{
 }
 
 std::string MULTI::prefix()   const{
-    return "* " + left -> postfix() + " " + right -> postfix();
+    return "* " + left -> prefix() + " " + right -> prefix();
 }
 
 std::string MULTI::postfix()  const{
@@ -110,7 +115,7 @@ double      DIVIDE::value()   const{
 }
 
 std::string DIVIDE::prefix()   const{
-    return "/ " + left -> postfix() + " " + right -> postfix();
+    return "/ " + left -> prefix() + " " + right -> prefix();
 }
 
 std::string DIVIDE::postfix()  const{
@@ -154,7 +159,7 @@ double      NEGATE::value()   const{
 }
 
 std::string NEGATE::prefix()   const{
-    return "~ " + child -> postfix();
+    return "~ " + child -> prefix();
 }
 
 std::string NEGATE::postfix()  const{
