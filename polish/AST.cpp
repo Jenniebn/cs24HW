@@ -18,6 +18,9 @@ bool validToken(string myToken){
         if ((myToken[0] == '-') || (myToken[0] == '+')){
             continue;
         }
+        else if (myToken[i] == '.'){
+            continue;
+        }
         if (!isdigit(myToken[i])){
             throw runtime_error("Invalid token: " + myToken);
             return false;
