@@ -73,11 +73,12 @@ AST* AST::parse(const std::string& expression) {
             }
 
             // push the number onto stack
-            else if (stod(token)){
+            else if (stod(token) || (stod(token) == 0)){
                 NUM* number = new NUM(stod(token));
                 myStack.push(number);
             }
         }
+        cout << "stack top "<< myStack.top() -> data -> value() << endl;
     }
     // check if the input line is empty
     if (myStack.head == NULL){

@@ -73,7 +73,7 @@ std::string MINUS::prefix()   const{
 }
 
 std::string MINUS::postfix()  const{
-    return left -> postfix() + " " + right -> postfix() + " -";
+    return right -> postfix() + " " + left -> postfix() + " -";
 }
 
 // MULTI subclass
@@ -111,7 +111,7 @@ DIVIDE::DIVIDE(AST* leftNum, AST* rightNum){
 }
 
 double      DIVIDE::value()   const{
-    return left -> value() / right -> value();
+    return right -> value() / left -> value();
 }
 
 std::string DIVIDE::prefix()   const{
@@ -134,7 +134,7 @@ REMAIN::REMAIN(AST* leftNum, AST* rightNum){
 }
 
 double      REMAIN::value()   const{
-    return fmod(left -> value(), right -> value());
+    return fmod(right -> value(), left -> value());
 }
 
 std::string REMAIN::prefix()   const{
