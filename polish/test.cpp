@@ -34,7 +34,7 @@ int main() {
   // cout << ast -> value() << endl;
 
   size_t check = 0;
-  istringstream mystream("+");
+  istringstream mystream("0 12      - ~");
   string token;
   
   while(mystream >> token) {

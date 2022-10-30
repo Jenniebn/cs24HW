@@ -2,6 +2,8 @@
 #include <string>
 #include <cmath>
 #include <sstream> 
+#include <iostream>
+using namespace std;
 // Implement your AST subclasses' member functions here.
 
 // To format a double for output:
@@ -65,7 +67,7 @@ MINUS::MINUS(AST* leftNum, AST* rightNum){
 }
 
 double      MINUS::value()   const{
-    return left -> value() - right -> value();
+    return right -> value() - left -> value();
 }
 
 std::string MINUS::prefix()   const{
