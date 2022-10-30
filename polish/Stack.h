@@ -8,7 +8,7 @@ struct Node {
 };
 
 class stack {
-public:
+  public:
     Node* head;
     stack();
     ~stack();

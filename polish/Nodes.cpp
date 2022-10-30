@@ -17,13 +17,13 @@ NUM::NUM(double newNum)  {
 std::string NUM::prefix()   const{
     std::ostringstream stream;
     stream << num;
-    return " " + stream.str();
+    return stream.str();
 }
 
 std::string NUM::postfix()  const{
     std::ostringstream stream;
     stream << num;
-    return stream.str() + " ";
+    return stream.str();
 }
 
 double      NUM::value()    const{
@@ -42,15 +42,15 @@ PLUS::PLUS(AST* leftNum, AST* rightNum)  {
 }
 
 double      PLUS::value()    const{
-    return left -> value() + right -> value();
+    return right -> value() + left -> value();
 }
 
 std::string PLUS::prefix()   const{
-    return "+ " + left -> prefix() + " " + right -> prefix();
+    return "+ " + right -> prefix() + " " + left -> prefix();
 }
 
 std::string PLUS::postfix()  const{
-    return left -> postfix() + " " + right -> postfix() + " +";
+    return right -> postfix() + " " + left -> postfix() + " +";
 }
 
 // MINUS subclass
@@ -69,7 +69,7 @@ double      MINUS::value()   const{
 }
 
 std::string MINUS::prefix()   const{
-    return "- " + left -> prefix() + " " + right -> prefix();
+    return "- " + right -> prefix() + " " + left -> prefix();
 }
 
 std::string MINUS::postfix()  const{
@@ -92,11 +92,11 @@ double      MULTI::value()   const{
 }
 
 std::string MULTI::prefix()   const{
-    return "* " + left -> prefix() + " " + right -> prefix();
+    return "* " + right -> prefix() + " " + left -> prefix();
 }
 
 std::string MULTI::postfix()  const{
-    return left -> postfix() + " " + right -> postfix() + " *";
+    return right -> postfix() + " " + left -> postfix() + " *";
 }
 
 // DIVIDE subclass
@@ -115,11 +115,11 @@ double      DIVIDE::value()   const{
 }
 
 std::string DIVIDE::prefix()   const{
-    return "/ " + left -> prefix() + " " + right -> prefix();
+    return "/ " + right -> prefix() + " " + left -> prefix();
 }
 
 std::string DIVIDE::postfix()  const{
-    return left -> postfix() + " " + right -> postfix() + " /";
+    return right -> postfix() + " " + left -> postfix() + " /";
 }
 
 // REMAIN subclass
@@ -138,11 +138,11 @@ double      REMAIN::value()   const{
 }
 
 std::string REMAIN::prefix()   const{
-    return "% " + left -> postfix() + " " + right -> postfix();
+    return "% " + right -> postfix() + " " + left -> postfix();
 }
 
 std::string REMAIN::postfix()  const{
-    return left -> postfix() + " " + right -> postfix() + " %";
+    return right -> postfix() + " " + left -> postfix() + " %";
 }
 
 // NEGATE subclass
