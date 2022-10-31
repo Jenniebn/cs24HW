@@ -16,7 +16,7 @@ bool validToken(string myToken){
     }
     // check for invalid token all characters e.g. "one"
     for (size_t i = 0; i < myToken.length(); i++){
-        if ((myToken[0] == '-') || (myToken[0] == '+')){
+        if ((myToken[i] == '-') || (myToken[i] == '+')){
             continue;
         }
         else if (myToken[i] == '.'){
