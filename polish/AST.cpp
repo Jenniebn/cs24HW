@@ -11,11 +11,18 @@ using std::istringstream;
 // check if the token is valid or not
 bool validToken(string myToken){
     // if the token is one of the operators return true
-    if ((myToken == "+" || "-" || "*" || "/" || "%" || "~") && (myToken.length() == 1)){
+    size_t tokenSize = myToken.length();
+    if ((myToken == "+" && tokenSize == 1) || (myToken == "-" && tokenSize == 1) || (myToken == "*" && tokenSize == 1)  || (myToken == "/" && tokenSize == 1)  || (myToken == "%" && tokenSize == 1) || (myToken == "~" && tokenSize == 1) ){
         return true;
+    }
+    
+    if (myToken == "="){
+        throw runtime_error("Invalid token: " + myToken);
+        return false;
     }
     size_t plusMinus = 0;
     size_t dot = 0;
+
     // check for invalid token all characters e.g. "one"
     for (size_t i = 0; i < myToken.length(); i++){
         if ((myToken[i] == '-') || (myToken[i] == '+')){
@@ -26,7 +33,7 @@ bool validToken(string myToken){
             dot ++;
             continue;
         }
-        if ((!isdigit(myToken[i])) || (plusMinus > 1) || (dot > 1)){
+        else if ((plusMinus > 1) || (dot > 1) || (!isdigit(myToken[i]))){
             throw runtime_error("Invalid token: " + myToken);
             return false;
         }
