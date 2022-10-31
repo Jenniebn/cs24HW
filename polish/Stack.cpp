@@ -13,7 +13,7 @@ stack::~stack(){
     Node* curr = head;
     while (curr != NULL){
         Node* next = curr -> next;
-        delete curr -> data;
+        // delete curr -> data;
         // curr -> data = nullptr;
         delete curr;
         curr = next;
@@ -43,7 +43,9 @@ Node* stack::pop(){
     else{
         Node* temp = head;
         head = temp -> next;
+        // delete temp -> data;
         delete temp;
+        //temp -> data = nullptr;
         temp = NULL;
         return head;
     }
