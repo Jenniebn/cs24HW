@@ -1,4 +1,3 @@
-
 #include "Stack.h"
 using namespace std;
 #include <iostream>
@@ -9,12 +8,14 @@ stack::stack(){
 }
 
 stack::~stack(){
+    // delete head;
+    // head = NULL;
     Node* curr = head;
     while (curr != NULL){
         Node* next = curr -> next;
         delete curr -> data;
+        // curr -> data = nullptr;
         delete curr;
-        curr -> data = nullptr;
         curr = next;
     }
     head = NULL;
@@ -23,7 +24,7 @@ stack::~stack(){
 void stack::push(AST* ptr){
     Node* newNode = new Node;
     newNode -> data = ptr;
-    ptr = NULL;
+    // ptr = NULL;
     newNode -> next = NULL;
     if (head == NULL){
         head = newNode;

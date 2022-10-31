@@ -1,3 +1,4 @@
+
 #include "AST.h"
 #include "Nodes.h"
 #include "Stack.h"
@@ -113,5 +114,5 @@ AST* AST::parse(const std::string& expression) {
     else if (myStack.top() -> next != NULL){
         throw runtime_error("Too many operands.");
     }
-    return myStack.top() -> data;
+    return myStack.pop() -> data;
 }
