@@ -13,8 +13,8 @@ stack::~stack(){
     Node* curr = head;
     while (curr != NULL){
         Node* next = curr -> next;
-        // delete curr -> data;
-        // curr -> data = nullptr;
+        delete curr -> data;
+        //curr -> data = nullptr;
         delete curr;
         curr = next;
     }

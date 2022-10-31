@@ -114,5 +114,7 @@ AST* AST::parse(const std::string& expression) {
     else if (myStack.top() -> next != NULL){
         throw runtime_error("Too many operands.");
     }
-    return myStack.top() -> data;
+    AST* lastNode = myStack.top() -> data;
+    myStack.pop();
+    return lastNode;
 }
