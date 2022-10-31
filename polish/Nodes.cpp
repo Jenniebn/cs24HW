@@ -146,7 +146,7 @@ double      REMAIN::value()   const{
 }
 
 std::string REMAIN::prefix()   const{
-    return "% " + right -> postfix() + ' ' + left -> postfix();
+    return "% " + right -> prefix() + ' ' + left -> prefix();
 }
 
 std::string REMAIN::postfix()  const{

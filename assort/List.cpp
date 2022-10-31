@@ -61,7 +61,7 @@ void List::insert(const std::string& value){
     Node* newNode = new Node;
     newNode -> data = value;
     if (head == NULL){
-        head =newNode;
+        head = newNode;
         newNode -> next = NULL;
     }
     else if (newNode -> data < head -> data){
