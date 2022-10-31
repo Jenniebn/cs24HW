@@ -1,3 +1,4 @@
+
 #include "Stack.h"
 using namespace std;
 #include <iostream>
@@ -8,12 +9,12 @@ stack::stack(){
 }
 
 stack::~stack(){
-    // delete head;
-    // head = NULL;
     Node* curr = head;
     while (curr != NULL){
         Node* next = curr -> next;
+        delete curr -> data;
         delete curr;
+        curr -> data = nullptr;
         curr = next;
     }
     head = NULL;
