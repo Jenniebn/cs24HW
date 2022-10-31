@@ -14,15 +14,19 @@ bool validToken(string myToken){
     if ((myToken == "+" || "-" || "*" || "/" || "%" || "~") && (myToken.length() == 1)){
         return true;
     }
+    size_t plusMinus = 0;
+    size_t dot = 0;
     // check for invalid token all characters e.g. "one"
     for (size_t i = 0; i < myToken.length(); i++){
         if ((myToken[i] == '-') || (myToken[i] == '+')){
+            plusMinus ++;
             continue;
         }
         else if (myToken[i] == '.'){
+            dot ++;
             continue;
         }
-        if (!isdigit(myToken[i])){
+        if ((!isdigit(myToken[i])) || (plusMinus > 1) || (dot > 1)){
             throw runtime_error("Invalid token: " + myToken);
             return false;
         }
