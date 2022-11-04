@@ -46,10 +46,10 @@ Person::~Person(){
 
 std::set<Person*> Person::ancestors(PMod pmod){
     set<Person*> ANCESTORS = parents();
-    for (auto ancestor : ANCESTORS) {
-        set<Person*> allAncestor = ancestor -> parent();
-    }
-    ANCESTORS.insert(allAncestor.begin(), allAncestor.end());
+    // for (auto ancestor : ANCESTORS) {
+    //     set<Person*> allAncestor = ancestor -> parents();
+    // }
+    // ANCESTORS.insert(allAncestor.begin(), allAncestor.end());
 	// 	cousins.insert(allCousins.begin(), allCousins.end());
 	// }
     // for (auto ancestor: ANCESTORS){
