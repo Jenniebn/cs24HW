@@ -10,7 +10,7 @@ GenePool::GenePool(std::istream& stream){
     std::string line;
     while(std::getline(stream, line)) {
         istringstream ss(line);
-        if (line == "\n" || line[0] == '#'){
+        if (line.length() == 0 || line[0] == '#'){
                 continue;
         }
         string gender, mother, father;
