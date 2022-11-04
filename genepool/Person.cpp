@@ -106,10 +106,29 @@ std::set<Person*> Person::descendants(){
 }
 
 std::set<Person*> Person::grandchildren(){
-    return set<Person*>();
+    if (mChildren.size() == 0){
+        return mChildren;
+    }
+    set<Person*> GRANDCHILDREN;
+    for (auto grandchild : mChildren){
+        set<Person*> newGrandchild = grandchild -> mChildren;
+        GRANDCHILDREN.insert(newGrandchild.begin(), newGrandchild.end());
+    }
+    return GRANDCHILDREN;
 }
+
 std::set<Person*> Person::granddaughters(){
-    return set<Person*>();
+    if (mChildren.size() == 0){
+        return mChildren;
+    }
+    set<Person*> old = grandchildren();
+    set<Person*> GRANDDAUGHTERS;
+    for (auto granddaughter : old){
+        if (granddaughter -> gender() == Gender::FEMALE){
+            GRANDDAUGHTERS.insert(granddaughter);
+        }
+    }
+    return GRANDDAUGHTERS;
 }
 std::set<Person*> Person::grandfathers(PMod pmod){
     set<Person*> GRANDFATHERS = grandparents(pmod);
@@ -127,7 +146,17 @@ std::set<Person*> Person::grandparents(PMod pmod){
     return GRANDPARENTS;
 }
 std::set<Person*> Person::grandsons(){
-    return set<Person*>();
+    if (mChildren.size() == 0){
+        return mChildren;
+    }
+    set<Person*> old = grandchildren();
+    set<Person*> GRANDSONS;
+    for (auto grandson : old){
+        if (grandson -> gender() == Gender::MALE){
+            GRANDSONS.insert(grandson);
+        }
+    }
+    return GRANDSONS;
 }
 std::set<Person*> Person::nephews(PMod pmod, SMod smod){
     return set<Person*>();
