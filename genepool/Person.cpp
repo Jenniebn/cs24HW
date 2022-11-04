@@ -42,15 +42,15 @@ Person::Person(const std::string name, Gender gender, Person* mother, Person* fa
 }
 
 Person::~Person(){
-    delete mMother;
-    delete mFather;
+    // delete mMother;
+    // delete mFather;
 }
 
 std::set<Person*> Person::ancestors(PMod pmod){
     set<Person*> ANCESTORS = parents(pmod);
     for (auto ancestor: ANCESTORS){
-        auto newAncestors = ancestor -> parents(pmod);
-        ANCESTORS.insert(newAncestors.begin(), newAncestors.end());
+        ANCESTORS.insert(ancestor -> mother());
+        ANCESTORS.insert(ancestor -> father());
     }
     return ANCESTORS;
 }

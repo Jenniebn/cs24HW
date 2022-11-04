@@ -53,7 +53,6 @@ GenePool::GenePool(std::istream& stream){
 
 GenePool::~GenePool(){
     for (auto itr: family){
-
         delete itr.second;
         //delete itr;
 
