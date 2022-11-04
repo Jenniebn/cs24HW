@@ -50,9 +50,6 @@ std::set<Person*> Person::ancestors(PMod pmod){
     set<Person*> ANCESTORS = parents(pmod);
     for (auto ancestor: ANCESTORS){
         if (ancestor -> mother() != nullptr && ancestor -> father() != nullptr){
-            // ANCESTORS.insert(ancestor -> mother());
-            // ANCESTORS.insert(ancestor -> father());
-            // set<Person*> newAncestors = ancestor -> parents(PMod::ANY);
             set<Person*> newAncestors = ancestor -> ancestors(PMod::ANY);
             ANCESTORS.insert(newAncestors.begin(), newAncestors.end());
         }
@@ -97,8 +94,17 @@ std::set<Person*> Person::daughters(){
     return DAUGHTERS;
 }
 std::set<Person*> Person::descendants(){
-    return set<Person*>();
+    if (mChildren.size() == 0){
+        return mChildren;
+    }
+    set<Person*> DESCENDANTS = mChildren;
+    for (auto descendant : DESCENDANTS){
+        set<Person*> newDescestors = descendant -> descendants();
+        DESCENDANTS.insert(newDescestors.begin(), newDescestors.end());
+    }
+    return DESCENDANTS;
 }
+
 std::set<Person*> Person::grandchildren(){
     return set<Person*>();
 }
