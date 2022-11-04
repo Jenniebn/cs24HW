@@ -201,7 +201,6 @@ std::set<Person*> Person::nieces(PMod pmod, SMod smod){
 std::set<Person*> Person::parents(PMod pmod){
     set<Person*> PARENTS;
     if (pmod == PMod::MATERNAL && mMother != nullptr){
-        cout << "herr\n";
         PARENTS.insert(mMother);
     }
     else if (pmod == PMod::PATERNAL && mFather != nullptr){
