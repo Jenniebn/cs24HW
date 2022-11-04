@@ -50,8 +50,11 @@ std::set<Person*> Person::ancestors(PMod pmod){
     set<Person*> ANCESTORS = parents(pmod);
     for (auto ancestor: ANCESTORS){
         if (ancestor -> mother() != nullptr && ancestor -> father() != nullptr){
-            ANCESTORS.insert(ancestor -> mother());
-            ANCESTORS.insert(ancestor -> father());
+            // ANCESTORS.insert(ancestor -> mother());
+            // ANCESTORS.insert(ancestor -> father());
+            // set<Person*> newAncestors = ancestor -> parents(PMod::ANY);
+            set<Person*> newAncestors = ancestor -> ancestors(PMod::ANY);
+            ANCESTORS.insert(newAncestors.begin(), newAncestors.end());
         }
     }
     return ANCESTORS;
@@ -111,30 +114,10 @@ std::set<Person*> Person::grandmothers(PMod pmod){
     return GRANDMOTHERS;
 }
 std::set<Person*> Person::grandparents(PMod pmod){
-    set<Person*> GRANDPARENTS;
-    for (auto grandparent : parents(pmod)){
-        bool grandmaExist = grandparent -> mMother != nullptr;
-        bool grandpaExist = grandparent -> mFather != nullptr;
-        if (pmod == PMod::ANY && !grandmaExist && !grandpaExist){
-            continue;
-        }
-        else if (pmod == PMod::MATERNAL && grandmaExist){
-            GRANDPARENTS.insert(grandparent -> mMother);
-        }
-        else if (pmod == PMod::PATERNAL && grandpaExist){
-            GRANDPARENTS.insert(grandparent -> mFather);
-        }
-        else if (pmod == PMod::ANY && grandmaExist && grandpaExist){
-            GRANDPARENTS.insert(grandparent -> mMother);
-            GRANDPARENTS.insert(grandparent -> mFather);
-        }
-        else if (pmod == PMod::ANY && !grandmaExist && grandpaExist){
-            GRANDPARENTS.insert(grandparent -> mFather);
-        }
-        else if (pmod == PMod::ANY && grandmaExist && !grandpaExist){
-            GRANDPARENTS.insert(grandparent -> mMother);
-        }
-    }
+    set<Person*> GRANDPARENTS = parents(pmod);
+    // for (auto grandparent : GRANDPARENTS){
+    //     if (pmod == PMod::MATERNAL && ){}
+    // }
     return GRANDPARENTS;
 }
 std::set<Person*> Person::grandsons(){
