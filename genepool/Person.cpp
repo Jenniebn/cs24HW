@@ -49,8 +49,10 @@ Person::~Person(){
 std::set<Person*> Person::ancestors(PMod pmod){
     set<Person*> ANCESTORS = parents(pmod);
     for (auto ancestor: ANCESTORS){
-        ANCESTORS.insert(ancestor -> mother());
-        ANCESTORS.insert(ancestor -> father());
+        if (ancestor -> mother() != nullptr && ancestor -> father() != nullptr){
+            ANCESTORS.insert(ancestor -> mother());
+            ANCESTORS.insert(ancestor -> father());
+        }
     }
     return ANCESTORS;
 }
@@ -147,13 +149,13 @@ std::set<Person*> Person::nieces(PMod pmod, SMod smod){
 
 std::set<Person*> Person::parents(PMod pmod){
     set<Person*> PARENTS;
-    if (pmod == PMod::MATERNAL){
+    if (pmod == PMod::MATERNAL && mMother != nullptr){
         PARENTS.insert(mMother);
     }
-    else if (pmod == PMod::PATERNAL){
+    else if (pmod == PMod::PATERNAL && mFather != nullptr){
         PARENTS.insert(mFather);
     }
-    else if (pmod == PMod::ANY){
+    else if (pmod == PMod::ANY && mMother != nullptr && mFather != nullptr){
         PARENTS.insert(mMother);
         PARENTS.insert(mFather);
     }
