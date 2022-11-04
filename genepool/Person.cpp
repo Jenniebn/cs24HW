@@ -1,4 +1,6 @@
 #include "Person.h"
+#include <iostream>
+using namespace std;
 
 // Person Member Functions
 
@@ -45,36 +47,11 @@ Person::~Person(){
 }
 
 std::set<Person*> Person::ancestors(PMod pmod){
-    set<Person*> ANCESTORS = parents();
-    // for (auto ancestor : ANCESTORS) {
-    //     set<Person*> allAncestor = ancestor -> parents();
-    // }
-    // ANCESTORS.insert(allAncestor.begin(), allAncestor.end());
-	// 	cousins.insert(allCousins.begin(), allCousins.end());
-	// }
-    // for (auto ancestor: ANCESTORS){
-    //     bool fAncestor = ancestor -> mFather != nullptr;
-    //     bool mAncestor = ancestor -> mMother != nullptr;
-    //     if (!fAncestor && !mAncestor){
-    //         return ANCESTORS;
-    //     }
-    //     else if (pmod == PMod::MATERNAL && mAncestor){
-    //         ANCESTORS.insert(ancestor -> mMother);
-    //     }
-    //     else if (pmod == PMod::PATERNAL && fAncestor){
-    //         ANCESTORS.insert(ancestor -> mFather);
-    //     }
-    //     else if (pmod == PMod::ANY && fAncestor && mAncestor){
-    //         ANCESTORS.insert(ancestor -> mMother);
-    //         ANCESTORS.insert(ancestor -> mFather);
-    //     }
-    //     else if (pmod == PMod::ANY && mAncestor && !fAncestor){
-    //         ANCESTORS.insert(ancestor -> mMother);
-    //     }
-    //     else if (pmod == PMod::ANY && !mAncestor && fAncestor){
-    //         ANCESTORS.insert(ancestor -> mFather);
-    //     }
-    // }
+    set<Person*> ANCESTORS = parents(pmod);
+    for (auto ancestor: ANCESTORS){
+        auto newAncestors = ancestor -> parents(pmod);
+        ANCESTORS.insert(newAncestors.begin(), newAncestors.end());
+    }
     return ANCESTORS;
 }
 
@@ -170,25 +147,14 @@ std::set<Person*> Person::nieces(PMod pmod, SMod smod){
 
 std::set<Person*> Person::parents(PMod pmod){
     set<Person*> PARENTS;
-    bool maExist = mMother != nullptr;
-    bool paExist = mFather != nullptr;
-    if (!maExist && !paExist){
-        return PARENTS;
-    }
-    else if (pmod == PMod::MATERNAL && maExist){
+    if (pmod == PMod::MATERNAL){
         PARENTS.insert(mMother);
     }
-    else if (pmod == PMod::PATERNAL && paExist){
+    else if (pmod == PMod::PATERNAL){
         PARENTS.insert(mFather);
     }
-    else if (pmod == PMod::ANY && paExist && maExist){
+    else if (pmod == PMod::ANY){
         PARENTS.insert(mMother);
-        PARENTS.insert(mFather);
-    }
-    else if (pmod == PMod::ANY && !paExist && maExist){
-        PARENTS.insert(mMother);
-    }
-    else if (pmod == PMod::ANY && paExist && !maExist){
         PARENTS.insert(mFather);
     }
     return PARENTS;
