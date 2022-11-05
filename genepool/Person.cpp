@@ -95,13 +95,17 @@ std::set<Person*> Person::children(){
 
 std::set<Person*> Person::cousins(PMod pmod, SMod smod) {
 	set<Person*> COUSINS;
-    set<Person*> newParents = parents(pmod);
-    for (auto parent : newParents){
-	    set<Person*> parentSibs = parent -> siblings(pmod, smod);
-        for (auto parentSib : parentSibs) {
-            set<Person*> allCousins = parentSib -> children();
-		    COUSINS.insert(allCousins.begin(), allCousins.end());
-	    }
+    set<Person*> uncle = uncles(pmod, smod);
+    set<Person*> relatives = aunts(pmod, smod);
+    relatives.insert(uncle.begin(), uncle.end());
+    for (auto cousin : relatives){
+        if (cousin -> mChildren.size() == 0){
+            continue;
+        }
+        else{
+            set<Person*> newCousin = cousin -> mChildren;
+            COUSINS.insert(newCousin.begin(), newCousin.end());
+        }
     }
 	return COUSINS;
 }
@@ -357,11 +361,11 @@ std::set<Person*> Person::uncles(PMod pmod, SMod smod){
     }
     set<Person*> newBro = parents(pmod);
     for (auto brother : newBro){
-        if (brother -> brothers(pmod, smod).size() == 0){
+        if (brother -> brothers(PMod::ANY, smod).size() == 0){
             continue;
         }
         else{
-            set<Person*> bro = brother -> brothers(pmod, smod);
+            set<Person*> bro = brother -> brothers(PMod::ANY, smod);
             UNCLES.insert(bro.begin(), bro.end());
         }
     }
