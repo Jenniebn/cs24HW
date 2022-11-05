@@ -63,7 +63,16 @@ std::set<Person*> Person::aunts(PMod pmod, SMod smod){
 }
 
 std::set<Person*> Person::brothers(PMod pmod, SMod smod){
+    if (siblings(pmod, smod).size() == 0){
+        return siblings(pmod, smod);
+    }
+    set<Person*> newSib = siblings(pmod, smod);
     set<Person*> BROTHERS;
+    for (auto maleSib : newSib){
+        if (maleSib -> gender() == Gender::MALE){
+            BROTHERS.insert(maleSib);
+        }
+    }
     return BROTHERS;
 }
 
@@ -162,18 +171,12 @@ std::set<Person*> Person::grandparents(PMod pmod){
     }
     set<Person*> GRANDPARENTS;
     for (auto grandparent : parents(pmod)){
-        if (grandparent -> parents(pmod).size() == 0){
+        if (grandparent -> parents(PMod::ANY).size() == 0){
             return GRANDPARENTS;
         }
-        else if (grandparent -> mother() != nullptr && grandparent -> father() != nullptr){
-            GRANDPARENTS.insert(grandparent -> mMother);
-            GRANDPARENTS.insert(grandparent -> mFather);
-        }
-        else if (grandparent -> mother() == nullptr && grandparent -> father() != nullptr){
-            GRANDPARENTS.insert(grandparent -> mFather);
-        }
-        else if (grandparent -> mother() != nullptr && grandparent -> father() == nullptr){
-            GRANDPARENTS.insert(grandparent -> mMother);
+        else{
+            set<Person*> newGrandparent = grandparent -> parents(PMod::ANY);
+            GRANDPARENTS.insert(newGrandparent.begin(), newGrandparent.end());
         }
     }
     return GRANDPARENTS;
@@ -220,10 +223,90 @@ std::set<Person*> Person::parents(PMod pmod){
 }
 
 std::set<Person*> Person::siblings(PMod pmod, SMod smod){
-    return set<Person*>();
+    if (parents(pmod).size() == 0){
+        return parents(pmod);
+    }
+    set<Person*> SIBLINGS;
+    set<Person*> PARENTS = parents(pmod);
+    for (auto parent : PARENTS){
+        if (parent -> mChildren.size() == 0){
+            continue;
+        }
+        else if (parent -> gender() == Gender::FEMALE && pmod == PMod::MATERNAL){
+            set<Person*> newSib = parent -> mChildren;
+            if (smod == SMod::HALF){
+                for (auto halfSib : newSib){
+                    if ((halfSib -> mother() != this -> mother() && halfSib -> father() == this -> father())
+                 |      (halfSib -> mother() == this -> mother() && halfSib -> father() != this -> father())){
+                        SIBLINGS.insert(halfSib);
+                    }
+                }
+                SIBLINGS.erase(this);
+            }
+            else{
+                SIBLINGS.insert(newSib.begin(), newSib.end());
+                SIBLINGS.erase(this);
+            }
+        }
+        else if (parent -> gender() == Gender::MALE && pmod == PMod::PATERNAL){
+            set<Person*> newSib = parent -> mChildren;
+            if (smod == SMod::HALF){
+                for (auto halfSib : newSib){
+                    if ((halfSib -> mother() != this -> mother() && halfSib -> father() == this -> father())
+                 |      (halfSib -> mother() == this -> mother() && halfSib -> father() != this -> father())){
+                        SIBLINGS.insert(halfSib);
+                    }
+                }
+                SIBLINGS.erase(this);
+            }
+            else{
+                SIBLINGS.insert(newSib.begin(), newSib.end());
+                SIBLINGS.erase(this);
+            }
+        }
+        else if (pmod == PMod::ANY && smod == SMod::FULL){
+            set<Person*> newSib = parent -> mChildren;
+            for (auto fullSib : newSib){
+                if (fullSib -> mother() == nullptr || fullSib -> father() == nullptr){
+                    continue;
+                }
+                else if (fullSib -> mother() == this -> mother() && fullSib -> father() == this -> father()){
+                    SIBLINGS.insert(fullSib);
+                }
+            }
+            SIBLINGS.erase(this);
+        }
+        else if (pmod == PMod::ANY && smod == SMod::HALF){
+            set<Person*> newSib = parent -> mChildren;
+            for (auto halfSib : newSib){
+                if ((halfSib -> mother() != this -> mother() && halfSib -> father() == this -> father())
+                || (halfSib -> mother() == this -> mother() && halfSib -> father() != this -> father())){
+                    SIBLINGS.insert(halfSib);
+                }
+            }
+            SIBLINGS.erase(this);
+        }
+        else if (pmod == PMod::ANY && smod == SMod::ANY){
+            set<Person*> newSib = parent -> mChildren;
+            SIBLINGS.insert(newSib.begin(), newSib.end());
+            SIBLINGS.erase(this);
+        }
+    }
+    return SIBLINGS;
 }
+
 std::set<Person*> Person::sisters(PMod pmod, SMod smod){
-    return set<Person*>();
+    if (siblings(pmod, smod).size() == 0){
+        return siblings(pmod, smod);
+    }
+    set<Person*> newSib = siblings(pmod, smod);
+    set<Person*> SISTERS;
+    for (auto femaleSib : newSib){
+        if (femaleSib -> gender() == Gender::FEMALE){
+            SISTERS.insert(femaleSib);
+        }
+    }
+    return SISTERS;
 }
 
 std::set<Person*> Person::sons(){

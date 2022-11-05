@@ -29,7 +29,6 @@ GenePool::GenePool(std::istream& stream){
             geneFather = find(father);
             Person* newPerson = new Person(geneName, geneGender, geneMother, geneFather);
             family[geneName] = newPerson;
-            // family.insert(pair<string, Person*>(geneName, newPerson));
             
         }
         else if ((mother == "???") && (father != "???")){
@@ -37,19 +36,16 @@ GenePool::GenePool(std::istream& stream){
             geneFather = find(father);
             Person* newPerson = new Person(geneName, geneGender, geneMother, geneFather);
             family[geneName] = newPerson;
-            // family.insert(pair<string, Person*>(geneName, newPerson));
         }
         else if ((mother != "???") && (father == "???")){
             geneMother = find(mother);
             geneFather = nullptr;
             Person* newPerson = new Person(geneName, geneGender, geneMother, geneFather);
             family[geneName] = newPerson;
-            // family.insert(pair<string, Person*>(geneName, newPerson));
         }
         else{
             Person* newPerson = new Person(geneName, geneGender, nullptr, nullptr);
             family[geneName] = newPerson;
-            // family.insert(pair<string, Person*>(geneName, newPerson));
         }   
         
     }
