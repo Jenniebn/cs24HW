@@ -64,11 +64,11 @@ std::set<Person*> Person::aunts(PMod pmod, SMod smod){
     }
     set<Person*> newSis = parents(pmod);
     for (auto sister : newSis){
-        if (sister -> sisters(pmod, smod).size() == 0){
-            return AUNTS;
+        if (sister -> sisters(PMod::ANY, smod).size() == 0){
+            continue;
         }
         else{
-            set<Person*> sis = sister -> sisters(pmod, smod);
+            set<Person*> sis = sister -> sisters(PMod::ANY, smod);
             AUNTS.insert(sis.begin(), sis.end());
         }
     }
@@ -358,7 +358,7 @@ std::set<Person*> Person::uncles(PMod pmod, SMod smod){
     set<Person*> newBro = parents(pmod);
     for (auto brother : newBro){
         if (brother -> brothers(pmod, smod).size() == 0){
-            return UNCLES;
+            continue;
         }
         else{
             set<Person*> bro = brother -> brothers(pmod, smod);
