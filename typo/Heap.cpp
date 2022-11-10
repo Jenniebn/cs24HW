@@ -33,7 +33,7 @@ size_t       Heap::count() const{
 }
 
 const Heap::Entry& Heap::lookup(size_t index) const{
-    if (index > count() - 1){
+    if ((index > count() - 1) || (index < 0)){
         throw out_of_range("Out of Range");
     }
     else{
@@ -101,20 +101,28 @@ Heap::Entry        Heap::pushpop(const std::string& value, float score){
             leftChild = index * 2 + 1;
             rightChild = index * 2 + 2;
             if (leftChild < count() && rightChild < count()){
-                if (mData[leftChild].score > mData[rightChild].score){
+                if ((mData[leftChild].score > mData[rightChild].score) && (mData[rightChild].score < mData[index].score)){
                     Heap::Entry temp = mData[rightChild];
                     mData[rightChild] = mData[index];
                     mData[index] = temp;
                     index = rightChild;
                 }
+                else if (mData[leftChild].score < mData[index].score){
+                    Heap::Entry temp = mData[leftChild];
+                    mData[leftChild] = mData[index];
+                    mData[index] = temp;
+                    index = leftChild;
+                }
             }
-            else{
+            else if (mData[leftChild].score < mData[index].score){
                 Heap::Entry temp = mData[leftChild];
                 mData[leftChild] = mData[index];
                 mData[index] = temp;
                 index = leftChild;
             }
-        }
+            else{
+                break;
+            }
         return lowest;
     }
 }
