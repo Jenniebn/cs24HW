@@ -6,7 +6,7 @@ using namespace std;
 // This file won't be graded - do whatever you want.
 
 int main() {
-    Heap heap(6);
+    Heap heap(8);
     heap.push("5", 5);
     heap.push("3", 3);
     heap.push("1", 1);
@@ -22,7 +22,6 @@ int main() {
     for (size_t i = 0; i < heap.count(); i++){
         cout << heap.lookup(i).value << endl;
     }
-    cout << heap.lookup(heap.count()).value << endl;
 
     return 0;
 }
