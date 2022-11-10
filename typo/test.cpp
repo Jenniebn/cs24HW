@@ -17,6 +17,12 @@ int main() {
     heap.push("8", 8);
     heap.push("2", 2);
     heap.pop();
+    heap.pop();
+    heap.pop();
+    heap.pop();
+    heap.pop();
+    heap.pop();
+    heap.pop();
     for (size_t i = 0; i < heap.count(); i++){
         cout << heap.lookup(i).value << endl;
     }

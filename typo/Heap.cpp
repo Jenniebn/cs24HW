@@ -57,11 +57,17 @@ Heap::Entry        Heap::pop(){
             leftChild = index * 2 + 1;
             rightChild = index * 2 + 2;
             if (leftChild < count() && rightChild < count()){
-                if (mData[leftChild].score > mData[rightChild].score){
+                if ((mData[leftChild].score > mData[rightChild].score) && (mData[rightChild].score < mData[index].score)){
                     Heap::Entry temp = mData[rightChild];
                     mData[rightChild] = mData[index];
                     mData[index] = temp;
                     index = rightChild;
+                }
+                else if (mData[leftChild].score < mData[index].score){
+                    Heap::Entry temp = mData[leftChild];
+                    mData[leftChild] = mData[index];
+                    mData[index] = temp;
+                    index = leftChild;
                 }
             }
             else if (mData[leftChild].score < mData[index].score){
