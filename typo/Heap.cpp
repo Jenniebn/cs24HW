@@ -40,8 +40,8 @@ size_t       Heap::count() const{
 
 const Heap::Entry& Heap::lookup(size_t index) const{
     size_t zero = 0;
-    std::cout << "index = " << index << std::endl;
-    std::cout << "count() = " << count() << std::endl;
+    // std::cout << "index = " << index << std::endl;
+    // std::cout << "count() = " << count() << std::endl;
     if ((index > count() - 1) || (index < zero)){
         throw out_of_range("Out of Range");
     }
