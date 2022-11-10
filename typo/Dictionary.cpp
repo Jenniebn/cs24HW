@@ -9,12 +9,15 @@ using namespace std;
 Dictionary::Dictionary(std::istream& stream){
     std::string word;
     while(std::getline(stream, word)) {
+        bool lower = true;
         for (size_t i = 0; i < word.length(); i++){
-            if (isupper(word[i])){
-                continue;
+            if (!islower(word[i])){
+                lower = false;
             }
         }
-        mWords.push_back(word);
+        if(lower){
+            mWords.push_back(word);
+        }
     }
 }
 
