@@ -21,7 +21,7 @@ Heap::Heap(Heap&& other){
 }
 
 Heap::~Heap(){
-    delete [] mData;
+    delete [] mData; 
 }
 
 size_t       Heap::capacity() const{
@@ -64,11 +64,14 @@ Heap::Entry        Heap::pop(){
                     index = rightChild;
                 }
             }
-            else{
+            else if (mData[leftChild].score < mData[index].score){
                 Heap::Entry temp = mData[leftChild];
                 mData[leftChild] = mData[index];
                 mData[index] = temp;
                 index = leftChild;
+            }
+            else{
+                break;
             }
         }
         return lowest;
