@@ -92,8 +92,8 @@ void         Heap::push(const std::string& value, float score){
     
     size_t index = count();
     mCount++;
-    
-    while(index >= 0){
+    size_t zero = 0;
+    while(index >= zero){
         size_t parent = (index - 1) / 2;
         if (mData[parent].score <= mData[index].score){
             break;
