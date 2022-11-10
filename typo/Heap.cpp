@@ -73,7 +73,7 @@ Heap::Entry        Heap::pop(){
                     continue;
                 }
             }
-            else if (mData[leftChild].score < mData[index].score){
+            else if ((mData[leftChild].score < mData[index].score) && (leftChild < count())){
                 Heap::Entry temp = mData[leftChild];
                 mData[leftChild] = mData[index];
                 mData[index] = temp;
