@@ -21,8 +21,7 @@ Heap::Heap(Heap&& other){
 }
 
 Heap::~Heap(){
-    delete mData;
-    mData = nullptr;
+    delete [] mData;
 }
 
 size_t       Heap::capacity() const{
