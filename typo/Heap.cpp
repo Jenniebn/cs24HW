@@ -10,12 +10,15 @@ Heap::Heap(size_t capacity){
 
 Heap::Heap(const Heap& other){
     mData = new Heap::Entry[other.capacity()];
+    mCount = other.count();
     for (size_t i = 0; i < other.count(); i++){
         mData[i] = other.mData[i];
     }
 }
 
 Heap::Heap(Heap&& other){
+    mCount = other.count();
+    mCapacity = other.capacity();
     mData = other.mData;
     other.mData = NULL;
 }
@@ -34,6 +37,8 @@ size_t       Heap::count() const{
 
 const Heap::Entry& Heap::lookup(size_t index) const{
     size_t zero = 0;
+    std::cout << "index = " << index << std::endl;
+    std::cout << "count() = " << count() << std::endl;
     if ((index > count() - 1) || (index < zero)){
         throw out_of_range("Out of Range");
     }
@@ -118,7 +123,7 @@ Heap::Entry        Heap::pushpop(const std::string& value, float score){
                     continue;
                 }
             }
-            else if (mData[leftChild].score < mData[index].score){
+            else if ((mData[leftChild].score < mData[index].score) && (leftChild < count())){
                 Heap::Entry temp = mData[leftChild];
                 mData[leftChild] = mData[index];
                 mData[index] = temp;
