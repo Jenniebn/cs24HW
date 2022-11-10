@@ -43,7 +43,7 @@ Heap Dictionary::correct(const std::vector<Point>& points, size_t maxcount, floa
             if ((wordScore >= cutoff) && (heap.count() < maxcount)){
                 heap.push(word, wordScore);
             }
-            else if ((wordScore >= cutoff) && (wordScore > heap.top().score)){
+            else if ((wordScore >= cutoff) && (wordScore > heap.top().score) && (heap.count() == maxcount)){
                 heap.pushpop(word, wordScore);
             }
             location.clear();
