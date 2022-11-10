@@ -75,10 +75,40 @@ Heap::Entry        Heap::pop(){
     }
 }
 
-// Heap::Entry        Heap::pushpop(const std::string& value, float score){
-//     Heap::Entry temp = mData[0];
-//     return temp;
-// }
+Heap::Entry        Heap::pushpop(const std::string& value, float score){
+     if (count() == 0){
+        throw underflow_error("Underflow Error");
+    }
+    else{
+        Heap::Entry lowest = mData[0];
+        Heap::Entry newEntry;
+        newEntry.value = value;
+        newEntry.score = score;
+        mData[0] = newEntry;
+        size_t index = 0;
+        size_t leftChild = index * 2 + 1;
+        size_t rightChild = index * 2 + 2;
+        while (index < count()){
+            leftChild = index * 2 + 1;
+            rightChild = index * 2 + 2;
+            if (leftChild < count() && rightChild < count()){
+                if (mData[leftChild].score > mData[rightChild].score){
+                    Heap::Entry temp = mData[rightChild];
+                    mData[rightChild] = mData[index];
+                    mData[index] = temp;
+                    index = rightChild;
+                }
+            }
+            else{
+                Heap::Entry temp = mData[leftChild];
+                mData[leftChild] = mData[index];
+                mData[index] = temp;
+                index = leftChild;
+            }
+        }
+        return lowest;
+    }
+}
 
 void         Heap::push(const std::string& value, float score){
     if (count() >= capacity()){
