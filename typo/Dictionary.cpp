@@ -28,7 +28,6 @@ Heap Dictionary::correct(const std::vector<Point>& points, size_t maxcount, floa
     float wordScore = 0;
     
     Heap heap(maxcount);
-    heap.push("nothing", 0);
     for (auto word : mWords){
         if (word.length() == points.size()){
             for (size_t i = 0; i < word.length(); i++){
