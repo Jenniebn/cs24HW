@@ -104,6 +104,7 @@ Heap::Entry        Heap::pushpop(const std::string& value, float score){
         newEntry.value = value;
         newEntry.score = score;
         mData[0] = newEntry;
+        mCount --;
         size_t index = 0;
         size_t leftChild = index * 2 + 1;
         size_t rightChild = index * 2 + 2;
