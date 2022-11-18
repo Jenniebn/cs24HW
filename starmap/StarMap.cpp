@@ -85,7 +85,7 @@ void findNeighbor(size_t num, size_t max, size_t depth, Star target, Node* root,
     queue.pop();
     queue.push(newEntry);
   }
-  
+
   // going down
   Node* nextBranch = nullptr;
   Node* otherBranch = nullptr;
@@ -98,7 +98,7 @@ void findNeighbor(size_t num, size_t max, size_t depth, Star target, Node* root,
     nextBranch = root -> left;
     otherBranch = root -> right;
   }
-  cout << newEntry.score << endl;
+  
   findNeighbor(num, max + 1, depth + 1, target, nextBranch, queue);
   
   // going backup
