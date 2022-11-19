@@ -4,14 +4,14 @@
 #include "Helpers.h"
 
 Node::Node(){
-    right = NULL;
-    left = NULL;
+    right = nullptr;
+    left = nullptr;
 }
 
 Node::Node(Star value){
     data = value;
-    right = NULL;
-    left = NULL;
+    right = nullptr;
+    left = nullptr;
 }
 
 Node:: ~Node(){

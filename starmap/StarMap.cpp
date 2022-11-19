@@ -36,8 +36,6 @@ StarMap::StarMap(std::istream& stream){
         newStar.x = xAxis;
         newStar.y = yAxis;
         newStar.z = zAxis;
-        // Node* newNode = new Node;
-        // newNode -> data = newStar;
         tree = insert(tree, newStar, depth);
         index++;
     }
@@ -75,14 +73,12 @@ void findNeighbor(size_t num, size_t depth, Star target, Node* root, priority_qu
   
   if (queue.size() < num){
     queue.push(newEntry);
-    //cout << "pushed id " << newEntry.star.id << endl;
   }
   else if ((queue.size() >= num) && (newEntry.score < queue.top().score)){
-    //cout << "pushed id " << newEntry.star.id << " pop id " << queue.top().star.id << endl;
     queue.pop();
     queue.push(newEntry);
   }
-  //cout << "going down id:" << newEntry.star.id << " x" << newEntry.star.x << " y" << newEntry.star.y << "z " << newEntry.star.z << " score:" << newEntry.score << " boundary:" << newEntry.boundary << " dim" << dim<< endl;
+  
   // going down
   Node* nextBranch = nullptr;
   Node* otherBranch = nullptr;
@@ -94,19 +90,6 @@ void findNeighbor(size_t num, size_t depth, Star target, Node* root, priority_qu
     nextBranch = root -> left;
     otherBranch = root -> right;
   }
-  // if (nextBranch!= nullptr){
-  //   cout <<"nextbranch" << nextBranch ->data.id << endl;
-  // }
-  // else{
-  //   cout <<"nextbranch null"<< endl;
-  // }
-  // if (otherBranch!= nullptr){
-  //   cout <<"otherbranch" << otherBranch ->data.id << endl;
-  // }
-  // else {
-  //   cout <<"otherbranch null"<< endl;
-  // }
-  
   
   findNeighbor(num, depth + 1, target, nextBranch, queue);
   
@@ -120,11 +103,6 @@ void findNeighbor(size_t num, size_t depth, Star target, Node* root, priority_qu
   if (dim == 2){
     newEntry.boundary = abs(target.z - root -> data.z);
   }
-  //cout << "going up id:" << newEntry.star.id << " x" << newEntry.star.x << " y" << newEntry.star.y << "z " << newEntry.star.z << " score:" << newEntry.score << " boundary:" << newEntry.boundary <<" dim:"<< dim << endl;
-
-  //bool gt = queue.top().score > newEntry.boundary;
-  //cout << "id " << newEntry.star.id << "boundary " << newEntry.boundary << endl;
-  //cout << "true false "<<gt << endl << endl; 
   if (queue.top().score > newEntry.boundary){
     findNeighbor(num, depth + 1, target, otherBranch, queue);
   }

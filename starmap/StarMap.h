@@ -14,7 +14,7 @@ public:
     
 private:
     // Member Variables
-    Node* tree;
+    Node* tree = nullptr;
     size_t index = 1;
     size_t depth = 0;
     priority_queue<Entry> myQueue;

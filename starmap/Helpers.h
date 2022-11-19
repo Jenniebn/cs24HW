@@ -10,9 +10,8 @@ using namespace std;
 class Node{
   public:
     Star data;
-    Node* left = nullptr;
-    Node* right = nullptr;
-    Node* parent = nullptr;
+    Node* left;
+    Node* right;
 
     Node();
     Node(Star value);
