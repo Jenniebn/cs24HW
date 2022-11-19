@@ -23,11 +23,11 @@ int main(int argc, char** argv) {
         std::cout << "Error reading file: " << e.what() << '\n';
         std::exit(1);
     }
-    //map -> print();
+    // map -> print();
     vector<Star> vect;
     vect = map -> find(3, 0.234369, 0.276398, -0.877444);
     for (size_t i = 0; i < 3; i++){
-        cout << "x:" << vect[0].x << " y:" << vect[1].y << " z:" << vect[2].z << endl;
+        cout << "x:" << vect[i].x << " y:" << vect[i].y << " z:" << vect[i].z << endl;
     }
    
     return 0;

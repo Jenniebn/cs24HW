@@ -7,6 +7,7 @@
 #include <vector> 
 #include <cmath> 
 #include <math.h>  
+#include <algorithm>
 using namespace std;
 
 StarMap* StarMap::create(std::istream& stream) {
@@ -46,19 +47,12 @@ Node* StarMap::insert(Node* ptr, Star nextStar, size_t nextDepth){
   if (ptr == nullptr){
     return new Node(nextStar);
   }
-  size_t dim = depth % 3;
+  size_t dim = nextDepth % 3;
   if (((dim == 0) && (nextStar.x >= ptr -> data.x)) || ((dim == 1) && (nextStar.y >= ptr -> data.y)) || ((dim == 2) && (nextStar.z >= ptr -> data.z))){
-    // Node* rchild = insert(ptr -> right, nextStar, nextDepth + 1);
-    // ptr -> right = rchild;
-    // rchild -> parent = ptr;
     ptr -> right = insert(ptr -> right, nextStar, nextDepth + 1);
   }
   else {
-    // Node* lchild = insert(ptr -> left, nextStar, nextDepth + 1);
-    // ptr -> left = lchild;
-    // lchild -> parent = ptr;
     ptr -> left = insert(ptr -> left, nextStar, nextDepth + 1);
-    
   }
   return ptr;
 }
@@ -68,7 +62,7 @@ StarMap::~StarMap(){
   tree = nullptr;
 }
 
-void findNeighbor(size_t num, size_t max, size_t depth, Star target, Node* root, priority_queue<Entry>& queue){
+void findNeighbor(size_t num, size_t depth, Star target, Node* root, priority_queue<Entry>& queue){
   if (root == nullptr){
     return;
   }
@@ -79,17 +73,16 @@ void findNeighbor(size_t num, size_t max, size_t depth, Star target, Node* root,
   
   size_t dim = depth % 3; 
   
-  if (max < num){
+  if (queue.size() < num){
     queue.push(newEntry);
-    max++;
     //cout << "pushed id " << newEntry.star.id << endl;
   }
-  else if ((max >= num) && (newEntry.score < queue.top().score)){
+  else if ((queue.size() >= num) && (newEntry.score < queue.top().score)){
+    //cout << "pushed id " << newEntry.star.id << " pop id " << queue.top().star.id << endl;
     queue.pop();
     queue.push(newEntry);
-    //cout << "pushed id " << newEntry.star.id << endl;
   }
-  cout << "going down id:" << newEntry.star.id << " x" << newEntry.star.x << " y" << newEntry.star.y << "z " << newEntry.star.z << " score:" << newEntry.score << " boundary:" << newEntry.boundary << endl;
+  //cout << "going down id:" << newEntry.star.id << " x" << newEntry.star.x << " y" << newEntry.star.y << "z " << newEntry.star.z << " score:" << newEntry.score << " boundary:" << newEntry.boundary << " dim" << dim<< endl;
   // going down
   Node* nextBranch = nullptr;
   Node* otherBranch = nullptr;
@@ -101,15 +94,21 @@ void findNeighbor(size_t num, size_t max, size_t depth, Star target, Node* root,
     nextBranch = root -> left;
     otherBranch = root -> right;
   }
-  if (nextBranch!= nullptr){
-    cout <<"nextbranch" << nextBranch ->data.id << endl;
-  }
-  if (otherBranch!= nullptr){
-    cout <<"otherbranch" << otherBranch ->data.id << endl;
-  }
+  // if (nextBranch!= nullptr){
+  //   cout <<"nextbranch" << nextBranch ->data.id << endl;
+  // }
+  // else{
+  //   cout <<"nextbranch null"<< endl;
+  // }
+  // if (otherBranch!= nullptr){
+  //   cout <<"otherbranch" << otherBranch ->data.id << endl;
+  // }
+  // else {
+  //   cout <<"otherbranch null"<< endl;
+  // }
   
   
-  findNeighbor(num, max, depth + 1, target, nextBranch, queue);
+  findNeighbor(num, depth + 1, target, nextBranch, queue);
   
   // going backup
   if (dim == 0){
@@ -121,13 +120,13 @@ void findNeighbor(size_t num, size_t max, size_t depth, Star target, Node* root,
   if (dim == 2){
     newEntry.boundary = abs(target.z - root -> data.z);
   }
-  cout << "going up id:" << newEntry.star.id << " x" << newEntry.star.x << " y" << newEntry.star.y << "z " << newEntry.star.z << " score:" << newEntry.score << " boundary:" << newEntry.boundary << endl;
+  //cout << "going up id:" << newEntry.star.id << " x" << newEntry.star.x << " y" << newEntry.star.y << "z " << newEntry.star.z << " score:" << newEntry.score << " boundary:" << newEntry.boundary <<" dim:"<< dim << endl;
 
   //bool gt = queue.top().score > newEntry.boundary;
   //cout << "id " << newEntry.star.id << "boundary " << newEntry.boundary << endl;
   //cout << "true false "<<gt << endl << endl; 
   if (queue.top().score > newEntry.boundary){
-    findNeighbor(num, max, depth + 1, target, otherBranch, queue);
+    findNeighbor(num, depth + 1, target, otherBranch, queue);
   }
 }
 
@@ -138,15 +137,14 @@ std::vector<Star> StarMap::find(size_t n, float x, float y, float z){
   newStar.y = y;
   newStar.z = z;
   Node* curr = tree;
-  size_t count = 0;
-  
-  findNeighbor(n, count, depth, newStar, curr, myQueue);
+  findNeighbor(n, depth, newStar, curr, myQueue);
   vector<Star> nearNeighbor;
   while (! myQueue.empty() ){
     Entry temp = myQueue.top();
     nearNeighbor.push_back(temp.star);
     myQueue.pop();
   }
+  reverse(nearNeighbor.begin(), nearNeighbor.end());
   return nearNeighbor;
 }
 
