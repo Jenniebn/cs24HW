@@ -25,9 +25,9 @@ int main(int argc, char** argv) {
     }
     //map -> print();
     vector<Star> vect;
-    vect = map -> find(2, 1, 0, -1);
-    for (size_t i = 0; i < 2; i++){
-        cout << "x: " << vect[i].x << "y: " << vect[i].y << "z: " << vect[i].z << endl;
+    vect = map -> find(3, 0.234369, 0.276398, -0.877444);
+    for (size_t i = 0; i < 3; i++){
+        cout << "x:" << vect[0].x << " y:" << vect[1].y << " z:" << vect[2].z << endl;
     }
    
     return 0;

@@ -21,7 +21,7 @@ class Node{
 
 struct Entry {
     float score;
-    float boundary;
+    float boundary = 0;
     Star star;
 
     bool operator < (const Entry& other) const { // pointer to the tree which is priority queue, each element in the tree is entry type
