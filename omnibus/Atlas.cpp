@@ -6,6 +6,7 @@
 #include <map>
 #include <utility> 
 #include <vector>
+#include <algorithm> 
 #include <limits.h>
 using namespace std;
 
