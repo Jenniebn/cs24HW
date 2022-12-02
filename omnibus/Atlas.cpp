@@ -6,6 +6,7 @@
 #include <map>
 #include <utility> 
 #include <vector>
+#include <limits.h>
 using namespace std;
 
 Atlas* Atlas::create(std::istream& stream) {
