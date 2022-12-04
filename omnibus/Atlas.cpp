@@ -43,82 +43,63 @@ Atlas::Atlas(std::istream& stream){
             ss >> std:: ws;
             getline(ss, name); // name == station name
         }
-        cout << name << endl;
         // check if the station is in the map already
-        if (mp.count(name) >0){ 
-            size_t dist = prePtr -> dist - mp[name] -> dist;
-            STATION::EDGE* newEdge = nullptr;
-            newEdge -> lineName = transline;
-            newEdge -> dist = dist;
+        if (mp.count(name) > 0){ 
+            size_t dist = mp[name] -> dist - prePtr -> dist;
+            STATION::EDGE* newEdge = new STATION::EDGE(dist, transline);
             if (trans == "BUS"){
                 newEdge -> train = false;
             }
             newEdge -> previous = prePtr;
             newEdge -> next = mp[name];
-            mp[name] -> edge.push_back(newEdge);
-            prePtr -> edge.push_back(newEdge);
+            newEdge -> previous -> edge.push_back(newEdge);
+            newEdge -> next -> edge.push_back(newEdge);
         }
         else{
             STATION* newStation = new STATION(name, num);
             if (prePtr != nullptr){
-                cout << "before\n";
                 size_t dist = newStation -> dist - prePtr -> dist;
-                STATION::EDGE* newEdge = nullptr;
-                newEdge -> lineName = transline;
-                newEdge -> dist = dist;
-                
+                STATION::EDGE* newEdge = new STATION::EDGE(dist, transline);
                 if (trans == "BUS"){
                     newEdge -> train = false;
                 }
                 newEdge -> previous = prePtr;
                 newEdge -> next = newStation;
-                newStation -> edge.push_back(newEdge);
-                prePtr -> edge.push_back(newEdge);
-                cout << "after9\n";
+                newEdge -> previous -> edge.push_back(newEdge);
+                newEdge -> next -> edge.push_back(newEdge);
             }
-            cout << "after0\n";
             mp.insert({name, newStation});
-            cout << "after1\n";
             unvisited.insert(newStation);
-            cout << "after2\n";
             shortToA.insert({name, INT_MAX});
-            cout << "after3\n";
-            
         }
-        
         prePtr = mp[name];
     }
 }
 
-bool compare(pair<string, int> i, pair<string, int> j){
-    return i.second < j.second;
-}
-
-void Atlas::dijkstra(map<string, STATION*> graph, string source, string destination){
+void Atlas::dijkstra(string source, string destination){
     // make the source distance 0
     shortToA[source] = 0;
     int newDist = 0;
     string name;
     
     // push neighbors of source to heap
-    Entry* first = nullptr;
-    first -> dist = 0;
-    first -> station = graph[source];
+    Entry* first = new Entry;
+    first -> dist = 0;  
+    first -> station = mp[source];  // first = source station where we start from
     first -> previous = nullptr;
-    Entry* newStat = nullptr;
+    Entry* newEntry = new Entry;
     for(auto edge: first -> station -> edge) {
-        newStat -> dist = edge -> dist;
-        newStat -> station = edge -> next;
-        newStat -> previous = first;
-        newStat -> lineName = edge -> lineName;
-        myHeap.push(newStat);
+        newEntry -> dist = edge -> dist;
+        newEntry -> station = edge -> next;
+        newEntry -> previous = first;
+        newEntry -> lineName = edge -> lineName;
+        myHeap.push(newEntry);
     }
     visited.insert(first -> station);
+    unvisited.erase(first -> station);
     // loop through the graph and find shortest path from source to destination
     while (unvisited.size() != 0){
-        // pair<string, int> min = *min_element(shortToA.begin(), shortToA.end(), compare);
-        // name = min.first; // name == the station name with the smallest known distance from start station
-        Entry* curr;
+        Entry* curr = new Entry;
         curr = myHeap.top();
         myHeap.pop();
         if (curr -> station -> statName == destination){
@@ -126,17 +107,19 @@ void Atlas::dijkstra(map<string, STATION*> graph, string source, string destinat
             break;
         }
         // if the station is not visited yet
-        if (visited.find(curr -> station) != visited.end()){
+        if (!(visited.find(curr -> station) != visited.end())){
             for(auto edge: curr -> station -> edge) {
                 newDist = curr -> dist + edge -> dist;
+                // cout << curr -> station -> statName << endl;
+                // cout << newDist << endl;
                 // if the neighbor is not visited yet and distance is smaller
-                if ((visited.find(edge -> next) != visited.end()) && (newDist < shortToA[edge -> next -> statName])){
+                if (!(visited.find(edge -> next) != visited.end()) && (newDist < shortToA[edge -> next -> statName])){
                     shortToA[edge -> next -> statName] = newDist;
-                    newStat -> dist = newDist;
-                    newStat -> previous = curr;
-                    newStat -> station = edge -> next;
-                    newStat -> lineName = edge -> lineName;
-                    myHeap.push(newStat);
+                    newEntry -> dist = newDist;
+                    newEntry -> previous = curr;
+                    newEntry -> station = edge -> next;
+                    newEntry -> lineName = edge -> lineName;
+                    myHeap.push(newEntry);
                 }
             }
             visited.insert(curr -> station);
@@ -151,7 +134,7 @@ Atlas::~Atlas(){
 
 Trip Atlas::route(const std::string& src, const std::string& dst){
     
-    dijkstra(mp, src, dst);
+    dijkstra(src, dst);
     if (bestRoute.empty()){
         throw runtime_error("No route.");
     }

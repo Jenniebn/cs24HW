@@ -35,7 +35,7 @@ public:
 
     // Required Member Function
     Trip route(const std::string& src, const std::string& dst);
-    void dijkstra(map<string, STATION*> graph, string source, string destination);
+    void dijkstra(string source, string destination);
 };
 
 #endif
