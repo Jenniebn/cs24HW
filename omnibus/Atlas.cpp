@@ -140,7 +140,7 @@ Atlas::~Atlas(){
 
 Trip Atlas::route(const std::string& src, const std::string& dst){
     Entry* curr = dijkstra(src, dst);
-    if (curr = nullptr){
+    if (curr == nullptr){
         throw runtime_error("No route.");
     }
     Trip bestTrip;
