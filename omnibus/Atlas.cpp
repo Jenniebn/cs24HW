@@ -21,6 +21,7 @@ Atlas::Atlas(std::istream& stream){
     string trans, transline, temp, name, numS;
     while(std::getline(stream, line)) { // read each line from the file
         if ((line.length() == 0) || (line[0] == '#')){
+            prePtr = nullptr;
             continue;
         }
         istringstream ss(line); //convert line into a stream for reading
@@ -29,7 +30,6 @@ Atlas::Atlas(std::istream& stream){
         ss >> temp; // temp = BUS/TRAIN
         // store BUS/ TRAIN
         if (temp != "-"){
-            prePtr = nullptr;
             trans = temp.substr(0, temp.size() - 1); // delete :
             ss >> std:: ws;
             getline(ss, transline); // transline == line name e.g. Line 15X
@@ -45,15 +45,17 @@ Atlas::Atlas(std::istream& stream){
         }
         // check if the station is in the map already
         if (mp.count(name) > 0){ 
-            size_t dist = mp[name] -> dist - prePtr -> dist;
-            STATION::EDGE* newEdge = new STATION::EDGE(dist, transline);
-            if (trans == "BUS"){
-                newEdge -> train = false;
+            if (prePtr != nullptr){
+                size_t dist = mp[name] -> dist - prePtr -> dist;
+                STATION::EDGE* newEdge = new STATION::EDGE(dist, transline);
+                if (trans == "BUS"){
+                    newEdge -> train = false;
+                }
+                newEdge -> previous = prePtr;
+                newEdge -> next = mp[name];
+                newEdge -> previous -> edge.push_back(newEdge);
+                newEdge -> next -> edge.push_back(newEdge);
             }
-            newEdge -> previous = prePtr;
-            newEdge -> next = mp[name];
-            newEdge -> previous -> edge.push_back(newEdge);
-            newEdge -> next -> edge.push_back(newEdge);
         }
         else{
             STATION* newStation = new STATION(name, num);
