@@ -40,8 +40,6 @@ struct Entry {
     Entry* previous = nullptr;
     string lineName;
 
-    ~Entry();
-
     bool operator < (const Entry& other) const {
         return this -> dist > other.dist;
     }

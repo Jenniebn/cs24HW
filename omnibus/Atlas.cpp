@@ -78,7 +78,7 @@ Atlas::Atlas(std::istream& stream){
     }
 }
 
-void Atlas::dijkstra(string source, string destination){
+Entry* Atlas::dijkstra(string source, string destination){
     int newDist = 0;
     string name;
     
@@ -107,8 +107,7 @@ void Atlas::dijkstra(string source, string destination){
         curr = myHeap.top();
         myHeap.pop();
         if (curr -> station -> statName == destination){
-            bestRoute.insert(curr);
-            break;
+            return curr;
         }
         // if the station is not visited yet
         if (unvisited[curr -> station -> statName] == true){
@@ -128,20 +127,24 @@ void Atlas::dijkstra(string source, string destination){
         }
         unvisited[curr -> station -> statName] = false;
     }
+    return nullptr;
 }
 
 Atlas::~Atlas(){
     delete prePtr;
+    for(std::map<std::string, STATION*>::iterator itr = mp.begin(); itr != mp.end(); itr++){
+        delete itr -> second;
+        mp.erase(itr);
+    }
 }
 
 Trip Atlas::route(const std::string& src, const std::string& dst){
-    dijkstra(src, dst);
-    if (bestRoute.empty()){
+    Entry* curr = dijkstra(src, dst);
+    if (curr = nullptr){
         throw runtime_error("No route.");
     }
     Trip bestTrip;
     bestTrip.start = src;
-    Entry* curr = myHeap.top();
     Trip::Leg newLeg;
     newLeg.line = curr -> lineName;
     newLeg.stop = curr -> station -> statName;

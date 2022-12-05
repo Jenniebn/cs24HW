@@ -19,8 +19,6 @@ public:
 
 private:
     // Member Variables
-    
-    set<Entry*> bestRoute;
     STATION* prePtr = nullptr;
 
     map<string, bool> unvisited;
@@ -35,7 +33,7 @@ public:
 
     // Required Member Function
     Trip route(const std::string& src, const std::string& dst);
-    void dijkstra(string source, string destination);
+    Entry* dijkstra(string source, string destination);
 };
 
 #endif

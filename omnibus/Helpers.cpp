@@ -26,7 +26,3 @@ STATION::EDGE::~EDGE(){
 }
 
 
-Entry::~Entry(){
-    delete station;
-    delete previous;
-}
