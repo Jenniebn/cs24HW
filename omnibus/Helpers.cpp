@@ -25,4 +25,9 @@ STATION::EDGE::~EDGE(){
     delete next;
 }
 
-
+Entry::Entry(size_t distance, STATION* stat, Entry* pre, string line){
+    dist = distance;
+    station = stat;
+    previous = pre;
+    lineName = line;
+}

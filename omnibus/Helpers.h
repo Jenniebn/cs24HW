@@ -40,6 +40,8 @@ struct Entry {
     Entry* previous = nullptr;
     string lineName;
 
+    Entry(size_t distance, STATION* stat, Entry* pre, string line);
+
     bool operator < (const Entry& other) const {
         return this -> dist > other.dist;
     }

@@ -83,28 +83,26 @@ Entry* Atlas::dijkstra(string source, string destination){
     string name;
     
     // push neighbors of source to heap
-    Entry* first = new Entry;
+    Entry* first = new Entry(0, mp[source], nullptr, ""); // first = source station where we start from
     shortToA[source] = 0; // make source distance = 0
-    first -> dist = 0;  
-    first -> station = mp[source];  // first = source station where we start from
-    first -> previous = nullptr;
-    Entry* newEntry = new Entry;
+
     for(auto edge: first -> station -> edge) {
-        newEntry -> dist = edge -> dist;
-        newEntry -> station = edge -> next;
-        newEntry -> previous = first;
-        newEntry -> lineName = edge -> lineName;
-        shortToA[edge -> next -> statName] = edge -> dist;
-        myHeap.push(newEntry);
+        if (edge -> next != first -> station){
+            Entry* newEntry = new Entry(edge -> dist, edge -> next, first, edge -> lineName);
+            shortToA[edge -> next -> statName] = edge -> dist;
+            myHeap.push(newEntry);
+        }
+        else{
+            Entry* newEntry = new Entry(edge -> dist, edge -> previous, first, edge -> lineName);
+            shortToA[edge -> next -> statName] = edge -> dist;
+            myHeap.push(newEntry);
+        }
     }
     unvisited[source] = false;
-    // cout << "from source " << first -> station -> statName << endl;
     // loop through the graph and find shortest path from source to destination
-    Entry* curr = new Entry;
-    //int i =0;
     
     while (myHeap.size() > 0){
-        curr = myHeap.top();
+        Entry* curr = myHeap.top();
         myHeap.pop();
         if (curr -> station -> statName == destination){
             return curr;
@@ -114,14 +112,19 @@ Entry* Atlas::dijkstra(string source, string destination){
             for(auto edge: curr -> station -> edge) {
                 newDist = curr -> dist + edge -> dist;
                 // if the neighbor is not visited yet and distance is smaller
-                if ((unvisited[edge -> next -> statName] == true) && (newDist < shortToA[edge -> next -> statName])){
-                    Entry* nextEntry = new Entry;
-                    shortToA[edge -> next -> statName] = newDist;
-                    nextEntry -> dist = newDist;
-                    nextEntry -> previous = curr;
-                    nextEntry -> station = edge -> next;
-                    nextEntry -> lineName = edge -> lineName;
-                    myHeap.push(nextEntry);
+                if (edge -> next == curr -> station){
+                    if ((unvisited[edge -> previous -> statName] == true) && (newDist < shortToA[edge -> previous -> statName])){
+                        Entry* nextEntry = new Entry(newDist, edge -> previous, curr, edge -> lineName);
+                        shortToA[edge -> previous -> statName] = newDist;
+                        myHeap.push(nextEntry);
+                    }
+                }
+                else {
+                    if ((unvisited[edge -> next -> statName] == true) && (newDist < shortToA[edge -> next -> statName])){
+                        Entry* nextEntry = new Entry(newDist, edge -> next, curr, edge -> lineName);
+                        shortToA[edge -> next -> statName] = newDist;
+                        myHeap.push(nextEntry);
+                    }
                 }
             }
         }
@@ -149,14 +152,17 @@ Trip Atlas::route(const std::string& src, const std::string& dst){
     newLeg.line = curr -> lineName;
     newLeg.stop = curr -> station -> statName;
     bestTrip.legs.push_back(newLeg);
+    string oldLine = curr -> lineName;
     curr = curr -> previous;
+    
     while (curr -> previous != nullptr){
-        if (curr -> station -> statName != src){
+        if ((curr -> station -> statName != src) && (oldLine != curr -> lineName)){
             newLeg.line = curr -> lineName;
             newLeg.stop = curr -> station -> statName;
             bestTrip.legs.push_back(newLeg);
-            curr = curr -> previous;
+            oldLine = curr -> lineName;
         }
+        curr = curr -> previous;
     }
     reverse(bestTrip.legs.begin(), bestTrip.legs.end());
     return bestTrip;
