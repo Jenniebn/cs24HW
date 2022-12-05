@@ -20,10 +20,10 @@ STATION::EDGE::EDGE(int distance, string name){
     lineName = name;
 }
 
-STATION::EDGE::~EDGE(){
-    delete previous;
-    delete next;
-}
+// STATION::EDGE::~EDGE(){
+//     delete previous;
+//     delete next;
+// }
 
 Entry::Entry(size_t distance, STATION* stat, Entry* pre, string line){
     dist = distance;

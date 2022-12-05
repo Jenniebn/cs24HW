@@ -18,7 +18,7 @@ struct STATION {
         bool train = true;
         
         EDGE(int distance, string name);
-        ~EDGE();
+        //~EDGE();
         // bool operator < (const EDGE& other) const {
         //     return this -> dist > other.dist;
         // }
