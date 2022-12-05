@@ -98,7 +98,7 @@ void Atlas::dijkstra(string source, string destination){
         myHeap.push(newEntry);
     }
     unvisited[source] = false;
-    cout << "from source " << first -> station -> statName << endl;
+    // cout << "from source " << first -> station -> statName << endl;
     // loop through the graph and find shortest path from source to destination
     Entry* curr = new Entry;
     //int i =0;
