@@ -9,11 +9,10 @@ STATION::STATION(string name, size_t num){
     dist = num;
 }
 
-// STATION::~STATION(){
-//     for ( auto i : edge){
-//         delete i;
-//     }
-// }
+STATION::~STATION(){
+    delete previous;
+    delete next;
+}
 
 STATION::EDGE::EDGE(int distance, string name){
     dist = distance;
