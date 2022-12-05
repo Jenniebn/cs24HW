@@ -19,11 +19,11 @@ public:
 
 private:
     // Member Variables
-    set<STATION*> visited;
-    set<STATION*> unvisited;
+    
     set<Entry*> bestRoute;
     STATION* prePtr = nullptr;
 
+    map<string, bool> unvisited;
     map<string, int> shortToA; // shortest distance from source
     map<string, STATION*> mp; // graph of stations
 
