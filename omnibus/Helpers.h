@@ -28,7 +28,7 @@ struct STATION {
     vector <EDGE> edge;
 
     STATION(string name, size_t num);
-    ~STATION();
+    //~STATION();
     
 };
 

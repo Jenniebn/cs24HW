@@ -9,12 +9,12 @@ STATION::STATION(string name, size_t num){
     dist = num;
 }
 
-STATION::~STATION(){
-    for ( auto i : edge){
-        delete i.previous;
-        delete i.next;
-    }
-}
+// STATION::~STATION(){
+//     for ( auto i : edge){
+//         delete i.previous;
+//         delete i.next;
+//     }
+// }
 
 
 // STATION::EDGE::~EDGE(){
