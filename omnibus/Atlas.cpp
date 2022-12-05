@@ -100,7 +100,7 @@ Entry* Atlas::dijkstra(string source, string destination){
     
     while (myHeap.size() > 0){
         Entry* curr = myHeap.top();
-        cout << curr -> station -> statName << endl;
+        //cout << curr -> station -> statName << endl;
         myHeap.pop();
         if (curr -> station -> statName == destination){
             return curr;
