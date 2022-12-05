@@ -47,28 +47,32 @@ Atlas::Atlas(std::istream& stream){
         if (mp.count(name) > 0){ 
             if (prePtr != nullptr){
                 size_t dist = mp[name] -> dist - prePtr -> dist;
-                STATION::EDGE* newEdge = new STATION::EDGE(dist, transline);
+                STATION::EDGE newEdge;
+                newEdge.dist = dist;
+                newEdge.lineName = transline;
                 if (trans == "BUS"){
-                    newEdge -> train = false;
+                    newEdge.train = false;
                 }
-                newEdge -> previous = prePtr;
-                newEdge -> next = mp[name];
-                newEdge -> previous -> edge.push_back(newEdge);
-                newEdge -> next -> edge.push_back(newEdge);
+                newEdge.previous = prePtr;
+                newEdge.next = mp[name];
+                newEdge.previous -> edge.push_back(newEdge);
+                newEdge.next -> edge.push_back(newEdge);
             }
         }
         else{
             STATION* newStation = new STATION(name, num);
             if (prePtr != nullptr){
                 size_t dist = newStation -> dist - prePtr -> dist;
-                STATION::EDGE* newEdge = new STATION::EDGE(dist, transline);
+                STATION::EDGE newEdge;
+                newEdge.dist = dist;
+                newEdge.lineName = transline;
                 if (trans == "BUS"){
-                    newEdge -> train = false;
+                    newEdge.train = false;
                 }
-                newEdge -> previous = prePtr;
-                newEdge -> next = newStation;
-                newEdge -> previous -> edge.push_back(newEdge);
-                newEdge -> next -> edge.push_back(newEdge);
+                newEdge.previous = prePtr;
+                newEdge.next = newStation;
+                newEdge.previous -> edge.push_back(newEdge);
+                newEdge.next -> edge.push_back(newEdge);
             }
             mp.insert({name, newStation});
             unvisited.insert({name, true});
@@ -87,14 +91,14 @@ Entry* Atlas::dijkstra(string source, string destination){
     shortToA[source] = 0; // make source distance = 0
 
     for(auto edge: first -> station -> edge) {
-        if (edge -> next != first -> station){
-            Entry* newEntry = new Entry(edge -> dist, edge -> next, first, edge -> lineName);
-            shortToA[edge -> next -> statName] = edge -> dist;
+        if (edge.next != first -> station){
+            Entry* newEntry = new Entry(edge.dist, edge.next, first, edge.lineName);
+            shortToA[edge.next -> statName] = edge.dist;
             myHeap.push(newEntry);
         }
         else{
-            Entry* newEntry = new Entry(edge -> dist, edge -> previous, first, edge -> lineName);
-            shortToA[edge -> next -> statName] = edge -> dist;
+            Entry* newEntry = new Entry(edge.dist, edge.previous, first, edge.lineName);
+            shortToA[edge.previous -> statName] = edge.dist;
             myHeap.push(newEntry);
         }
     }
@@ -110,19 +114,19 @@ Entry* Atlas::dijkstra(string source, string destination){
         // if the station is not visited yet
         if (unvisited[curr -> station -> statName] == true){
             for(auto edge: curr -> station -> edge) {
-                newDist = curr -> dist + edge -> dist;
+                newDist = curr -> dist + edge.dist;
                 // if the neighbor is not visited yet and distance is smaller
-                if (edge -> next == curr -> station){
-                    if ((unvisited[edge -> previous -> statName] == true) && (newDist < shortToA[edge -> previous -> statName])){
-                        Entry* nextEntry = new Entry(newDist, edge -> previous, curr, edge -> lineName);
-                        shortToA[edge -> previous -> statName] = newDist;
+                if (edge.next == curr -> station){
+                    if ((unvisited[edge.previous -> statName] == true) && (newDist < shortToA[edge.previous -> statName])){
+                        Entry* nextEntry = new Entry(newDist, edge.previous, curr, edge.lineName);
+                        shortToA[edge.previous -> statName] = newDist;
                         myHeap.push(nextEntry);
                     }
                 }
                 else {
-                    if ((unvisited[edge -> next -> statName] == true) && (newDist < shortToA[edge -> next -> statName])){
-                        Entry* nextEntry = new Entry(newDist, edge -> next, curr, edge -> lineName);
-                        shortToA[edge -> next -> statName] = newDist;
+                    if ((unvisited[edge.next -> statName] == true) && (newDist < shortToA[edge.next -> statName])){
+                        Entry* nextEntry = new Entry(newDist, edge.next, curr, edge.lineName);
+                        shortToA[edge.next -> statName] = newDist;
                         myHeap.push(nextEntry);
                     }
                 }

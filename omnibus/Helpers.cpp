@@ -11,14 +11,11 @@ STATION::STATION(string name, size_t num){
 
 STATION::~STATION(){
     for ( auto i : edge){
-        delete i;
+        delete i.previous;
+        delete i.next;
     }
 }
 
-STATION::EDGE::EDGE(int distance, string name){
-    dist = distance;
-    lineName = name;
-}
 
 // STATION::EDGE::~EDGE(){
 //     delete previous;
