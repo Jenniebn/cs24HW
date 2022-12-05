@@ -134,10 +134,8 @@ Entry* Atlas::dijkstra(string source, string destination){
 }
 
 Atlas::~Atlas(){
-    delete prePtr;
     for(std::map<std::string, STATION*>::iterator itr = mp.begin(); itr != mp.end(); itr++){
         delete itr -> second;
-        mp.erase(itr);
     }
 }
 
