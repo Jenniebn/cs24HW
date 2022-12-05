@@ -9,18 +9,12 @@ STATION::STATION(string name, size_t num){
     dist = num;
 }
 
-// STATION::~STATION(){
-//     for ( auto i : edge){
-//         delete i.previous;
-//         delete i.next;
-//     }
-// }
-
-
-// STATION::EDGE::~EDGE(){
-//     delete previous;
-//     delete next;
-// }
+STATION::EDGE::EDGE(int distance, string name, STATION* pre, STATION* n){
+    dist = distance;
+    lineName = name;
+    previous = pre;
+    next = n;
+}
 
 Entry::Entry(size_t distance, STATION* stat, Entry* pre, string line){
     dist = distance;
@@ -29,3 +23,9 @@ Entry::Entry(size_t distance, STATION* stat, Entry* pre, string line){
     lineName = line;
 }
 
+// STATION::~STATION(){
+//     for ( auto i : edge){
+//         delete i.previous;
+//         delete i.next;
+//     }
+// }

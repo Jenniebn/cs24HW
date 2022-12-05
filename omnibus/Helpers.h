@@ -17,7 +17,7 @@ struct STATION {
         STATION* next = nullptr;
         bool train = true;
         
-        // EDGE(int distance, string name);
+        EDGE(int distance, string name, STATION* pre, STATION* n);
         //~EDGE();
         // bool operator < (const EDGE& other) const {
         //     return this -> dist > other.dist;

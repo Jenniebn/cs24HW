@@ -47,14 +47,11 @@ Atlas::Atlas(std::istream& stream){
         if (mp.count(name) > 0){ 
             if (prePtr != nullptr){
                 size_t dist = mp[name] -> dist - prePtr -> dist;
-                STATION::EDGE newEdge;
-                newEdge.dist = dist;
-                newEdge.lineName = transline;
+                STATION::EDGE newEdge(dist, transline, prePtr, mp[name]);
+                //int distance, string name, STATION* pre, STATION* n
                 if (trans == "BUS"){
                     newEdge.train = false;
                 }
-                newEdge.previous = prePtr;
-                newEdge.next = mp[name];
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
             }
@@ -63,14 +60,10 @@ Atlas::Atlas(std::istream& stream){
             STATION* newStation = new STATION(name, num);
             if (prePtr != nullptr){
                 size_t dist = newStation -> dist - prePtr -> dist;
-                STATION::EDGE newEdge;
-                newEdge.dist = dist;
-                newEdge.lineName = transline;
+                STATION::EDGE newEdge(dist, transline, prePtr, newStation);
                 if (trans == "BUS"){
                     newEdge.train = false;
                 }
-                newEdge.previous = prePtr;
-                newEdge.next = newStation;
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
             }
@@ -107,6 +100,7 @@ Entry* Atlas::dijkstra(string source, string destination){
     
     while (myHeap.size() > 0){
         Entry* curr = myHeap.top();
+        cout << curr -> station -> statName << endl;
         myHeap.pop();
         if (curr -> station -> statName == destination){
             return curr;
@@ -145,6 +139,9 @@ Atlas::~Atlas(){
 
 Trip Atlas::route(const std::string& src, const std::string& dst){
     Entry* curr = dijkstra(src, dst);
+    for (auto [k, v]: unvisited){
+        unvisited[k] = true;
+    }
     if (curr == nullptr){
         throw runtime_error("No route.");
     }
