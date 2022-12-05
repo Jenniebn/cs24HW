@@ -75,58 +75,67 @@ Atlas::Atlas(std::istream& stream){
     }
 }
 
-Entry* Atlas::dijkstra(string source, string destination){
+STATION* Atlas::dijkstra(string source, string destination){
     int newDist = 0;
     string name;
     
     // push neighbors of source to heap
-    Entry* first = new Entry(0, mp[source], nullptr, ""); // first = source station where we start from
+    Entry first(0, mp[source], ""); // first = source station where we start from
     shortToA[source] = 0; // make source distance = 0
 
-    for(auto edge: first -> station -> edge) {
-        if (edge.next != first -> station){
-            Entry* newEntry = new Entry(edge.dist, edge.next, first, edge.lineName);
+    for(auto edge: first.station -> edge) {
+        if (edge.next != first.station){
+            Entry newEntry(edge.dist, edge.next, edge.lineName);
             shortToA[edge.next -> statName] = edge.dist;
             myHeap.push(newEntry);
+            edge.next -> previous = first.station;
+            edge.next -> lineName = edge.lineName;
         }
         else{
-            Entry* newEntry = new Entry(edge.dist, edge.previous, first, edge.lineName);
+            Entry newEntry(edge.dist, edge.previous, edge.lineName);
             shortToA[edge.previous -> statName] = edge.dist;
             myHeap.push(newEntry);
+            edge.previous -> previous = first.station;
+            edge.previous -> lineName = edge.lineName;
         }
     }
     unvisited[source] = false;
     // loop through the graph and find shortest path from source to destination
     
     while (myHeap.size() > 0){
-        Entry* curr = myHeap.top();
+        Entry curr = myHeap.top();
         //cout << curr -> station -> statName << endl;
         myHeap.pop();
-        if (curr -> station -> statName == destination){
-            return curr;
+        
+        if (curr.station -> statName == destination){
+            return curr.station;
         }
         // if the station is not visited yet
-        if (unvisited[curr -> station -> statName] == true){
-            for(auto edge: curr -> station -> edge) {
-                newDist = curr -> dist + edge.dist;
+        if (unvisited[curr.station -> statName] == true){
+            for(auto edge: curr.station -> edge) {
+                newDist = curr.dist + edge.dist;
                 // if the neighbor is not visited yet and distance is smaller
-                if (edge.next == curr -> station){
+                if (edge.next == curr.station){
                     if ((unvisited[edge.previous -> statName] == true) && (newDist < shortToA[edge.previous -> statName])){
-                        Entry* nextEntry = new Entry(newDist, edge.previous, curr, edge.lineName);
+                        Entry nextEntry(newDist, edge.previous, edge.lineName);
                         shortToA[edge.previous -> statName] = newDist;
                         myHeap.push(nextEntry);
+                        edge.previous -> previous = curr.station;
+                        edge.previous -> lineName = edge.lineName;
                     }
                 }
                 else {
                     if ((unvisited[edge.next -> statName] == true) && (newDist < shortToA[edge.next -> statName])){
-                        Entry* nextEntry = new Entry(newDist, edge.next, curr, edge.lineName);
+                        Entry nextEntry(newDist, edge.next, edge.lineName);
                         shortToA[edge.next -> statName] = newDist;
                         myHeap.push(nextEntry);
+                        edge.next -> previous = curr.station;
+                        edge.next -> lineName = edge.lineName;
                     }
                 }
             }
         }
-        unvisited[curr -> station -> statName] = false;
+        unvisited[curr.station -> statName] = false;
     }
     return nullptr;
 }
@@ -138,7 +147,8 @@ Atlas::~Atlas(){
 }
 
 Trip Atlas::route(const std::string& src, const std::string& dst){
-    Entry* curr = dijkstra(src, dst);
+    STATION* curr = dijkstra(src, dst);
+    //cout << curr -> statName << endl;
     for (auto [k, v]: unvisited){
         unvisited[k] = true;
     }
@@ -149,15 +159,15 @@ Trip Atlas::route(const std::string& src, const std::string& dst){
     bestTrip.start = src;
     Trip::Leg newLeg;
     newLeg.line = curr -> lineName;
-    newLeg.stop = curr -> station -> statName;
+    newLeg.stop = curr -> statName;
     bestTrip.legs.push_back(newLeg);
     string oldLine = curr -> lineName;
     curr = curr -> previous;
-    
     while (curr -> previous != nullptr){
-        if ((curr -> station -> statName != src) && (oldLine != curr -> lineName)){
+        //cout << curr -> statName << endl;
+        if ((curr -> statName != src) && (oldLine != curr -> lineName)){
             newLeg.line = curr -> lineName;
-            newLeg.stop = curr -> station -> statName;
+            newLeg.stop = curr -> statName;
             bestTrip.legs.push_back(newLeg);
             oldLine = curr -> lineName;
         }

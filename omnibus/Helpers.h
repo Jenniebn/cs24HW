@@ -16,7 +16,7 @@ struct STATION {
         STATION* previous = nullptr;
         STATION* next = nullptr;
         bool train = true;
-        
+
         EDGE(int distance, string name, STATION* pre, STATION* n);
         //~EDGE();
         // bool operator < (const EDGE& other) const {
@@ -26,6 +26,8 @@ struct STATION {
     string statName;
     size_t dist;
     vector <EDGE> edge;
+    STATION* previous = nullptr;
+    string lineName;
 
     STATION(string name, size_t num);
     //~STATION();
@@ -37,10 +39,10 @@ struct STATION {
 struct Entry {
     size_t dist;
     STATION* station = nullptr;
-    Entry* previous = nullptr;
     string lineName;
+    // bool empty = false;
 
-    Entry(size_t distance, STATION* stat, Entry* pre, string line);
+    Entry(size_t distance, STATION* stat, string line);
 
     bool operator < (const Entry& other) const {
         return this -> dist > other.dist;

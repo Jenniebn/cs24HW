@@ -16,10 +16,10 @@ STATION::EDGE::EDGE(int distance, string name, STATION* pre, STATION* n){
     next = n;
 }
 
-Entry::Entry(size_t distance, STATION* stat, Entry* pre, string line){
+
+Entry::Entry(size_t distance, STATION* stat, string line){
     dist = distance;
     station = stat;
-    previous = pre;
     lineName = line;
 }
 

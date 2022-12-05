@@ -25,7 +25,7 @@ private:
     map<string, int> shortToA; // shortest distance from source
     map<string, STATION*> mp; // graph of stations
 
-    priority_queue<Entry*> myHeap;
+    priority_queue<Entry> myHeap;
 public:
     // Constructor & Destructor
     Atlas(std::istream& stream);
@@ -33,7 +33,7 @@ public:
 
     // Required Member Function
     Trip route(const std::string& src, const std::string& dst);
-    Entry* dijkstra(string source, string destination);
+    STATION* dijkstra(string source, string destination);
 };
 
 #endif
