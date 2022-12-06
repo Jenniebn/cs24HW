@@ -78,7 +78,15 @@ Atlas::Atlas(std::istream& stream){
 STATION* Atlas::dijkstra(string source, string destination){
     int newDist = 0;
     string name;
-    
+    for (auto [k, v]: unvisited){
+        unvisited[k] = true;
+    }
+    for (auto [k, v]: shortToA){
+        shortToA[k] = INT_MAX;
+    }
+    for (auto [k, v]: mp){
+        mp[k] -> previous = nullptr;
+    }
     // push neighbors of source to heap
     Entry first(0, mp[source], ""); // first = source station where we start from
     shortToA[source] = 0; // make source distance = 0
@@ -108,6 +116,9 @@ STATION* Atlas::dijkstra(string source, string destination){
         myHeap.pop();
         
         if (curr.station -> statName == destination){
+            for (auto [k, v]: unvisited){
+                unvisited[k] = true;
+            }
             return curr.station;
         }
         // if the station is not visited yet
@@ -149,9 +160,6 @@ Atlas::~Atlas(){
 Trip Atlas::route(const std::string& src, const std::string& dst){
     STATION* curr = dijkstra(src, dst);
     //cout << curr -> statName << endl;
-    for (auto [k, v]: unvisited){
-        unvisited[k] = true;
-    }
     if (curr == nullptr){
         throw runtime_error("No route.");
     }
