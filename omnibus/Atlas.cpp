@@ -78,15 +78,7 @@ Atlas::Atlas(std::istream& stream){
 STATION* Atlas::dijkstra(string source, string destination){
     int newDist = 0;
     string name;
-    for (auto [k, v]: unvisited){
-        unvisited[k] = true;
-    }
-    for (auto [k, v]: shortToA){
-        shortToA[k] = INT_MAX;
-    }
-    for (auto [k, v]: mp){
-        mp[k] -> previous = nullptr;
-    }
+    
     // push neighbors of source to heap
     Entry first(0, mp[source], ""); // first = source station where we start from
     shortToA[source] = 0; // make source distance = 0
@@ -170,17 +162,26 @@ Trip Atlas::route(const std::string& src, const std::string& dst){
     newLeg.stop = curr -> statName;
     bestTrip.legs.push_back(newLeg);
     string oldLine = curr -> lineName;
-    curr = curr -> previous;
+    
     while (curr -> previous != nullptr){
         //cout << curr -> statName << endl;
+        curr = curr -> previous;
         if ((curr -> statName != src) && (oldLine != curr -> lineName)){
             newLeg.line = curr -> lineName;
             newLeg.stop = curr -> statName;
             bestTrip.legs.push_back(newLeg);
             oldLine = curr -> lineName;
         }
-        curr = curr -> previous;
     }
     reverse(bestTrip.legs.begin(), bestTrip.legs.end());
+    for (auto [k, v]: unvisited){
+        unvisited[k] = true;
+    }
+    for (auto [k, v]: shortToA){
+        shortToA[k] = INT_MAX;
+    }
+    for (auto [k, v]: mp){
+        mp[k] -> previous = nullptr;
+    }
     return bestTrip;
 }
