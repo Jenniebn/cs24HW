@@ -40,6 +40,7 @@ Atlas::Atlas(std::istream& stream){
             ss >> numS;
             if (trans == "TRAIN"){
                 num = stoi(numS); // TRAIN station all not have time 0
+                
             }
             ss >> std:: ws;
             getline(ss, name); // name == station name
@@ -47,8 +48,10 @@ Atlas::Atlas(std::istream& stream){
         //cout << "name " << name << endl;
         // check if the station is in the map already
         if (mp.count(name) > 0){ 
+            mp[name] -> dist = num;
             if (prePtr != nullptr){
                 size_t dist = mp[name] -> dist - prePtr -> dist;
+                // std::cout <<  mp[name] -> dist << " " << prePtr -> dist << '\n';
                 STATION::EDGE newEdge(dist, transline, prePtr, mp[name]);
                 //int distance, string name, STATION* pre, STATION* n
                 if (trans == "BUS"){
@@ -56,7 +59,7 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
-                //cout << "old " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
+                // cout << "old " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << " dist " << dist << endl;
             }
         }
         else{
@@ -69,9 +72,8 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
-                // cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
+                // cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << " dist " << dist << endl;
             }
-            // cout << "new " << newStation -> statName << endl;
             mp.insert({name, newStation});
             unvisited.insert({name, true});
             shortToA.insert({name, INT_MAX});
@@ -89,20 +91,20 @@ STATION* Atlas::dijkstra(string source, string destination){
     shortToA[source] = 0; // make source distance = 0
 
     for(auto edge: first.station -> edge) {
-        if (edge.next != first.station){
-            Entry newEntry(edge.dist, edge.next, edge.lineName);
-            shortToA[edge.next -> statName] = edge.dist;
-            myHeap.push(newEntry);
-            edge.next -> previous = first.station;
-            edge.next -> lineName = edge.lineName;
+        STATION* next;
+        if (edge.next == first.station){
+            next = edge.previous;
         }
-        else{
-            Entry newEntry(edge.dist, edge.previous, edge.lineName);
-            shortToA[edge.previous -> statName] = edge.dist;
-            myHeap.push(newEntry);
-            edge.previous -> previous = first.station;
-            edge.previous -> lineName = edge.lineName;
+        else {
+            next = edge.next;
         }
+
+        // std::cout << edge.dist << " to " << next->statName << '\n';
+        Entry newEntry(edge.dist, next, edge.lineName);
+        shortToA[next -> statName] = edge.dist;
+        myHeap.push(newEntry);
+        next -> previous = first.station;
+        next -> lineName = edge.lineName;
     }
     unvisited[source] = false;
     // loop through the graph and find shortest path from source to destination
@@ -119,24 +121,22 @@ STATION* Atlas::dijkstra(string source, string destination){
         if (unvisited[curr.station -> statName] == true){
             for(auto edge: curr.station -> edge) {
                 newDist = curr.dist + edge.dist;
-                // if the neighbor is not visited yet and distance is smaller
+                STATION* next;
                 if (edge.next == curr.station){
-                    if ((unvisited[edge.previous -> statName] == true) && (newDist < shortToA[edge.previous -> statName])){
-                        Entry nextEntry(newDist, edge.previous, edge.lineName);
-                        shortToA[edge.previous -> statName] = newDist;
-                        myHeap.push(nextEntry);
-                        edge.previous -> previous = curr.station;
-                        edge.previous -> lineName = edge.lineName;
-                    }
+                    next = edge.previous;
                 }
                 else {
-                    if ((unvisited[edge.next -> statName] == true) && (newDist < shortToA[edge.next -> statName])){
-                        Entry nextEntry(newDist, edge.next, edge.lineName);
-                        shortToA[edge.next -> statName] = newDist;
-                        myHeap.push(nextEntry);
-                        edge.next -> previous = curr.station;
-                        edge.next -> lineName = edge.lineName;
-                    }
+                    next = edge.next;
+                }
+
+                // if the neighbor is not visited yet and distance is smaller
+                if ((unvisited[next -> statName] == true) && (newDist < shortToA[next -> statName])){
+                    // std::cout << newDist << " to " << next->statName << '\n';
+                    Entry nextEntry(newDist, next, edge.lineName);
+                    shortToA[next -> statName] = newDist;
+                    myHeap.push(nextEntry);
+                    next -> previous = curr.station;
+                    next -> lineName = edge.lineName;
                 }
             }
         }
