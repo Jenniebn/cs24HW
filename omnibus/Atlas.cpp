@@ -22,7 +22,6 @@ Atlas::Atlas(std::istream& stream){
     string trans, transline, temp, name, numS;
     while(std::getline(stream, line)) { // read each line from the file
         if ((line.length() == 0) || (line[0] == '#')){
-            prePtr = nullptr;
             continue;
         }
         istringstream ss(line); //convert line into a stream for reading
@@ -34,6 +33,7 @@ Atlas::Atlas(std::istream& stream){
             trans = temp.substr(0, temp.size() - 1); // delete :
             ss >> std:: ws;
             getline(ss, transline); // transline == line name e.g. Line 15X
+            prePtr = nullptr;
             continue;
         }
         else if (temp == "-"){
@@ -56,7 +56,7 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
-                cout << "old " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
+                //cout << "old " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
             }
         }
         else{
@@ -69,9 +69,9 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
-                cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
+                // cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
             }
-            cout << "new " << newStation -> statName << endl;
+            // cout << "new " << newStation -> statName << endl;
             mp.insert({name, newStation});
             unvisited.insert({name, true});
             shortToA.insert({name, INT_MAX});
