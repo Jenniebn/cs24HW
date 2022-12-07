@@ -1,3 +1,4 @@
+#include <queue> 
 #include "Atlas.h"
 #include <iostream>
 #include <sstream>
@@ -43,6 +44,7 @@ Atlas::Atlas(std::istream& stream){
             ss >> std:: ws;
             getline(ss, name); // name == station name
         }
+        //cout << "name " << name << endl;
         // check if the station is in the map already
         if (mp.count(name) > 0){ 
             if (prePtr != nullptr){
@@ -54,6 +56,7 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
+                cout << "old " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
             }
         }
         else{
@@ -66,7 +69,9 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
+                cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << endl;
             }
+            cout << "new " << newStation -> statName << endl;
             mp.insert({name, newStation});
             unvisited.insert({name, true});
             shortToA.insert({name, INT_MAX});
@@ -108,9 +113,6 @@ STATION* Atlas::dijkstra(string source, string destination){
         myHeap.pop();
         
         if (curr.station -> statName == destination){
-            for (auto [k, v]: unvisited){
-                unvisited[k] = true;
-            }
             return curr.station;
         }
         // if the station is not visited yet
@@ -177,11 +179,12 @@ Trip Atlas::route(const std::string& src, const std::string& dst){
     for (auto [k, v]: unvisited){
         unvisited[k] = true;
     }
-    for (auto [k, v]: shortToA){
-        shortToA[k] = INT_MAX;
+    for (auto [a, b]: shortToA){
+        shortToA[a] = INT_MAX;
     }
-    for (auto [k, v]: mp){
-        mp[k] -> previous = nullptr;
+    for (auto [i, j]: mp){
+        mp[i] -> previous = nullptr;
     }
+    myHeap = priority_queue<Entry>();
     return bestTrip;
 }

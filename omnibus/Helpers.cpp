@@ -1,3 +1,4 @@
+
 #include "Helpers.h"
 #include <string>
 #include <limits.h>
@@ -22,10 +23,3 @@ Entry::Entry(size_t distance, STATION* stat, string line){
     station = stat;
     lineName = line;
 }
-
-// STATION::~STATION(){
-//     for ( auto i : edge){
-//         delete i.previous;
-//         delete i.next;
-//     }
-// }
