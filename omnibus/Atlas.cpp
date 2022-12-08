@@ -51,7 +51,7 @@ Atlas::Atlas(std::istream& stream){
             mp[name] -> dist = num;
             if (prePtr != nullptr){
                 size_t dist = mp[name] -> dist - prePtr -> dist;
-                // std::cout <<  mp[name] -> dist << " " << prePtr -> dist << '\n';
+                //std::cout <<  mp[name] -> dist << " " << prePtr -> dist << '\n';
                 STATION::EDGE newEdge(dist, transline, prePtr, mp[name]);
                 //int distance, string name, STATION* pre, STATION* n
                 if (trans == "BUS"){
@@ -72,7 +72,7 @@ Atlas::Atlas(std::istream& stream){
                 }
                 newEdge.previous -> edge.push_back(newEdge);
                 newEdge.next -> edge.push_back(newEdge);
-                // cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << " dist " << dist << endl;
+                //cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << " dist " << dist << endl;
             }
             mp.insert({name, newStation});
             unvisited.insert({name, true});
@@ -98,13 +98,15 @@ STATION* Atlas::dijkstra(string source, string destination){
         else {
             next = edge.next;
         }
-
         // std::cout << edge.dist << " to " << next->statName << '\n';
         Entry newEntry(edge.dist, next, edge.lineName);
         shortToA[next -> statName] = edge.dist;
         myHeap.push(newEntry);
         next -> previous = first.station;
         next -> lineName = edge.lineName;
+        if (next == mp[destination]){
+            return next;
+        }
     }
     unvisited[source] = false;
     // loop through the graph and find shortest path from source to destination

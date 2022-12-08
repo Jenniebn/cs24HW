@@ -1,3 +1,4 @@
+
 #ifndef ATLAS_H
 #define ATLAS_H
 #include <set>

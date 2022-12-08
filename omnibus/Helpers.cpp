@@ -1,4 +1,3 @@
-
 #include "Helpers.h"
 #include <string>
 #include <limits.h>
