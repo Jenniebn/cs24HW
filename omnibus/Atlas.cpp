@@ -75,8 +75,8 @@ Atlas::Atlas(std::istream& stream){
                 //cout << "new " << newEdge.previous -> statName << " <-> " << newEdge.next -> statName << " dist " << dist << endl;
             }
             mp.insert({name, newStation});
-            unvisited.insert({name, true});
-            shortToA.insert({name, INT_MAX});
+            unvisited.insert({newStation, true});
+            shortToA.insert({newStation, INT_MAX});
         }
         prePtr = mp[name];
     }
@@ -88,28 +88,8 @@ STATION* Atlas::dijkstra(string source, string destination){
     
     // push neighbors of source to heap
     Entry first(0, mp[source], ""); // first = source station where we start from
-    shortToA[source] = 0; // make source distance = 0
+    shortToA[mp[source]] = 0; // make source distance = 0
     myHeap.push(first);
-    // for(auto edge: first.station -> edge) {
-    //     STATION* next;
-    //     if (edge.next == first.station){
-    //         next = edge.previous;
-    //     }
-    //     else {
-    //         next = edge.next;
-    //     }
-    //     // std::cout << edge.dist << " to " << next->statName << '\n';
-    //     Entry newEntry(edge.dist, next, edge.lineName);
-    //     shortToA[next -> statName] = edge.dist;
-    //     myHeap.push(newEntry);
-    //     next -> previous = first.station;
-    //     next -> lineName = edge.lineName;
-    //     if (next == mp[destination]){
-    //         return next;
-    //     }
-    // }
-    // unvisited[source] = false;
-    // loop through the graph and find shortest path from source to destination
     
     while (myHeap.size() > 0){
         Entry curr = myHeap.top();
@@ -121,7 +101,7 @@ STATION* Atlas::dijkstra(string source, string destination){
         }
         // if the station is not visited yet
         // cout << "curr station " << curr.station -> statName << " dist" << shortToA[curr.station -> statName] << endl;
-        if (unvisited[curr.station -> statName] == true){
+        if (unvisited[curr.station] == true){
             for(auto edge: curr.station -> edge) {
                 newDist = curr.dist + edge.dist;
                 STATION* next;
@@ -132,10 +112,10 @@ STATION* Atlas::dijkstra(string source, string destination){
                     next = edge.next;
                 }
                 // if the neighbor is not visited yet and distance is smaller
-                if ((unvisited[next -> statName] == true) && (newDist < shortToA[next -> statName])){
+                if ((unvisited[next] == true) && (newDist < shortToA[next])){
                     // std::cout << newDist << " to " << next->statName << '\n';
                     Entry nextEntry(newDist, next, edge.lineName);
-                    shortToA[next -> statName] = newDist;
+                    shortToA[next] = newDist;
                     myHeap.push(nextEntry);
                     next -> previous = curr.station;
                     next -> lineName = edge.lineName;
@@ -143,7 +123,7 @@ STATION* Atlas::dijkstra(string source, string destination){
 
             }
         }
-        unvisited[curr.station -> statName] = false;
+        unvisited[curr.station] = false;
     }
     return nullptr;
 }

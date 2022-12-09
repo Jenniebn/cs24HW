@@ -22,8 +22,8 @@ private:
     // Member Variables
     STATION* prePtr = nullptr;
 
-    map<string, bool> unvisited;
-    map<string, int> shortToA; // shortest distance from source
+    map<STATION*, bool> unvisited;
+    map<STATION*, int> shortToA; // shortest distance from source
     map<string, STATION*> mp; // graph of stations
 
     priority_queue<Entry> myHeap;
